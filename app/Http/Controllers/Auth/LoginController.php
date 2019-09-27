@@ -32,7 +32,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $this->performLogout($request);
-        return redirect()->route('loged_top_page');
+        return redirect()->route('top_page');
     }
 
     /**

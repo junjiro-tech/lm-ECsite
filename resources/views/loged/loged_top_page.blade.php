@@ -1,4 +1,4 @@
-@extends('layouts.loged_layout')
+@extends('layouts.layout')
 
 @section('content')
 <!-- sidber開始 -->

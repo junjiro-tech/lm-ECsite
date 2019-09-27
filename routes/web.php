@@ -15,7 +15,10 @@
     return view('welcome');
 
 });*/
-Auth::routes();         
+Auth::routes(); 
+Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'NewsController@index');
+
 Route::get('/', 'top_page_controller@index')->name('top_page');
 Route::get('loged_top_page', 'top_page_controller@loged')->name('loged_top_page');
 Route::get('hyouki', 'top_page_controller@hyouki')->name('hyouki');
