@@ -1,0 +1,122 @@
+@charset "UTF-8";
+@import url("page_nav.css");
+@import url("login.css");
+@import url("register.css");
+@import url('privacy.css');
+
+* {
+  margin: 0px; 
+	padding: 0px; 
+	-ms-box-sizing: border-box;       /*box-sizingは、サイズの決まり方を変えたい要素に指定する今回はmarginとpadding*/
+}
+
+body, html {
+	height: 100%;
+	font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+header {
+  width: 100%;                  /*ヘッダーエリアを画面横幅100%*/
+  height: 50px;                 /*autoは初期値で文字や画像の高さ分だけになる*/
+  margin: 0 auto;               /*上の余白は0,左右はセンター*/
+  position: fixed;              /*マウススクロールしてもheaderエリアを固定*/
+  color: #fff;
+  top: 0px;                     /*上の余白なくす*/    
+  background-color: #000;
+}
+
+.logo-pic {                          
+  width: 80px;
+  height:45px;
+  margin: 0;
+  margin-left: 250px;
+  padding: 0;
+  float: left;
+}
+
+.global-nav {
+  font-family: Montserrat;
+  font-weight: 400;             /*文字の太さ*/
+  line-height: 1.7;             /*行間*/
+  color: #fff;               　 /*カーソル当たってない時の色*/
+  margin: 0;
+  padding: 0;
+  height: 18px;
+  font-size: 15px;
+}
+
+ul {
+  margin-right: 130px;
+}
+
+ul li {
+  display: inline-block;             /*inline-blockでリストを横並びにし上下左右のサイズを指定できる*/
+  padding: 0 20px;
+}
+
+.global-nav:hover {
+  background: linear-gradient(left, #FFF, #FFC778 30%, #F89174 60%, #748af8); /*左からグラデーション開始*/
+  -webkit-background-clip: text;      /*背景をテキストでマスクする*/
+  -webkit-text-fill-color: rgba(255,255,255,0.0);
+  color:#ff0000 ;
+  transition: all 0.4s;　　　　 /*0.4秒かけて色を変化させる*/
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+.global-nav:focus {
+	outline: none !important;          /*focusでtabを当てた時に外枠を消す*/
+}
+
+.global-nav:hover {
+	text-decoration: none;             /*テキストの装飾を指定するプロパティ、装飾の種類には下線、上線、取り消し線、点滅があり*/
+	color: #FF97C2;                    /*カーソル当てた時の色*/
+}
+
+.icon::before {                      /*要素::before afterで疑似要素(htmlにかかれていない要素もどきをcssで作る事ができる)beforeで要素の前に挿入、afterで要素の後ろに挿入*/
+  content:'\f35a';                   /*内容Unicodeを記載*/
+  font-family:'Font Awesome 5 Free';
+  font-weight: 900;                  /*Unicode毎にweightは違うので選択しないといけない*/
+  padding: 20px;
+}
+
+#wrap {
+  width: 100%;
+  height: 750px;
+  margin-top: 20px;
+  background-size: cover;
+}
+
+/*コンテナ枠全体のcss*/
+.flex-container {
+  display: flex;        /*左から順番に横並び*/
+  flex-wrap: wrap;　　　/*折り返し設定*/
+}
+
+.flex-item {
+  width: 20%;
+}
+
+footer {
+  text-align: center;
+  color: #fff;
+  width: 100%;
+  height: auto;
+  background-color: #000;
+}
+
+form {
+  text-align: center;
+}
+
+
+
+
+
+
+ /*子要素設定←子要素に子要素を入れる.global-nav{a{}}*/
+ /*text-decoration: underline overline #008080; メニューリストにカーソルを
+    当てた時にtext-decoration: underline overline #008080;はメニューリストの上下にラインを引く*/

@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+#container {
+    height: 500px;
+    margin:200px auto;
+    font-size: 14px;
+    }
+    
+.card {
+    padding: 15px 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ddd;
+    text-align: center;
+}
+    
+.card-header {
+    text-align: center;
+    font-size: 20px;
+    border-bottom: 1px solid #808080;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.form-group {
+    margin-top: 10px;
+}
+
+input[type="name"],
+input[type="email"],
+input[type="password"] {
+    width: 300px;
+    padding: 4px;
+    font-size: 14px;
+    }
+
+footer {
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    height: auto;
+    background-color: #000;
+}
