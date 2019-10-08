@@ -23,7 +23,9 @@ class LoginController extends Controller
     use AuthenticatesUsers {
         logout as performLogout;
     }
-
+    
+     protected $redirectTo = '/';          /*ログインボタン押した後に移動するページ指定*/
+    
     /**
      * Where to redirect users after login.　訳）ログイン後にユーザーをリダイレクトする場所。
      *

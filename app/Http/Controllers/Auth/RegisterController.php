@@ -34,10 +34,10 @@ class RegisterController extends Controller
      * Create a new controller instance.
      *
      * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
+     *///__construct()はインスタンスの生成時に必ず実行される関数、つまりnewを使った時に必ず実行される。インスタンスの初期設定
+    public function __construct() //またインスタンス生成時のみに、それ以降は実行されないため製品製造時などその物が変わらない物に使う
+    {                             //コンストラクタは製造工程で行うべきことが書かれていると考えるとわかりやすい。
+        $this->middleware('guest'); //例)ログインしていないと実行出来ないように制限をかけたい場合(認証チェック)などでミドルウェアの機能を利用します。
     }
 
     /**
@@ -50,8 +50,16 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'reading' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'gender' => 'required',
+            'birthday' => ['required', 'integer',],
+            'phone_num' => ['required', 'integer'],
+            'postal_code' => 'required',
+            'prefectures_name' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'subsequent_address' => ['required', 'string', 'max:255']
         ]);
     }
 
@@ -65,8 +73,16 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'reading' => $data['reading'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'gender' => $data['gender'],
+            'birthday' => $data['birthday'],
+            'phone_num' => $data['phone_num'],
+            'postal_code' => $data['postal_code'],
+            'prefectures_name' => $data['prefectures_name'],
+            'city' => $data['city'],
+            'subsequent_address' => $data['subsequent_address']
         ]);
     }
 }

@@ -11,14 +11,22 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+    public function up()   /*up関数の中でカラムを定義する*/
+    {                                
+        Schema::create('users', function (Blueprint $table) {  /*createメソッドでは、第１引数にテーブル名のusers、第２引数にクロージャを指定する*/
+            $table->bigIncrements('id');                       /*クロージャでは、第１引数にBlueprintオブジェクト、第２引数に$tableを指定する*/
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('kname')->comment('フリガナ');
+            $table->string('email')->unique();                 /*unique使用の注意点:uniqidは暗号としては脆弱なので、パスワードやトークンとして利用しないように気をつける*/
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('gender')->length(2);
+            $table->string('birthday');
+            $table->string('phone_num');
+            $table->string('postal_code',2)->unique()->comment('郵便番号');  // JIS X0401に準拠して01～47が入るためstring（verchar(2)）で定義
+            $table->string('prefectures_name')->comment('都道府県名');
+            $table->string('city')->comment('市区町村');
+            $table->string('Subsequent_address')->comment('その以降の住所');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -31,6 +39,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('users');   /*down関数の中ではテーブル削除の処理が記述されている*/
     }
 }

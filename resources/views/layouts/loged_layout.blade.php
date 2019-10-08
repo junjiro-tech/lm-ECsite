@@ -34,43 +34,39 @@
 		<div class="wrap-menu-header gradient1 trans-0-4">
 			<div class="container h-full">
 				<div class="wrap_header trans-0-3">
-        <!-- header-logo写真 -->
-                 <a class="logo-pic" href="{{ route('top_page') }}"><img src="image/LM_logo.png" alt="サイトタイトル"></a>  <!-- altは画像の説明 -->
+        
               <!-- ナビゲーション始まり -->
                   <nav>
                       <ul class="top-nav">
+                          <!-- header-logo写真 -->   <!--  --> <!-- altは画像の説明 -->
+                          <li><a class="logo-pic" href="{{ route('top_page') }}"><img src="image/LM_logo.png" alt="サイトタイトル"></a></li>
+                          <!--<li><a class="logo-pic" href="#"></a></li>-->
                           <li><a  class="global-nav" href="#">新着商品</a></li>
                           <li><a  class="global-nav" href="#">おすすめ</a></li>
-                          <li><a  class="global-nav" href="#">商品検索</a></li>
-                          
+                          <li><a  class="global-nav" href="{{ route('search')}}">{{ _('商品検索') }}</a></li>
                           {{-- ログインしていなかったらログイン画面へのリンクを表示 --}}
-                          @guest
-                          <li><a  class="global-nav" href="{{ route('login') }}">{{ _('ログイン') }}</a></li>
-                            @if (Route::has('register'))
-                               <li><a class="global-nav" href="{{ route('register') }}">{{ _('会員登録') }}</a></li>
-                            @endif
-                            {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
-                          @else
-                        
-                          <li>     <!-- dropdown=ボタン押した時下に選択しを表示させる, caretは点滅する｜縦線, popupはリンク上にカーソル当てると移動先のURL表示されてたりする事 -->
-                              <a id="navbarDropdown" class="global-nav dropdown-toggle" href="#" role="button" da1ta-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>　　　　
-                              </a>
-                              
-                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <!--  onclick属性は、ボタンを押した時に実行する処理を書き込める   event=出来事 prevent=予防する default=初期値 document=文書 getEleentById=Id要素の取得 submit=提出する-->
-                                <a class="dropdown-item" href="{{ route('top_page') }}"
-                                   onclick="event.preventDefault();                                 
-                                                  document.getEleentById('logout-form').submit();">
-                                  {{ __('ログアウト') }}
+                        @guest
+                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('ログイン') }}</a></li>
+                          {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
+                        @else     <!-- dropdown=ボタン押した時下に選択しを表示させる, caretは点滅する｜縦線, popupはリンク上にカーソル当てると移動先のURL表示されてたりする事 -->
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-                                
-                                <form id="logout-form" action="{{ route('top_page') }}" method="POST" style="display: none;">
-                                  @csrf
-                                </form>
-                              </div>
-                          </li>
-                        
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                            @endguest
                           <li><a  class="global-nav" href="{{ route('contact') }}">{{ _('お問い合わせ') }}</a></li>
                           <i class="fas fa-shopping-cart fa-1x fa-fw fa-border fa-pull-right"></i>
                           <i class="fab fa-instagram fa-1x fa-fw fa-border fa-pull-right"></i>

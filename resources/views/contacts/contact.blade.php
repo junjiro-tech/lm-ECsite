@@ -1,14 +1,16 @@
 @extends('layouts.layout')
 
+@section('title', 'お問い合わせ')
+
 @section('content')
-     <form class="form3" name="fome3" method="post">
+     <form class="form3" method="post" action="{{ route('contact_confirm') }}">
          @csrf
          
          <div id="contact" class="wrap3">
         　　<section class="main">
         　　      <div class="section2">
                   <h1 class="pageTitle">お問い合わせ</h1>
-                  <p>以下のフォームの項目を入力し、よろしければ「この内容で問い合わせる」ボタンをクリックしてください</p>
+                  <p>以下のフォームの項目を入力し、よろしければ「確認画面に進む」ボタンをクリックしてください</p>
                      　
                     <table class="formTable">
                         <tbody>
@@ -17,10 +19,10 @@
                                      お名前
                                      <span class="required">必須</span>
                                  </th>
-                                 <td>
+                                 <td>            <!-- nameはformに渡してあげる名前 -->
                                      <p id="name-error" class="errorMessage"></p>
-                                     <input type="text" name="name" size="25" maxlength="20" value="{{ old('name') }}">
-                                     @if(@errors->has('name'))
+                                     <input type="text" name="name" size="25" maxlength="20" value="{{ old('name') }}"> 
+                                     @if($errors->has('name'))
                                            <p class="text-danger">{{ $errors->first('name') }}</p>
                                      @endif
                                      <span class="notes">例) 山田太郎</span>
@@ -47,8 +49,8 @@
                                  </th>
                                  <td>
                                      <p id="content-error" class="errorMessage"></p>
-                                     <textarea name="content" wrap="off" rows="15" cols="60" maxlength="2000">
-                                         {{ old('content') }}
+                                     <textarea name="body" wrap="off" rows="15" cols="60" maxlength="2000">
+                                         {{ old('body') }}
                                      </textarea>
                                      @if($errors->has('message'))
                                             <p class="text-danger">{{ $errors->first('message')}}</p>
@@ -61,5 +63,6 @@
                 </div>
             </section>
          </div>
+             <input type="submit" value="確認画面に進む">
      </form>
 @endsection

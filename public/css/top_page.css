@@ -1,122 +1,317 @@
-@charset "UTF-8";
-@import url("page_nav.css");
-@import url("login.css");
-@import url("register.css");
-@import url('privacy.css');
+@charset 'UTF-8';
 
-* {
-  margin: 0px; 
-	padding: 0px; 
-	-ms-box-sizing: border-box;       /*box-sizingは、サイズの決まり方を変えたい要素に指定する今回はmarginとpadding*/
-}
-
-body, html {
-	height: 100%;
-	font-family: Montserrat, sans-serif;
-  font-weight: 400;
-  margin: 0;
-}
-
-header {
-  width: 100%;                  /*ヘッダーエリアを画面横幅100%*/
-  height: 50px;                 /*autoは初期値で文字や画像の高さ分だけになる*/
-  margin: 0 auto;               /*上の余白は0,左右はセンター*/
-  position: fixed;              /*マウススクロールしてもheaderエリアを固定*/
-  color: #fff;
-  top: 0px;                     /*上の余白なくす*/    
-  background-color: #000;
-}
-
-.logo-pic {                          
-  width: 80px;
-  height:45px;
-  margin: 0;
-  margin-left: 250px;
-  padding: 0;
-  float: left;
-}
-
-.global-nav {
-  font-family: Montserrat;
-  font-weight: 400;             /*文字の太さ*/
-  line-height: 1.7;             /*行間*/
-  color: #fff;               　 /*カーソル当たってない時の色*/
-  margin: 0;
-  padding: 0;
-  height: 18px;
-  font-size: 15px;
-}
-
-ul {
-  margin-right: 130px;
-}
-
-ul li {
-  display: inline-block;             /*inline-blockでリストを横並びにし上下左右のサイズを指定できる*/
-  padding: 0 20px;
-}
-
-.global-nav:hover {
-  background: linear-gradient(left, #FFF, #FFC778 30%, #F89174 60%, #748af8); /*左からグラデーション開始*/
-  -webkit-background-clip: text;      /*背景をテキストでマスクする*/
-  -webkit-text-fill-color: rgba(255,255,255,0.0);
-  color:#ff0000 ;
-  transition: all 0.4s;　　　　 /*0.4秒かけて色を変化させる*/
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-}
-
-.global-nav:focus {
-	outline: none !important;          /*focusでtabを当てた時に外枠を消す*/
-}
-
-.global-nav:hover {
-	text-decoration: none;             /*テキストの装飾を指定するプロパティ、装飾の種類には下線、上線、取り消し線、点滅があり*/
-	color: #FF97C2;                    /*カーソル当てた時の色*/
-}
-
-.icon::before {                      /*要素::before afterで疑似要素(htmlにかかれていない要素もどきをcssで作る事ができる)beforeで要素の前に挿入、afterで要素の後ろに挿入*/
-  content:'\f35a';                   /*内容Unicodeを記載*/
-  font-family:'Font Awesome 5 Free';
-  font-weight: 900;                  /*Unicode毎にweightは違うので選択しないといけない*/
-  padding: 20px;
-}
-
-#wrap {
-  width: 100%;
-  height: 750px;
-  margin-top: 20px;
-  background-size: cover;
-}
-
-/*コンテナ枠全体のcss*/
 .flex-container {
-  display: flex;        /*左から順番に横並び*/
-  flex-wrap: wrap;　　　/*折り返し設定*/
+    width: 950px;
+    margin: 50px auto 0px auto;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .flex-item {
   width: 20%;
 }
 
-footer {
-  text-align: center;
-  color: #fff;
-  width: 100%;
-  height: auto;
-  background-color: #000;
-}
+/*#container {*/
+/*  height: 550px;*/
+/*  margin: 50px auto;*/
+/*  font-size: 14px;*/
+/*}*/
 
-form {
-  text-align: center;
-}
+/*.card {*/
+/*  display: center;*/
+/*  width: 500px;*/
+/*  margin-left: auto;*/
+/*  margin-right: auto;*/
+/*  padding: 0px 30px 15px 30px;*/
+/*  border-width: 1px;*/
+/*  border-style: solid;*/
+/*  border-color: #ddd;*/
+/*}*/
+
+/*h3 {*/
+/*  font-size: 12px;*/
+/*  font-weight: normal;*/
+/*}*/
+
+/*.card-header {*/
+/*  text-align: center;*/
+/*  margin-top: 0px;*/
+/*  font-size: 20px;*/
+/*  border-bottom: 1px solid #808080;*/
+/*}*/
+
+/*.card-body {*/
+/*  text-align: center;*/
+/*  border-bottom: 1px solid #808080;*/
+/*}*/
+
+/*.form-group {*/
+/*  margin-top: 10px;*/
+/*}*/
+
+/*.form-check-input {*/
+/*  float: left;*/
+/*  margin-left: 100px;*/
+/*}*/
+
+/*.form-check-label {*/
+/*  float: left;*/
+/*}*/
+
+/*.btn btn-primary {*/
+/*  margin-top: 0px;*/
+/*}*/
+
+/*input {*/
+/*  &[type="name"], &[type="email"], &[type="password"] {*/
+/*    width: 300px;*/
+/*    padding: 4px;*/
+/*    font-size: 14px;*/
+/*  }*/
+/*}*/
+
+/*.card-footer h2 {*/
+/*  margin-top: 25px;*/
+/*  font-size: 20px;*/
+/*  font-weight: normal;*/
+/*}*/
+
+/*.register-btn {*/
+/*  display: inline-block;*/
+/*  text-align: center;*/
+
+/*  &:hover {*/
+/*    background-color: #000;*/
+/*    color: #fff;*/
+/*    transition: 1s;*/
+
+    /*色変わる時間*/
+/*  }*/
+/*}*/
+
+/*.card-footer h3 {*/
+/*  margin-top: 5px;*/
+/*}*/
+
+/*footer {*/
+/*  text-align: center;*/
+/*  color: #fff;*/
+/*  width: 100%;*/
+/*  height: auto;*/
+/*  background-color: #000;*/
+/*}.wrap {*/
+/*  margin: 100px auto;*/
+/*}*/
+
+/*.main {*/
+/*  text-align: center;*/
+/*}*/
+
+/*.formTable {*/
+/*  display: inline-block;*/
+/*  text-align: center;*/
+/*  border-width: 1px;*/
+/*  border-style: solid;*/
+/*  border-color: #ddd;*/
+/*}*/
+
+/*table {*/
+/*  display: table;*/
+/*  border-collapse: separate;*/
+/*}*/
+
+/*tr {*/
+/*  display: table-row;*/
+/*  height: 50px;*/
+/*}*/
+
+/*.formTable {*/
+/*  th {*/
+/*    background-color: #EEE;*/
+/*    border: 1px solid #999;*/
+/*  }*/
+
+/*  td {*/
+/*    display: inline-block;*/
+/*    float: left;*/
+/*    border-bottom: 1px solid #ddd;*/
+/*    width: 100%;*/
+/*    height: 50px;*/
+/*    padding-top: 5px;*/
+/*    font-size: 13px;*/
+/*  }*/
+/*}*/
+
+/*.notes {*/
+/*  display: block;*/
+/*  color: #999;*/
+/*}*/
+
+/*input {*/
+/*  background-color: #EEE;*/
+/*  height: 20px;*/
+/*  border-radius: 5px;*/
+/*}*/
+
+/*section {*/
+/*  display: block;*/
+/*}*/
+
+/*tbody {*/
+/*  display: table-row-group;*/
+/*  text-align: left;*/
+/*  vertical-align: middle;*/
+/*}*/
+
+/*.required {*/
+/*  display: inline-block;*/
+/*  float: right;*/
+/*  background-color: #CC0000;*/
+/*  font-weight: normal;*/
+/*  font-size: 11px;*/
+/*  color: white;*/
+/*  padding: 3px 5px;*/
+/*}*/
+
+/*.policyWrap {*/
+/*  margin-top: 50px;*/
+/*  padding-left: 35px;*/
+/*}*/
+
+/*.policyTitle {*/
+/*  font-size: 20px;*/
+/*}*/
+
+/*.agreeBox {*/
+/*  margin-top: 10px;*/
+/*}*/
+
+/*button {*/
+/*  display: inline-block;*/
+/*  width: 185px;*/
+/*  color: #fff;*/
+/*  background-color: #808080;*/
+/*  text-align: center;*/
+/*  text-decoration: none;*/
+/*  line-height: 50px;*/
+/*  margin-top: 20px;*/
+/*  margin-bottom: 50px;*/
+/*  border-radius: 5px;*/
+/*  border: none;*/
+/*}*/
+
+/*#inline-frame {*/
+/*  width: 35%;*/
+/*}*/
+
+/*button:hover {*/
+/*  background-color: #000;*/
+/*  color: #fff;*/
+/*  border: none;*/
+/*  transition: 1s;*/
+/*}h3 {*/
+/*  margin-top: 30px;*/
+/*}@charset "UTF-8";*/
+
+/** {*/
+/*  margin: 0px;*/
+/*  padding: 0px;*/
+/*  -ms-box-sizing: border-box;*/
+/*}*/
+
+/*body,*/
+/*html {*/
+/*  height: 100%;*/
+/*  font-family: Montserrat, sans-serif;*/
+/*  font-weight: 400;*/
+/*  margin: 0px;*/
+/*}*/
+
+/*header {*/
+/*  width: 100%;*/
+/*  height: 50px;*/
+/*  margin: 0 auto;*/
+/*  padding-top: 0px;*/
+/*  position: fixed;*/
+/*  color: #fff;*/
+/*  top: 0px;*/
+/*  background-color: #6600FF;*/
+/*}*/
+
+/*.logo-pic {*/
+/*  width: 80px;*/
+/*  height: 45px;*/
+/*  margin: 0px;*/
+/*  margin-left: 170px;*/
+/*  padding: 0px;*/
+/*  float: left;*/
+/*}*/
+
+/*.global-nav {*/
+/*  font-family: Montserrat;*/
+/*  font-weight: 400;*/
+/*  line-height: 1.7;*/
+/*  color: #000;*/
+/*  margin: 0px;*/
+/*  padding: 0px;*/
+/*  height: 18px;*/
+/*  font-size: 15px;*/
+/*}*/
+
+/*a global-nav {*/
+/*  border-bottom: none;*/
+/*}*/
+
+/*ul {*/
+/*  margin-right: 130px;*/
+/*  margin-top: 0px;*/
+/*  padding-top: 0px;*/
+/*}*/
+
+/*ul li {*/
+/*  display: inline-block;*/
+/*  padding: 0 20px;*/
+/*}*/
+
+/*.global-nav:hover {*/
+  /*background: linear-gradient(left, #FFF, #FFC778 30%, #F89174 60%, #748af8);*/
+  /*-webkit-background-clip: text;*/
+  /*-webkit-text-fill-color: rgba(255, 255, 255, 0);*/
+/*  color: #ff0000;*/
+/*  transition: all 0.4s;*/
+/*  -webkit-transition: all 0.4s;*/
+/*  -o-transition: all 0.4s;*/
+/*  -moz-transition: all 0.4s;*/
+/*}*/
+
+/*.global-nav:focus {*/
+/*  outline: none !important;*/
+/*}*/
+
+/*.global-nav:hover {*/
+/*  text-decoration: none;*/
+/*  color: #FF97C2;*/
+/*}*/
+
+/*.icon::before {*/
+/*  content: "\F35A";*/
+/*  font-family: "Font Awesome 5 Free";*/
+/*  font-weight: 900;*/
+/*  padding: 20px;*/
+/*}*/
+
+/*#wrap {*/
+/*  width: 100%;*/
+/*  height: 750px;*/
+/*  margin-top: 20px;*/
+/*  background-size: cover;*/
+/*}*/
 
 
 
 
 
+/*form {*/
+/*  text-align: center;*/
+/*}*/
 
- /*子要素設定←子要素に子要素を入れる.global-nav{a{}}*/
- /*text-decoration: underline overline #008080; メニューリストにカーソルを
-    当てた時にtext-decoration: underline overline #008080;はメニューリストの上下にラインを引く*/

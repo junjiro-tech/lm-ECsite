@@ -5,10 +5,17 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
-{
-    protected $fillable = [           /*fillable=充填可能*/
+{             /*fillable=充填可能　 DB への登録を許可するためにはホワイトリスト $fillable に項目を追加する必要がある*/
+    protected $fillable = [
         'name',
-        'email',
+        'email', 
         'body'
+        ];
+        
+        /*validationのルール*/
+        public static $rules = [
+        'name' => 'required',
+        'email' => 'require',
+        'body' => 'required',
         ];
 }

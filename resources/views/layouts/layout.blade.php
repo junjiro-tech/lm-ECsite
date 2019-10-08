@@ -11,15 +11,7 @@
         <script src="{{ secure_asset('js/app.js') }}" defer></script>    <!-- Laravel標準で用意されているJavascriptを読み込み -->
                                                                          <!-- asset('ファイルパス')はpublicディレクトリのパスを返す関数 -->
     <!----------------------------------------------------------------------------------------------->
-    <link rel="stylesheet" href="css/style.css">                                                      
-    <!----------------------------------------------------------------------------------------------->
-    <link rel="stylesheet" href="css/normalize.css">
-    <!----------------------------------------------------------------------------------------------->
-    <link rel="stylesheet" href="css/top_page.css">
-    <!----------------------------------------------------------------------------------------------->
-    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-    <!----------------------------------------------------------------------------------------------->
-    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" href="https://87c1ac065f9145e183015d2ea2786408.vfs.cloud9.us-east-2.amazonaws.com/css/layout.css">
     <!----------------------------------------------------------------------------------------------->
 　　<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <!----------------------------------------------------------------------------------------------->
@@ -28,30 +20,44 @@
     
   </head>
   <body>
-      <!-- header始まり -->
-      <header>
-    　  <!-- Header desktop -->
-		<div class="wrap-menu-header gradient1 trans-0-4">
-			<div class="container h-full">
-				<div class="wrap_header trans-0-3">
-        <!-- header-logo写真 -->
-                 <a class="logo-pic" href="{{ route('top_page') }}"><img src="image/LM_logo.png" alt="サイトタイトル"></a>  <!-- altは画像の説明 -->
-              <!-- ナビゲーション始まり -->
-                  <nav>
-                      <ul class="top-nav">
+    <hr class="top-line">
+    <div id="wrapper">
+        <header>
+            <h1>
+               <a class="logo-pic" href="{{ route('top_page') }}">
+                  <img src="{{ asset('image/LM_logo.png') }}" alt="サイトタイトル">
+               </a>
+            </h1>
+            <div id="snsicon">
+                <a href="#" target="_blank">
+                    <i class="fas fa-shopping-cart fa-1x fa-fw fa-border fa-pull-right"></i>
+                </a>
+                <a href="https://www.instagram.com/lmselect5484" target="_blank">
+                    <i class="fab fa-instagram fa-1x fa-fw fa-border fa-pull-right"></i>
+                </a>
+                <a href="#" target="_blank">
+                    <i class="fab fa-facebook-f fa-1x fa-fw fa-border fa-pull-right"></i>
+                </a>
+            </div>
+            <nav>
+                <ul class="top-nav">
                           <li><a  class="global-nav" href="#">新着商品</a></li>
-                          <li><a  class="global-nav" href="#">おすすめ</a></li>
-                          <li><a  class="global-nav" href="#">商品検索</a></li>
+                          <li><a  class="global-nav" href="{{ route('product_list') }}">商品一覧</a></li>
+                          <li>
+                              <form method="get" action="//">
+                                  <input type="text" name="keyword">
+                                  <input type="submit" value="商品検索">
+                              </form>
+                          </li>
                           {{-- ログインしていなかったらログイン画面へのリンクを表示 --}}
                         @guest
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('ログイン') }}</a></li>
-                        {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
+                          {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
                         @else     <!-- dropdown=ボタン押した時下に選択しを表示させる, caretは点滅する｜縦線, popupはリンク上にカーソル当てると移動先のURL表示されてたりする事 -->
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -67,14 +73,10 @@
                             @endguest
                           <li><a  class="global-nav" href="{{ route('register') }}">{{ _('会員登録') }}</a></li>
                           <li><a  class="global-nav" href="{{ route('contact') }}">{{ _('お問い合わせ') }}</a></li>
-                          <i class="fas fa-shopping-cart fa-1x fa-fw fa-border fa-pull-right"></i>
-                          <i class="fab fa-instagram fa-1x fa-fw fa-border fa-pull-right"></i>
-                      </ul>
-                  </nav>
-        </div>   
-      </div>
+                </ul>
+            </nav>
+        </header>
     </div>
-      </header>
       @yield('content')
   </body>
   

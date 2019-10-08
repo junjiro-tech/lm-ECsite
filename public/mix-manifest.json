@@ -1,4 +1,16 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/css/top_page.css": "/css/top_page.css",
+    "/css/search.css": "/css/search.css",
+    "/css/register.css": "/css/register.css",
+    "/css/privacy.css": "/css/privacy.css",
+    "/css/page_navi.css": "/css/page_navi.css",
+    "/css/login.css": "/css/login.css",
+    "/css/hyouki.css": "/css/hyouki.css",
+    "/css/contact.css": "/css/contact.css",
+    "/css/confirm.css": "/css/confirm.css",
+    "/css/complete.css": "/css/complete.css",
+    "/css/cart.css": "/css/cart.css",
+    "/js/top_page_slide.js": "/js/top_page_slide.js"
 }

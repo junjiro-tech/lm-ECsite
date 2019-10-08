@@ -1,0 +1,111 @@
+.wrap {
+  margin: 100px auto;
+}
+
+.main {
+  text-align: center;
+}
+
+.formTable {
+  display: inline-block;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ddd;
+}
+
+table {
+  display: table;
+  border-collapse: separate;
+}
+
+tr {
+  display: table-row;
+  height: 50px;
+}
+
+.formTable {
+  th {
+    background-color: #EEE;
+    border: 1px solid #999;
+  }
+
+  td {
+    display: inline-block;
+    float: left;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    height: 50px;
+    padding-top: 5px;
+    font-size: 13px;
+  }
+}
+
+.notes {
+  display: block;
+  color: #999;
+}
+
+input {
+  background-color: #EEE;
+  height: 20px;
+  border-radius: 5px;
+}
+
+section {
+  display: block;
+}
+
+tbody {
+  display: table-row-group;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.required {
+  display: inline-block;
+  float: right;
+  background-color: #CC0000;
+  font-weight: normal;
+  font-size: 11px;
+  color: white;
+  padding: 3px 5px;
+}
+
+.policyWrap {
+  margin-top: 50px;
+  padding-left: 35px;
+}
+
+.policyTitle {
+  font-size: 20px;
+}
+
+.agreeBox {
+  margin-top: 10px;
+}
+
+button {
+  display: inline-block;
+  width: 185px;
+  color: #fff;
+  background-color: #808080;
+  text-align: center;
+  text-decoration: none;
+  line-height: 50px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  border: none;
+}
+
+#inline-frame {
+  width: 35%;
+}
+
+button:hover {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  transition: 1s;
+}

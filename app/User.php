@@ -14,9 +14,28 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array
-     */
+     * DB への登録を許可するためにはホワイトリスト $fillable に項目を追加する必要がある*/
+     
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 
+        'kname',
+        'email',
+        'email2',
+        'password1',
+        'password2',
+        'gender',
+        'birthday1',
+        'birthday2',
+        'birthday3',
+        'phone_num1',
+        'phone_num2',
+        'phone_num3',
+        'postal_code1',
+        'postal_code2',
+        'area',
+        'prefectures_name',
+        'city',
+        'subsequent_address'
     ];
 
     /**
@@ -32,6 +51,7 @@ class User extends Authenticatable
      * The attributes that should be cast to native types.
      *
      * @var array
+     * $sastsで選択したカラムの型を変換する
      */
     protected $casts = [
         'email_verified_at' => 'datetime',

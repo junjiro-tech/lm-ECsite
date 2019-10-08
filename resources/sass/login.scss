@@ -1,0 +1,89 @@
+#container {
+  height: 550px;
+  margin: 50px auto;
+  font-size: 14px;
+}
+
+.card {
+  display: center;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0px 30px 15px 30px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ddd;
+}
+
+h3 {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.card-header {
+  text-align: center;
+  margin-top: 0px;
+  font-size: 20px;
+  border-bottom: 1px solid #808080;
+}
+
+.card-body {
+  text-align: center;
+  border-bottom: 1px solid #808080;
+}
+
+.form-group {
+  margin-top: 10px;
+}
+
+.form-check-input {
+  float: left;
+  margin-left: 100px;
+}
+
+.form-check-label {
+  float: left;
+}
+
+.btn btn-primary {
+  margin-top: 0px;
+}
+
+input {
+  &[type="name"], &[type="email"], &[type="password"] {
+    width: 300px;
+    padding: 4px;
+    font-size: 14px;
+  }
+}
+
+.card-footer h2 {
+  margin-top: 25px;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.register-btn {
+  display: inline-block;
+  text-align: center;
+
+  &:hover {
+    background-color: #000;
+    color: #fff;
+    transition: 1s;
+
+    /*色変わる時間*/
+  }
+}
+
+.card-footer h3 {
+  margin-top: 5px;
+}
+
+footer {
+  text-align: center;
+  color: #fff;
+  width: 100%;
+  height: auto;
+  background-color: #000;
+}

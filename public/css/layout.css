@@ -1,0 +1,67 @@
+@charset 'utf-8';
+
+.top-line {
+    border: none;
+    border-top: solid 7px #9f9fa0;   /*using height with border-top can sometimes make elements larger than you expelement*/
+    height: 1px;                     /*訳)ボーダートップで高さを使用すると、要素よりも要素が大きくなることがあります*/
+    color: #FFF;
+    margin: 0px;
+    padding: 0px;
+}
+
+hr {
+    display: block;
+}
+
+header {
+    margin-top: 30px;
+    border-bottom: solid 2px #898989;
+}
+
+header h1 {
+    text-align: center;
+    padding-bottom: center;
+    border-bottom: solid 1px #a7a7a7;
+}
+
+#wrapper {
+    width: 950px;
+    margin: 0px auto;
+}
+
+#snsicon {
+    width: 50px;
+    height: 23px;
+    position: relative;
+    top: -100px;
+    right: -900px;
+}
+
+nav {
+    padding-top: 3px;
+    text-align: center;
+    margin-bottom: -3px;
+}
+
+.top-nav ul {
+    display: inline-block;
+}
+
+ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: block;
+    position: relative;
+    margin-right: 25px;
+    float: left;
+    font-family: 'Raleway', sans-serif;
+}
+
+footer {
+  text-align: center;
+  color: #fff;
+  width: 100%;
+  height: auto;
+}

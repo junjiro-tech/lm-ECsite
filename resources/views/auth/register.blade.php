@@ -1,7 +1,6 @@
 @extends('layouts.layout')
 
 @section('content')
-
             <form name="form2" action="{{ route('register') }}" method="post">
                 @csrf
                 
@@ -18,7 +17,10 @@
                                        <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="hname" size="15" maxlength="20" value>
+                                        <input type="text" name="name" size="15" maxlength="20">
+                                        @if($errors->has('name'))
+                                           <p class="text-danger">{{ $errors->first('name') }}</p>
+                                        @endif
                                         <span class="notes">例) 山田太郎</span>
                                     </td>
                                 </tr>
@@ -28,7 +30,10 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="kname" size="15" maxlength="20" value>
+                                        <input type="text" name="kname" size="15" maxlength="20">
+                                        @if($errors->has('kname'))
+                                           <p class="text-danger">{{ $errors->first('kname') }}</p>
+                                        @endif
                                         <span class="notes">例) ヤマダタロウ</span>
                                     </td>
                                 </tr>
@@ -38,7 +43,10 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="email" size="20" maxlength="255" value style="ime-mode:disabled;"> <!-- ime-mode:disabled;=英数字入力モードで固定 -->
+                                        <input type="text" name="email" size="20" maxlength="255" style="ime-mode:disabled;"> <!-- ime-mode:disabled;=英数字入力モードで固定 -->
+                                        @if($errors->has('email'))
+                                           <p class="text-danger">{{ $errors->first('email') }}</p>
+                                        @endif
                                         <span class="notes">例) info@example.com ※半角英数字</span>
                                     </td>
                                 </tr>
@@ -48,18 +56,23 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="email2" size="20" maxlength="255" value style="ime-mode:disabled;"> 
+                                        <input type="text" name="email2" size="20" maxlength="255" style="ime-mode:disabled;">
+                                        @if($errors->has('email2'))
+                                           <p class="text-danger">{{ $errors->first('email2') }}</p>
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
                                         パスワード
                                         <span class="required">必須</span>
-                                        <input name="oldpasswd" value type="hidden">  <!-- 送信したいデータがブラウザに表示されない -->
+                                        <input type="hidden" name="password1">  <!-- 送信したいデータがブラウザに表示されない -->
                                     </th>
                                     <td>
-                                        <input type="hidden" name="oldpasswd" value>
-                                        <input type="password" name="password1" size="10" maxlength="16" value style="ime-mode:disabled;">
+                                        <input type="password" name="password1" size="10" maxlength="16" style="ime-mode:disabled;">
+                                        @if($errors->has('password1'))
+                                           <p class="text-danger">{{ $errors->first('password1') }}</p>
+                                        @endif
                                         <span class="notes">&nbsp;※4～16文字の半角英数字</span>             <!-- &nbsp=ここの空白では改行したくない -->
                                     </td>
                                 </tr>
@@ -69,7 +82,10 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="password" name="password2" size="10" maxlength="16" value style="ime-mode:disabled;">
+                                        <input type="password" name="password2" size="10" maxlength="16" style="ime-mode:disabled;">
+                                        @if($errors->has('password2'))
+                                           <p class="text-danger">{{ $errors->first('password2') }}</p>
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
@@ -78,10 +94,13 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="radio" name="sex" value="male">
+                                        <input type="radio" name="gender" value="male">
                                         <label for="sexMale">男</label>
-                                        <input type="radio" name="sex" value="female">
+                                        <input type="radio" name="gender" value="female">
                                         <label for="sexfeMale">女</label>
+                                        @if($errors->has('gender'))
+                                           <p class="text-danger">{{ $errors->first('gender') }}</p>
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
@@ -90,12 +109,21 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="birthday1" size="4" maxlength="4" value pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        <input type="text" name="birthday1" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
                                         年
-                                        <input type="text" name="birthday2" size="2" maxlength="2" value pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        @if($errors->has('birthday1'))
+                                           <p class="text-danger">{{ $errors->first('birthday1') }}</p>
+                                        @endif
+                                        <input type="text" name="birthday2" size="2" maxlength="2" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
                                         月
-                                        <input type="text" name="birthday3" size="2" maxlength="2" value pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        @if($errors->has('birthday2'))
+                                           <p class="text-danger">{{ $errors->first('birthday2') }}</p>
+                                        @endif
+                                        <input type="text" name="birthday3" size="2" maxlength="2" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
                                         日
+                                        @if($errors->has('birthday3'))
+                                           <p class="text-danger">{{ $errors->first('birthday3') }}</p>
+                                        @endif
                                         <span class="notes">例) 1970年01月01日&nbsp;※半角数字</span>
                                     </td>
                                 </tr>
@@ -105,11 +133,20 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="hphone1" size="5" maxlength="5" value pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        <input type="text" name="phone1" size="5" maxlength="5" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
                                         -
-                                        <input type="text" name="hphone1" size="4" maxlength="4" value pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        @if($errors->has('phone1'))
+                                           <p class="text-danger">{{ $errors->first('phone1') }}</p>
+                                        @endif
+                                        <input type="text" name="phone2" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
                                         -
-                                        <input type="text" name="hphone1" size="4" maxlength="4" value pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        @if($errors->has('phone2'))
+                                           <p class="text-danger">{{ $errors->first('phone2') }}</p>
+                                        @endif
+                                        <input type="text" name="phone3" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        @if($errors->has('phone3'))
+                                           <p class="text-danger">{{ $errors->first('phone3') }}</p>
+                                        @endif
                                         <span class="notes">例) 00-0000-0000&nbsp;※半角数字</span>
                                         <input name="hphone" type="hidden" value>
                                     </td>
@@ -120,9 +157,15 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="hpost1" size="3" maxlength="3" value pattern="[0-9]*" style="ime-mode:disabled;" class="inputS" onkeyup="findZipcole('h');">
+                                        <input type="text" name="postal_code1" size="3" maxlength="3" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS" onkeyup="findZipcole('h');">
                                         -
-                                        <input type="text" name="hpost2" size="4" maxlength="4" value pattern="[0-9]*" style="ime-mode:disabled;" class="inputS" onkeyup="findZipcole('h');">
+                                        @if($errors->has('postal_code1'))
+                                           <p class="text-danger">{{ $errors->first('postal_code1') }}</p>
+                                        @endif
+                                        <input type="text" name="postal_code2" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS" onkeyup="findZipcole('h');">
+                                        @if($errors->has('postal_code2'))
+                                           <p class="text-danger">{{ $errors->first('postal_code2') }}</p>
+                                        @endif
                                         <span class="notes">例) 000-0000&nbsp;※半角数字</span>
                                     </td>
                                 </tr>
@@ -132,7 +175,7 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <select name="haddress1" id="harea">
+                                        <select name="prefectures_name" id="area">
                                             <option value>選択してください</option>
                                             <option value="1">北海道</option>
                                             <option value="2">青森県</option>
@@ -183,8 +226,10 @@
                                             <option value="47">鹿児島県</option>
                                             <option value="48">沖縄県</option>
                                             <option value="49">離島部</option>
-                                            <option value="50">海外</option>
                                         </select>
+                                        @if($errors->has('prefectures_name'))
+                                           <p class="text-danger">{{ $errors->first('prefectures_name') }}</p>
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
@@ -193,7 +238,10 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="haddress2" size="20" maxlength="80" value>
+                                        <input type="text" name="city" size="20" maxlength="80">
+                                        @if($errors->has('city'))
+                                           <p class="text-danger">{{ $errors->first('city') }}</p>
+                                        @endif
                                         <span class="notes">例) 渋谷区</span>
                                     </td>
                                 </tr>
@@ -203,7 +251,10 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="haddress2" size="30" maxlength="120" value>
+                                        <input type="text" name="subsequent_address" size="30" maxlength="120">
+                                        @if($errors->has('subsequent_address'))
+                                           <p class="text-danger">{{ $errors->first('subsequent_address') }}</p>
+                                        @endif
                                         <span class="notes">例) 〇〇町1-1-1</span>
                                     </td>
                                 </tr>

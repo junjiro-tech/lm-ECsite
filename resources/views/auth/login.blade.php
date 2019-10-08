@@ -5,25 +5,11 @@
         <div class="row justify-content-center"> <!--セルのセンター合わせ-->
             <div class="col-md-8"> <!--col=最大幅 col-*=auto col-sm=540px col-md=720px col-lg=960px col-xl=1140px    カラムは全部で12(md-8は8/12ということ)-->
                 <div class="card">　　　　　　　　　　　　　　　　
-                    <div class="card-header">{{ __('ログイン') }}</div> <!-- __( $string ) の意味  _2つの __ 関数は、Lang::get の別名、PHPの言語機能では無く、国際化対応のために作成された関数で -->
-               
+                    <div class="card-header">{{ __('ログイン') }}<br><h3>会員の方は、登録時に入力されたメールアドレスとパスワードでログインしてください。</h3></div> <!-- __( $string ) の意味  _2つの __ 関数は、Lang::get の別名、PHPの言語機能では無く、国際化対応のために作成された関数で -->
+                    
                         <div class="card-body">        <!-- {{ route('login') }}は定数 -->
-                           <form method="post" action="{{ route('login') }}"> <!-- action属性=フォームで入力したdataの送信先URIを指定する、、 method属性=指定requiedはない-->
+                           <form method="post" action="{{ route('login') }}" name="login"> <!-- action属性=フォームで入力したdataの送信先URIを指定する、、 method属性=指定requiedはない-->
                            @csrf   <!-- ＠はlaravelで標準装備されているcsrfを読み込んでくれている。laravelがバージョンアップすると自動でそのセキュリティが入る -->
-                           
-                              <div class="form-group row"> <!-- form-group-row=横並び --> 
-                                  <label for="name" class="col-md-4 col-form-label text-md-right">ご希望のユーザーID</label>
-                                  
-                                  <div class="col-md-6"> <!-- type=の属性で見た目が変わる -->       <!-- invalid=無効 -->   <!-- name属性でinputを管理 --> <!-- ここのvalueに挿入している要素は自動記憶 -->
-                                      <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                      
-                                      @error('name')  <!--@の所はメソッドを読み込んでいる -->
-                                           <span class="invalid-feedback" roll="alert"> <!-- spanタグはインライン要素　幅、位置、余白が指定できない 主に文章の途中に文字色変えたりする時使う,roll=役割、意味を与える-->
-                                               <strong>{{ $message}}</strong> <!-- stong要素は「強い重要性(警告)」のある場合や緊急性のある場合使用する --> <!-- $messageは変数,controllerの中にある -->
-                                           </span>
-                                      @enderror
-                                  </div>
-                              </div>      
                    
                               <div class="form-group row">   
                                   <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Eメールアドレス') }}</label>
@@ -64,6 +50,11 @@
                                           </label>
                                       </div>
                                   </div>
+                                  @if(Route::has('password.request'))
+                                          <a class="btn btn-link" href="{{ route('password.request') }}">
+                                              {{ _('パスワードをお忘れですか?') }}
+                                          </a>
+                                      @endif
                               </div>
                               
                               <div class="form-group row mb-0">　<!-- mb-0はmargin-bottomを0にするとういう設定 m=marginを設定 b=bottomを設定 -->
@@ -72,16 +63,20 @@
                                           {{ __('ログイン') }}
                                       </button>
                                       
-                                      @if(Route::has('password.request'))
-                                          <a class="btn btn-link" href="{{ route('password.request') }}">
-                                              {{ _('パスワードをお忘れですか?') }}
-                                          </a>
-                                      @endif
+                                      
                               　　</div>
                               </div>
+                              
                             </form>
                         </div>
                         
+                        <div class="card-footer">
+                            <h2>まだ会員登録されていない方</h2>
+                            <h3>初めてご利用の方は、こちらから会員登録すると便利にお買い物ができるようになります。</h3>
+                                <button type="submit" class="register-btn">
+                                   <a  class="global-nav" href="{{ route('register') }}">{{ _('会員登録画面に進む') }}</a>
+                                </btn>
+                        </div>
                     </div>
                 </div>
             </div>

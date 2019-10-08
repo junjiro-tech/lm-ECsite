@@ -13,6 +13,12 @@ class top_page_controller extends Controller
         return view('top_pages.top_page');
     }
     
+    public function search() 
+    {
+        return view('top_pages.search');
+    }
+    
+    
     public function loged()
     {
         return view('loged.loged_top_page');

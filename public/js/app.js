@@ -49190,14 +49190,16 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_Vue, Vue) {/**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+__webpack_require__(/*! ./top_page_slide */ "./resources/js/top_page_slide.js");
+
+__webpack_provided_window_dot_Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -49214,10 +49216,7 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-var app = new Vue({
-  el: '#app'
-});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"), __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js")))
 
 /***/ }),
 
@@ -49228,7 +49227,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -49237,7 +49236,7 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
-  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+  window.$ = __webpack_provided_window_dot_jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 } catch (e) {}
@@ -49276,6 +49275,7 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
@@ -49348,10 +49348,148 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/top_page_slide.js":
+/*!****************************************!*\
+  !*** ./resources/js/top_page_slide.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// var pic_src = new Array("image/top_page.png", "image/top_page2.png"); // 配列pics_arrayには表示させたい画像のsrcを文字列として格納します 
+//             //   var num = 0;       //
+//               for(var num = 0; num < 2; num++){
+//               slideshow_timer();  //関数slideshowは、切り替えの処理
+//               }
+//               function slideshow_timer(){
+//               document.getElementById("mypic").src=pic_src[num];
+//               setTimeout("slideshow_timer()",5000);
+//               }
+//       if (num == 1){  //1を表示させたら
+//           num = 0;    //0に戻る
+//       }
+//       else {
+//           num++;      //逆にnumが1以下であれば、次の画像に進むだけなので1を足します
+//       }//getElementById関数を使用し、先ほど設定したimgタグ内のsrc属性を、次の画像のパス名に変更します
+//       document.getElementById("mypic").src=pic_src[num];
+//       setTimeout("slideshow_timer()",5000);
+//   }
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
   \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/cart.scss":
+/*!**********************************!*\
+  !*** ./resources/sass/cart.scss ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/complete.scss":
+/*!**************************************!*\
+  !*** ./resources/sass/complete.scss ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/confirm.scss":
+/*!*************************************!*\
+  !*** ./resources/sass/confirm.scss ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/contact.scss":
+/*!*************************************!*\
+  !*** ./resources/sass/contact.scss ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/hyouki.scss":
+/*!************************************!*\
+  !*** ./resources/sass/hyouki.scss ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/login.scss":
+/*!***********************************!*\
+  !*** ./resources/sass/login.scss ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/page_navi.scss":
+/*!***************************************!*\
+  !*** ./resources/sass/page_navi.scss ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/privacy.scss":
+/*!*************************************!*\
+  !*** ./resources/sass/privacy.scss ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/register.scss":
+/*!**************************************!*\
+  !*** ./resources/sass/register.scss ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/search.scss":
+/*!************************************!*\
+  !*** ./resources/sass/search.scss ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -49366,21 +49504,30 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: ENOENT: no such file or directory, open '/home/ec2-user/environment/lm/resources/sass/top_page.scss'\n    at runLoaders (/home/ec2-user/environment/lm/node_modules/webpack/lib/NormalModule.js:315:20)\n    at /home/ec2-user/environment/lm/node_modules/loader-runner/lib/LoaderRunner.js:367:11\n    at /home/ec2-user/environment/lm/node_modules/loader-runner/lib/LoaderRunner.js:203:19\n    at process.nextTick (/home/ec2-user/environment/lm/node_modules/enhanced-resolve/lib/CachedInputFileSystem.js:73:15)\n    at processTicksAndRejections (internal/process/task_queues.js:79:9)");
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
 /***/ 0:
-/*!************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/admin.scss ./resources/sass/top_page.scss ***!
-  \************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/top_page.scss ./resources/sass/search.scss ./resources/sass/register.scss ./resources/sass/privacy.scss ./resources/sass/page_navi.scss ./resources/sass/login.scss ./resources/sass/hyouki.scss ./resources/sass/contact.scss ./resources/sass/confirm.scss ./resources/sass/complete.scss ./resources/sass/cart.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /home/ec2-user/environment/lm/resources/js/app.js */"./resources/js/app.js");
 __webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/app.scss */"./resources/sass/app.scss");
-!(function webpackMissingModule() { var e = new Error("Cannot find module '/home/ec2-user/environment/lm/resources/sass/admin.scss'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-module.exports = __webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/top_page.scss */"./resources/sass/top_page.scss");
+__webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/top_page.scss */"./resources/sass/top_page.scss");
+__webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/search.scss */"./resources/sass/search.scss");
+__webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/register.scss */"./resources/sass/register.scss");
+__webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/privacy.scss */"./resources/sass/privacy.scss");
+__webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/page_navi.scss */"./resources/sass/page_navi.scss");
+__webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/login.scss */"./resources/sass/login.scss");
+__webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/hyouki.scss */"./resources/sass/hyouki.scss");
+__webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/contact.scss */"./resources/sass/contact.scss");
+__webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/confirm.scss */"./resources/sass/confirm.scss");
+__webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/complete.scss */"./resources/sass/complete.scss");
+module.exports = __webpack_require__(/*! /home/ec2-user/environment/lm/resources/sass/cart.scss */"./resources/sass/cart.scss");
 
 
 /***/ })
