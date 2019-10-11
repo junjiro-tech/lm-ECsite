@@ -17,15 +17,15 @@
     <!----------------------------------------------------------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!----------------------------------------------------------------------------------------------->
-    
   </head>
+  
   <body>
     <hr class="top-line">
     <div id="wrapper">
         <header>
             <h1>
                <a class="logo-pic" href="{{ route('top_page') }}">
-                  <img src="{{ asset('image/LM_logo.png') }}" alt="サイトタイトル">
+                  <img src="{{ asset('image/logo2.png') }}" alt="サイトタイトル">
                </a>
             </h1>
             <div id="snsicon">
@@ -44,8 +44,8 @@
                           <li><a  class="global-nav" href="#">新着商品</a></li>
                           <li><a  class="global-nav" href="{{ route('product_list') }}">商品一覧</a></li>
                           <li>
-                              <form method="get" action="//">
-                                  <input type="text" name="keyword">
+                              <form method="get" action="{{ route('product_list') }}">
+                                  <input type="text" name="keyword" placeholder="商品名">
                                   <input type="submit" value="商品検索">
                               </form>
                           </li>
@@ -78,16 +78,21 @@
         </header>
     </div>
       @yield('content')
-  </body>
+  
   
   <!-- footer開始 -->
-  <footer>
-    <ul class="under-nav">
-      <li><a class="global-nav" href="{{ route('top_page') }}">{{ _('ホーム') }}</a></li>
-      <li><a class="global-nav" href="{{ route('hyouki')}}">{{ _('特定商取引法に基づく表記') }}</a></li>
-      <li><a class="global-nav" href="{{ route('privacy') }}">{{ _('プライバシーポリシー') }}</a></li>
-      <li><a class="global-nav" href="{{ route('contact') }}">{{ _('お問い合わせ') }}</a></li>
-    </ul>
-      <small>(C) 2020 LM.CoLtd</small>
-  </footer>
+    <div id="wrapper">
+      <footer>
+        <ul class="under-nav">
+          <li><a class="global-nav" href="{{ route('top_page') }}">{{ _('ホーム') }}</a></li>
+          <li><a class="global-nav" href="{{ route('hyouki')}}">{{ _('特定商取引法に基づく表記') }}</a></li>
+          <li><a class="global-nav" href="{{ route('privacy') }}">{{ _('プライバシーポリシー') }}</a></li>
+          <li><a class="global-nav" href="{{ route('contact') }}">{{ _('お問い合わせ') }}</a></li>
+        </ul>
+          <small>(C) 2020 LM by polyvalent.CoLtd</small>
+      </footer>
+    </div>
+    <hr class="bottom-line">
+  </body>
+  
 </html>

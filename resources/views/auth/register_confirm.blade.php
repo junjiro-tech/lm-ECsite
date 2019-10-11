@@ -3,7 +3,7 @@
 @section('title', '会員登録確認')
 
 @section('content')
-      <form method="POST" action="{{ route('contact_send') }}">
+      <form method="post" action="{{ route('register_complete') }}">
           csrf
           
           <label>お名前</label>

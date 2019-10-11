@@ -6,7 +6,7 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-header">
-                    <a herf="/item/{{ $item->id }}">{{ $item->name}}</a>
+                    <a herf="/items/{{ $item->id }}">{{ $item->name }}</a>
                 </div>
                 <div class="card-body">
                     {{ $item->amount }}

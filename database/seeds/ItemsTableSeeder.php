@@ -15,143 +15,143 @@ class ItemsTableSeeder extends Seeder
         $item_seeds = [
             [
             'name' => 'Coffee & British',
-            'amount' => '2,700',
+            'amount' => '2700',
             ],
             [
             'name' => 'Mail',
-            'amount' => '1,800',
+            'amount' => '1800',
             ],
             [
             'name' => 'Tiger',
-            'amount' => '2,500',
+            'amount' => '2500',
             ],
             [
             'name' => 'Dog',
-            'amount' => '2,000',
+            'amount' => '2000',
             ],
             [
             'name' => 'ワンピースコラボ',
-            'amount' => '3,000',
+            'amount' => '3000',
             ],
             [
             'name' => 'Girl & Bag',
-            'amount' => '3,000',
+            'amount' => '3000',
             ],
             [
             'name' => 'Car',
-            'amount' => '3,000',
+            'amount' => '3000',
             ],
             [
             'name' => 'Tiwawa',
-            'amount' => '3,600',
+            'amount' => '3600',
             ],
             [
             'name' => 'Robot',
-            'amount' => '3,800',
+            'amount' => '3800',
             ],
             [
             'name' => 'Pinapple & Bag',
-            'amount' => '3,500',
+            'amount' => '3500',
             ],
             [
             'name' => 'Gal & Phone',
-            'amount' => '3,800',
+            'amount' => '3800',
             ],
             [
             'name' => 'Cat & Ebifly',
-            'amount' => '3,300',
+            'amount' => '3300',
             ],
             [
             'name' => 'Chameleon',
-            'amount' => '4,000',
+            'amount' => '4000',
             ],
             [
             'name' => 'Dog Inspiration',
-            'amount' => '3,000',
+            'amount' => '3000',
             ],
             [
             'name' => 'Flog',
-            'amount' => '4,000',
+            'amount' => '4000',
             ],
             [
             'name' => 'lm chan',
-            'amount' => '5,000',
+            'amount' => '5000',
             ],
             [
             'name' => 'sushi',
-            'amount' => '4,200',
+            'amount' => '4200',
             ],
             [
             'name' => 'Cow',
-            'amount' => '2,800',
+            'amount' => '2800',
             ],
             [
             'name' => 'British Man',
-            'amount' => '4,600',
+            'amount' => '4600',
             ],
             [
             'name' => 'lm chan ribon',
-            'amount' => '5,200',
+            'amount' => '5200',
             ],
             [
             'name' => 'Guitar & Tab',
-            'amount' => '3,600',
+            'amount' => '3600',
             ],
             [
             'name' => 'Gomes',
-            'amount' => '4,400',
+            'amount' => '4400',
             ],
             [
             'name' => 'Coffee',
-            'amount' => '2,200',
+            'amount' => '2200',
             ],
             [
             'name' => 'Viollin & Tab',
-            'amount' => '3,500',
+            'amount' => '3500',
             ],
             [
             'name' => 'Trump',
-            'amount' => '3,000',
+            'amount' => '3000',
             ],
             [
             'name' => 'Hihi',
-            'amount' => '3,000',
+            'amount' => '3000',
             ],
             [
             'name' => 'Flower & Bird',
-            'amount' => '2,500',
+            'amount' => '2500',
             ],
             [
             'name' => 'Gomes excelent',
-            'amount' => '3,800',
+            'amount' => '3800',
             ],
             [
             'name' => 'Yot',
-            'amount' => '3,200',
+            'amount' => '3200',
             ],
             [
             'name' => 'Helloween',
-            'amount' => '4,400',
+            'amount' => '4400',
             ],
             [
             'name' => 'Trumps',
-            'amount' => '3,000',
+            'amount' => '3000',
             ],
             [
             'name' => 'Ribbon',
-            'amount' => '4,000',
+            'amount' => '4000',
             ],
             [
             'name' => 'Border',
-            'amount' => '5,000',
+            'amount' => '5000',
             ],
             [
             'name' => 'Clothe & Shoe',
-            'amount' => '4,000',
+            'amount' => '4000',
             ],
             [
             'name' => 'Doll Guitar',
-            'amount' => '4,800',
+            'amount' => '4800',
             ],
         ];
         foreach($item_seeds as $item) {

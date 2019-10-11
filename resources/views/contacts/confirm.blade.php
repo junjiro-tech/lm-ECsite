@@ -18,7 +18,7 @@
           {{ $inputs3['body'] }}
           <input name="body" type="hidden" value="{{ $inputs3['body']}}">
           
-          <button type="submit" name="action" value="post" class="btn btn-primary">入力内容修正</button>
-          <button type="submit" name="action" value="back" class="btn btn-default">この内容で問い合わせる</button>
+          <button type="submit" name="action" value="back" class="btn btn-primary">入力内容修正</button>
+          <button type="submit" name="action" value="post" class="btn btn-default">この内容で問い合わせる</button>
       </form>
 @endsection

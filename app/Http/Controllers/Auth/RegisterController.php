@@ -24,19 +24,19 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
+     * Where to redirect users after registration. 訳)登録後にユーザーをリダイレクトする場所
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      *///__construct()はインスタンスの生成時に必ず実行される関数、つまりnewを使った時に必ず実行される。インスタンスの初期設定
-    public function __construct() //またインスタンス生成時のみに、それ以降は実行されないため製品製造時などその物が変わらない物に使う
-    {                             //コンストラクタは製造工程で行うべきことが書かれていると考えるとわかりやすい。
+    public function __construct()   //またインスタンス生成時のみに、それ以降は実行されないため製品製造時などその物が変わらない物に使う
+    {                               //コンストラクタは製造工程で行うべきことが書かれていると考えるとわかりやすい。
         $this->middleware('guest'); //例)ログインしていないと実行出来ないように制限をかけたい場合(認証チェック)などでミドルウェアの機能を利用します。
     }
 
@@ -50,7 +50,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'reading' => ['required', 'string', 'max:255'],
+            'kname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'gender' => 'required',
@@ -84,5 +84,11 @@ class RegisterController extends Controller
             'city' => $data['city'],
             'subsequent_address' => $data['subsequent_address']
         ]);
+    }
+    
+    protected function confirm(array $data)
+    {
+        $inputs2 = $data->all();
+        return view('auth.register_confirm', ['inputs2' => $inpust2]);
     }
 }

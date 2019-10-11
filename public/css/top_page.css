@@ -1,7 +1,10 @@
 @charset 'UTF-8';
 
+div.flex-container {
+  display: flex;
+}
+
 .flex-container {
-    width: 950px;
     margin: 50px auto 0px auto;
     display: flex;
     flex-wrap: wrap;

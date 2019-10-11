@@ -1,13 +1,15 @@
 @extends('layouts.layout')
 
+@section('title', '会員登録入力')
+
 @section('content')
-            <form name="form2" action="{{ route('register') }}" method="post">
+            <form name="form2" method="post" action="{{ route('register_confirm') }}" >
                 @csrf
                 
-                <div id="entry" class="wrap">
+                <div id="register" class="wrap2">
                     <section class="main">
                         <h1 class="pageTitle">会員情報登録</h1>
-                        <p>以下のフォームに必要事項をご入力ください</p>
+                        <p>以下のフォームの項目を入力し、よろしければ「確認画面に進む」ボタンをクリックしてください</p>
                         
                         <table class="formTable">
                             <tbody>
@@ -15,9 +17,10 @@
                                     <th>
                                         お名前
                                        <span class="required">必須</span>
-                                    </th>
-                                    <td>
-                                        <input type="text" name="name" size="15" maxlength="20">
+                                    </th>             <!-- nameはformに渡してあげる名前 -->
+                                    <td>              <!-- value 属性には、確認画面から戻ってきた場合に入力した値がクリアされないよう old() 関数を使って直前の入力値をセットするようにしている -->
+                                        <p id="name-error" class="errorMessage"></p>
+                                        <input type="text" name="name" size="15" maxlength="20" value="{{ old('name') }}">
                                         @if($errors->has('name'))
                                            <p class="text-danger">{{ $errors->first('name') }}</p>
                                         @endif
@@ -30,7 +33,8 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="kname" size="15" maxlength="20">
+                                        <p id="kname-error" class="errorMessage"></p>
+                                        <input type="text" name="kname" size="15" maxlength="20" value="{{ old('name') }}">
                                         @if($errors->has('kname'))
                                            <p class="text-danger">{{ $errors->first('kname') }}</p>
                                         @endif
@@ -43,7 +47,8 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="email" size="20" maxlength="255" style="ime-mode:disabled;"> <!-- ime-mode:disabled;=英数字入力モードで固定 -->
+                                        <p id="email-error" class="errorMessage"></p>
+                                        <input type="text" name="email" size="20" maxlength="255" style="ime-mode:disabled;" value="{{ old('email') }}"> <!-- ime-mode:disabled;=英数字入力モードで固定 -->
                                         @if($errors->has('email'))
                                            <p class="text-danger">{{ $errors->first('email') }}</p>
                                         @endif
@@ -56,7 +61,8 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="email2" size="20" maxlength="255" style="ime-mode:disabled;">
+                                        <p id="email2-error" class="errorMessage"></p>
+                                        <input type="text" name="email2" size="20" maxlength="255" style="ime-mode:disabled;" value="{{ old('email') }}">
                                         @if($errors->has('email2'))
                                            <p class="text-danger">{{ $errors->first('email2') }}</p>
                                         @endif
@@ -69,7 +75,8 @@
                                         <input type="hidden" name="password1">  <!-- 送信したいデータがブラウザに表示されない -->
                                     </th>
                                     <td>
-                                        <input type="password" name="password1" size="10" maxlength="16" style="ime-mode:disabled;">
+                                        <p id="password1-error" class="errorMessage"></p>
+                                        <input type="password" name="password1" size="10" maxlength="16" style="ime-mode:disabled;" value="{{ old('password1') }}">
                                         @if($errors->has('password1'))
                                            <p class="text-danger">{{ $errors->first('password1') }}</p>
                                         @endif
@@ -82,7 +89,7 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="password" name="password2" size="10" maxlength="16" style="ime-mode:disabled;">
+                                        <input type="password" name="password2" size="10" maxlength="16" style="ime-mode:disabled;" value="{{ old('password2') }}">
                                         @if($errors->has('password2'))
                                            <p class="text-danger">{{ $errors->first('password2') }}</p>
                                         @endif
@@ -270,8 +277,8 @@
                                 <label for="agree">上記会員規約、個人情報の取り扱いについて同意する</label>
                             </div>
                         </div>
-                        <button type="button">この内容で会員登録する</button> 
                     </section>
                 </div>
+                　　<button type="button">確認画面に進む</button>
             </form>
 @endsection

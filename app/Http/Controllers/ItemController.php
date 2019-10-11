@@ -15,16 +15,17 @@ class ItemController extends Controller
         // SQLのlike句でitemsテーブルを検索する
             $items = Item::where('name', 'like', '%'.$request->get('keyword').'%')->paginate(20);
         } else {
-            $items = Item::paginate(20);  //Item::pagenate(20);でitemsテーブルに保存されている商品情報を20個ずつ取り出します。
+            $items = Item::paginate(20);  //Item::pagenate(20);でitemsテーブルに保存されている商品情報を20個ずつ取り出す
         }
         
         return view('item/product_list', ['items' => $items]);  
-        //「'item/product_list'」のビューを表示する、ビューに「['items' => $items]」というデータを渡す、という意味となります。
-    }
+        //「'item/product_list'」のビューを表示する、ビューに「['items' => $items]」というデータを渡す、という意味となる
+       }
+      
     
     
-        //show()はItemモデルのオブジェクトを受け取るようにしています
-    public function show() {
+        //show()はItemモデルのオブジェクトを受け取るようにしている
+    public function show(Item $item) {
         return view('item/show', ['item' => $item]);
     }
 }

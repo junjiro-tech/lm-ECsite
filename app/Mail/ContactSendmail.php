@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ContactSendmail extends Mailabled
+class ContactSendmail extends Mailable
 {
     use Queueable, SerializesModels;
     
@@ -22,9 +22,9 @@ class ContactSendmail extends Mailabled
      */
     public function __construct($inputs3)
     {
-        $this->name = $inputs3('name');
-        $this->email = $inputs3('email');
-        $this->body = $inputs3('body');
+        $this->name = $inputs3['name'];
+        $this->email = $inputs3['email'];
+        $this->body = $inputs3['body'];
     }
 
     /**
@@ -35,7 +35,7 @@ class ContactSendmail extends Mailabled
     public function build()
     {
         return $this
-        ->form3('tksmjf@gmail.com')
+        ->from('tksmjf@gmail.com')
         ->subject('自動送信メール')    //subject=件名
         ->view('contacts.mail')
         ->with([

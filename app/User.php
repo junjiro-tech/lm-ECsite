@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable;  //Notifiable 訳)通知可能//
 
     /**
      * The attributes that are mass assignable.

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;  //Controller.phpの中のuse Illuminate\Foundation\Validation\ValidatesRequests;を呼び出している
+use App\Mail\ContactSendmail;
 use App\Contact_us;
 use App\Contact;
 
@@ -71,7 +72,7 @@ class ContactController extends Controller
         
         
         //フォームから受け取ったactionの値を取得
-        $action = $request->input('action');
+        $action = $request->get('action', 'back');
         
         //フォームから受け取ったactionを除いたinputの値を取得
         $inputs3 = $request->except('action');
@@ -79,24 +80,25 @@ class ContactController extends Controller
         //実行したい分岐：各ボタンに同name="submit"をつけてvalue="back", "send"で分岐させたい
         \Debugbar::info($action);
         // 確認画面でこの内容で問い合わせボタンが押された場合
-        if($request->get('action') === 'psot') {
+        if($action === 'post') {
             //入力されたメールアドレスにメールを送信
             \Mail::to($inputs3["email"])->send(new ContactSendmail($inputs3));
             //再送信を防ぐためにトークンを再発行」
             $request->session()->regenerateToken();  //session()はコンピュータのサーバー側に一時的にデータを保存する仕組みのこと
                                                      //Web上でのログイン情報や最終アクセスなど、ユーザーに直接紐づくような大切なデータを
-            // データベースに登録                    //セッションに格納して使ったりします。regenerateToken()で２重送信防止
-            $this->contacts->create($request->all());
+                                                     //セッションに格納して使ったりします。regenerateToken()で２重送信防止
             return view('contacts.complete');        
             
         //確認画面で入力内容修正が押された場合
-        } elseif($request->get('action') === 'back') {
+        } else {
             //もし$actionとsubmitボタンで送られた物が同じじゃないか、== 同じ型でない場合true
             return redirect()
                   ->route('contact') //入力画面に戻る
                   ->withInput($inputs3); //前ページのinput($inputs3)を持って
         }
     }
+    
+    //logをターミナルに表示できるようにする
 
 
 
