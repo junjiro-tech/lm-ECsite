@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -41,7 +42,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Get a validator for an incoming registration request. 訳)着信登録リクエストのバリデータを取得します
      *
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
@@ -86,9 +87,43 @@ class RegisterController extends Controller
         ]);
     }
     
-    protected function confirm(array $data)
+    
+    public function confirm(Request $request)
     {
-        $inputs2 = $data->all();
-        return view('auth.register_confirm', ['inputs2' => $inpust2]);
+        $inputs2 = $request->all();
+        return view('auth/register_confirm', ['inputs2' => $inputs2]);
+    }
+    
+    public function complete(Request $request)
+    {
+        \Debugbar::info("test");
+        $this->validate($request,[
+            'name' => 'required',
+            'kname' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'gender' => 'required',
+            'birthday' => 'required',
+            'phone' => 'required',
+            'postal_code' => 'required',
+            'prefectures_name' => 'required',
+            'city' => 'required',
+            'subsequent_address' => 'required'
+        ]);
+        
+        $action = $request->get('action', 'back');
+        $inputs2 = $request->except('action');
+        
+        \Debugbar::info($inputs2);
+        if($action === 'post') {
+            \Mail::to($inputs2["email"])->send(new RegisterSendmail($inputs2));
+            $request->session()->regenerateToken();
+            
+            return view('auth/register_complete');
+        } else {
+            return redirect()
+                   ->route('register')
+                   ->withInput($inputs2);
+        }
     }
 }

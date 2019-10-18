@@ -3,69 +3,72 @@
 @section('title', '会員登録確認')
 
 @section('content')
-      <form method="post" action="{{ route('register_complete') }}">
-          csrf
+<form method="post" action="{{ route('contact_confirm') }}">
+    @csrf
+<input type="submit" name="action" value="back">
+              入力内容修正
+</form>
+      <form method="post" action="{{ action('Auth\RegisterController@complete') }}">
+          @csrf
           
           <label>お名前</label>
           {{ $inputs2['name'] }}
           <input name="name" type="hidden" value="{{ $inputs2['name']}}">
           
-          <label>お名前</label>
+          <label>お名前(フリガナ)</label>
           {{ $inputs2['kname'] }}
-          <input name="kname" type="hidden" value="{{ $inputs2(['kname']}}">
+          <input name="kname" type="hidden" value="{{ $inputs2['kname']}}">
           
-          <label>メール</label>
+          <label>メールアドレス</label>
           {{ $inputs2['email'] }}
           <input name="email" type="hidden" value="{{ $inputs2['email']}}">
           
           <label>パスワード</label>
-          {{ $inputs2['oldpasswd'] }}
-          <input name="password" type="hidden" value="{{ $inputs2['password']}}">
+          {{ $inputs2['password1'] }}
+          <input name="password1" type="hidden" value="{{ $inputs2['password1']}}">
           
           <label>性別</label>
           {{ $inputs2['gender'] }}
           <input name="gender" type="hidden" value="{{ $inputs2['gender']}}">
           
           <label>生年月日</label>
-          {{ $inputs2['birthday1'] }}
+          {{ $inputs2['birthday1'] }}年
           <input name="birthday1" type="hidden" value="{{ $inputs2['birthday1']}}">
-          {{ $inputs2['birthday2'] }}
+          {{ $inputs2['birthday2'] }}月
           <input name="birthday2" type="hidden" value="{{ $inputs2['birthday2']}}">
-          {{ $inputs2['birthday3'] }}
+          {{ $inputs2['birthday3'] }}日
           <input name="birthday3" type="hidden" value="{{ $inputs2['birthday3']}}">
           
           <label>電話番号</label>
-          {{ $inputs2['phone_num1'] }}
-          <input name="phone_num1" type="hidden" value="{{ $inputs2['phone_num1']}}">
-          {{ $inputs2['phone_num2'] }}
-          <input name="phone_num2" type="hidden" value="{{ $inputs2['phone_num2']}}">
-          {{ $inputs2['phone_num3'] }}
-          <input name="phone_num3" type="hidden" value="{{ $inputs2['phone_num3']}}">
+          {{ $inputs2['phone1'] }}-
+          <input name="phone1" type="hidden" value="{{ $inputs2['phone1']}}">
+          {{ $inputs2['phone2'] }}-
+          <input name="phone2" type="hidden" value="{{ $inputs2['phone2']}}">
+          {{ $inputs2['phone3'] }}
+          <input name="phone3" type="hidden" value="{{ $inputs2['phone3']}}">
           
           <label>郵便番号</label>
-          {{ $inputs2['postal_code1'] }}
+          {{ $inputs2['postal_code1'] }}-
           <input name="postal_code1" type="hidden" value="{{ $inputs2['postal_code1']}}">
           {{ $inputs2['postal_code2'] }}
           <input name="postal_code2" type="hidden" value="{{ $inputs2['postal_code2']}}">
           
-          <label>都道府県</label>
+          <label>住所</label>
           {{ $inputs2['prefectures_name'] }}
           <input name="prefectures_name" type="hidden" value="{{ $inputs2['prefectures_name']}}">
           
-          <label>市区町村</label>
+          <label></label>
           {{ $inputs2['city'] }}
           <input name="city" type="hidden" value="{{ $inputs2['city']}}">
           
-          <label>それ以降の住所</label>
-          {{ $inputs2['Subsequent_address'] }}
-          <input name="Subsequent_address" type="hidden" value="{{ $inputs2['Subsequent_address']}}">
+          <label></label>
+          {{ $inputs2['subsequent_address'] }}
+          <input name="Subsequent_address" type="hidden" value="{{ $inputs2['subsequent_address']}}">
           
           
-          <button type="submit" name="action" value="back">
+          <input type="submit" name="action" value="back">
               入力内容修正
-          </button>
-          <button type="submit" name="action" value="submit">
+          <input type="submit" name="action" value="submit">
               この内容で問い合わせる
-          </button>
       </form>
 @endsection

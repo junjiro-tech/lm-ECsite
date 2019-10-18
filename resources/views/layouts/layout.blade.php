@@ -29,7 +29,7 @@
                </a>
             </h1>
             <div id="snsicon">
-                <a href="#" target="_blank">
+                <a href="/cartitem" target="_blank">
                     <i class="fas fa-shopping-cart fa-1x fa-fw fa-border fa-pull-right"></i>
                 </a>
                 <a href="https://www.instagram.com/lmselect5484" target="_blank">

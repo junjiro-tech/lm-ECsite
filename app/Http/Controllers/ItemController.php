@@ -18,8 +18,8 @@ class ItemController extends Controller
             $items = Item::paginate(20);  //Item::pagenate(20);でitemsテーブルに保存されている商品情報を20個ずつ取り出す
         }
         
-        return view('item/product_list', ['items' => $items]);  
-        //「'item/product_list'」のビューを表示する、ビューに「['items' => $items]」というデータを渡す、という意味となる
+        return view('item/index', ['items' => $items]);  
+        //「'item/index'」のビューを表示する、ビューに「['items' => $items]」というデータを渡す、という意味となる
        }
       
     

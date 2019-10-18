@@ -21,10 +21,10 @@
                     {{ $item->amount }}円
                 </div>
                 @auth   <!-- @auth〜@endauthで囲った部分は、ユーザーがログインしている時だけ表示されます -->
-                    <form method="post" action="cartitem" class="form-inline m-1">
-                        @csrf　　　　<!-- postメソッドは@csrf必須　-->
+                    <form method="post" action="/cartitem/add" class="form-inline m-1">
+                        @csrf     <!-- postメソッドは@csrf必須　-->
                         <select name="quantity" class="form-control col-md-2 mr-1">
-                            <option selected>1</opiiton>
+                            <option selected>1</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>

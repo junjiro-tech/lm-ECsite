@@ -78,7 +78,7 @@ class ContactController extends Controller
         $inputs3 = $request->except('action');
         
         //実行したい分岐：各ボタンに同name="submit"をつけてvalue="back", "send"で分岐させたい
-        \Debugbar::info($action);
+        \Debugbar::info($inputs3);
         // 確認画面でこの内容で問い合わせボタンが押された場合
         if($action === 'post') {
             //入力されたメールアドレスにメールを送信

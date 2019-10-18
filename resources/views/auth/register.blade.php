@@ -3,7 +3,7 @@
 @section('title', '会員登録入力')
 
 @section('content')
-            <form name="form2" method="post" action="{{ route('register_confirm') }}" >
+            <form name="form2" method="post" action="{{ route('register_confirm') }}">
                 @csrf
                 
                 <div id="register" class="wrap2">
@@ -24,7 +24,7 @@
                                         @if($errors->has('name'))
                                            <p class="text-danger">{{ $errors->first('name') }}</p>
                                         @endif
-                                        <span class="notes">例) 山田太郎</span>
+                                        <span class="notes">例) 山田　太郎</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -34,11 +34,11 @@
                                     </th>
                                     <td>
                                         <p id="kname-error" class="errorMessage"></p>
-                                        <input type="text" name="kname" size="15" maxlength="20" value="{{ old('name') }}">
+                                        <input type="text" name="kname" size="15" maxlength="20" value="{{ old('kname') }}">
                                         @if($errors->has('kname'))
                                            <p class="text-danger">{{ $errors->first('kname') }}</p>
                                         @endif
-                                        <span class="notes">例) ヤマダタロウ</span>
+                                        <span class="notes">例) ヤマダ　タロウ</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -101,9 +101,9 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="radio" name="gender" value="male">
+                                        <input type="radio" name="gender" value="男">
                                         <label for="sexMale">男</label>
-                                        <input type="radio" name="gender" value="female">
+                                        <input type="radio" name="gender" value="女">
                                         <label for="sexfeMale">女</label>
                                         @if($errors->has('gender'))
                                            <p class="text-danger">{{ $errors->first('gender') }}</p>
@@ -116,17 +116,17 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="birthday1" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        <input type="text" name="birthday1" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputs">
                                         年
                                         @if($errors->has('birthday1'))
                                            <p class="text-danger">{{ $errors->first('birthday1') }}</p>
                                         @endif
-                                        <input type="text" name="birthday2" size="2" maxlength="2" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        <input type="text" name="birthday2" size="2" maxlength="2" pattern="[0-9]*" style="ime-mode:disabled;" class="inputs">
                                         月
                                         @if($errors->has('birthday2'))
                                            <p class="text-danger">{{ $errors->first('birthday2') }}</p>
                                         @endif
-                                        <input type="text" name="birthday3" size="2" maxlength="2" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        <input type="text" name="birthday3" size="2" maxlength="2" pattern="[0-9]*" style="ime-mode:disabled;" class="inputs">
                                         日
                                         @if($errors->has('birthday3'))
                                            <p class="text-danger">{{ $errors->first('birthday3') }}</p>
@@ -140,17 +140,17 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="phone1" size="5" maxlength="5" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        <input type="text" name="phone1" size="5" maxlength="5" pattern="[0-9]*" style="ime-mode:disabled;" class="inputs">
                                         -
                                         @if($errors->has('phone1'))
                                            <p class="text-danger">{{ $errors->first('phone1') }}</p>
                                         @endif
-                                        <input type="text" name="phone2" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        <input type="text" name="phone2" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputs">
                                         -
                                         @if($errors->has('phone2'))
                                            <p class="text-danger">{{ $errors->first('phone2') }}</p>
                                         @endif
-                                        <input type="text" name="phone3" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS">
+                                        <input type="text" name="phone3" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputs">
                                         @if($errors->has('phone3'))
                                            <p class="text-danger">{{ $errors->first('phone3') }}</p>
                                         @endif
@@ -164,12 +164,12 @@
                                         <span class="required">必須</span>
                                     </th>
                                     <td>
-                                        <input type="text" name="postal_code1" size="3" maxlength="3" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS" onkeyup="findZipcole('h');">
+                                        <input type="text" name="postal_code1" size="3" maxlength="3" pattern="[0-9]*" style="ime-mode:disabled;" class="inputs">
                                         -
                                         @if($errors->has('postal_code1'))
                                            <p class="text-danger">{{ $errors->first('postal_code1') }}</p>
                                         @endif
-                                        <input type="text" name="postal_code2" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputS" onkeyup="findZipcole('h');">
+                                        <input type="text" name="postal_code2" size="4" maxlength="4" pattern="[0-9]*" style="ime-mode:disabled;" class="inputs">
                                         @if($errors->has('postal_code2'))
                                            <p class="text-danger">{{ $errors->first('postal_code2') }}</p>
                                         @endif
@@ -184,55 +184,53 @@
                                     <td>
                                         <select name="prefectures_name" id="area">
                                             <option value>選択してください</option>
-                                            <option value="1">北海道</option>
-                                            <option value="2">青森県</option>
-                                            <option value="3">岩手県</option>
-                                            <option value="4">宮城県</option>
-                                            <option value="5">秋田県</option>
-                                            <option value="6">山形県</option>
-                                            <option value="7">福島県</option>
-                                            <option value="8">茨木県</option>
-                                            <option value="9">栃木県</option>
-                                            <option value="10">群馬県</option>
-                                            <option value="11">埼玉県</option>
-                                            <option value="12">千葉県</option>
-                                            <option value="13">東京都(23区内)</option>
-                                            <option value="14">東京都(23区外)</option>
-                                            <option value="15">神奈川県</option>
-                                            <option value="16">新潟県</option>
-                                            <option value="17">富山県</option>
-                                            <option value="18">石川県</option>
-                                            <option value="19">福井県</option>
-                                            <option value="20">山梨県</option>
-                                            <option value="21">長野県</option>
-                                            <option value="22">岐阜県</option>
-                                            <option value="23">静岡県</option>
-                                            <option value="24">愛知県</option>
-                                            <option value="25">三重県</option>
-                                            <option value="26">滋賀県</option>
-                                            <option value="27">京都府</option>
-                                            <option value="28">大阪府</option>
-                                            <option value="29">兵庫県</option>
-                                            <option value="30">奈良県</option>
-                                            <option value="31">和歌山県</option>
-                                            <option value="32">鳥取県</option>
-                                            <option value="33">島根県</option>
-                                            <option value="34">岡山県</option>
-                                            <option value="35">広島県</option>
-                                            <option value="36">山口県</option>
-                                            <option value="37">徳島県</option>
-                                            <option value="38">香川県</option>
-                                            <option value="39">愛媛県</option>
-                                            <option value="40">高知県</option>
-                                            <option value="41">福岡県</option>
-                                            <option value="42">佐賀県</option>
-                                            <option value="43">長崎県</option>
-                                            <option value="44">熊本県</option>
-                                            <option value="45">大分県</option>
-                                            <option value="46">宮崎県</option>
-                                            <option value="47">鹿児島県</option>
-                                            <option value="48">沖縄県</option>
-                                            <option value="49">離島部</option>
+                                            <option value="北海道">北海道</option>
+                                            <option value="青森県">青森県</option>
+                                            <option value="岩手県">岩手県</option>
+                                            <option value="宮城県">宮城県</option>
+                                            <option value="秋田県">秋田県</option>
+                                            <option value="山形県">山形県</option>
+                                            <option value="福島県">福島県</option>
+                                            <option value="茨城県">茨木県</option>
+                                            <option value="栃木県">栃木県</option>
+                                            <option value="群馬県">群馬県</option>
+                                            <option value="埼玉県">埼玉県</option>
+                                            <option value="千葉県">千葉県</option>
+                                            <option value="東京都">東京都</option>
+                                            <option value="神奈川県">神奈川県</option>
+                                            <option value="日が他県">新潟県</option>
+                                            <option value="富山県">富山県</option>
+                                            <option value="石川県">石川県</option>
+                                            <option value="福井県">福井県</option>
+                                            <option value="山梨県">山梨県</option>
+                                            <option value="長野県">長野県</option>
+                                            <option value="岐阜県">岐阜県</option>
+                                            <option value="静岡県">静岡県</option>
+                                            <option value="愛知県">愛知県</option>
+                                            <option value="三重県">三重県</option>
+                                            <option value="滋賀県">滋賀県</option>
+                                            <option value="京都府">京都府</option>
+                                            <option value="大阪府">大阪府</option>
+                                            <option value="兵庫県">兵庫県</option>
+                                            <option value="奈良県">奈良県</option>
+                                            <option value="和歌山県">和歌山県</option>
+                                            <option value="鳥取県">鳥取県</option>
+                                            <option value="島根県">島根県</option>
+                                            <option value="岡山県">岡山県</option>
+                                            <option value="広島県">広島県</option>
+                                            <option value="山口県">山口県</option>
+                                            <option value="徳島県">徳島県</option>
+                                            <option value="香川県">香川県</option>
+                                            <option value="愛媛県">愛媛県</option>
+                                            <option value="高知県">高知県</option>
+                                            <option value="福岡県">福岡県</option>
+                                            <option value="佐賀県">佐賀県</option>
+                                            <option value="長崎県">長崎県</option>
+                                            <option value="熊本県">熊本県</option>
+                                            <option value="大分県">大分県</option>
+                                            <option value="宮崎県">宮崎県</option>
+                                            <option value="鹿児島県">鹿児島県</option>
+                                            <option value="沖縄県">沖縄県</option>
                                         </select>
                                         @if($errors->has('prefectures_name'))
                                            <p class="text-danger">{{ $errors->first('prefectures_name') }}</p>
@@ -279,6 +277,6 @@
                         </div>
                     </section>
                 </div>
-                　　<button type="button">確認画面に進む</button>
+                　　<input type="submit" value="確認画面に進む">
             </form>
 @endsection
