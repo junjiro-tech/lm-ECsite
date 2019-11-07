@@ -2,10 +2,13 @@
 @extends('layouts.layout')
 
 @section('content')
-    <div id="wrapper">
-      <img id="mypic" src="image/top.png"  alt="トップページ写真" >
+<div id="wrapper">
+  <img id="mypic" src="image/top.png"  alt="トップページ写真" >
       
-      <div class="flex-container">
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-3.5 mb-2 mr-4 mb-5">
+            <div class="card">
         <div class="flex-item">
           <img src="image/link.png" alt="item_1">
         </div>
@@ -26,6 +29,9 @@
         </div>
         <div class="flex-item">
           <img src="image/link.png" alt="item_7">
+            </div>
         </div>
+      </div>
     </div>
+</div>
 @endsection

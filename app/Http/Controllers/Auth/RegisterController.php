@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegisterSendmail;
+use app\AnyClass\RegisterData;
+use app\Register;
+
 
 class RegisterController extends Controller
 {
@@ -47,83 +54,88 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'kname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'gender' => 'required',
-            'birthday' => ['required', 'integer',],
-            'phone_num' => ['required', 'integer'],
-            'postal_code' => 'required',
-            'prefectures_name' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'subsequent_address' => ['required', 'string', 'max:255']
-        ]);
-    }
+      public function validator(array $data)
+      {
+          return Validator::make($data, [
+             'name' => ['required', 'string', 'max:255'],
+             'kname' => ['required', 'string', 'max:255'],
+             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+             'password' => ['required', 'string', 'min:8', 'confirmed'],
+             'gender' => 'required',
+             'birthday1' => ['required', 'string',],
+             'birthday2' => ['required', 'string',],
+             'birthday3' => ['required', 'string',],
+             'tel' => ['required', 'string'],
+             'postal_code' => 'required',
+             'prefectures_name' => ['required', 'string', 'max:255'],
+             'city' => ['required', 'string', 'max:255'],
+             'subsequent_address' => ['required', 'string', 'max:255']
+         ]);
+     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
+    // /**
+    //  * Create a new user instance after a valid registration.
+    //  *
+    //  * @param  array  $data
+    //  * @return \App\User
+    //  */
+     public function create(array $data)  //登録ボタン押したときにcreateが自動で呼ばれる
+     {
+         return User::create([
+             'name' => $data['name'],
+             'reading' => $data['reading'],
+             'email' => $data['email'],
+             'password' => Hash::make($data['password']),
+             'password_confirmation' => Hash::make($data['password_confirmation']),
+             'gender' => $data['gender'],
+             'birthday1' => $data['birthday1'],
+             'birthday2' => $data['birthday2'],
+             'birthday3' => $data['birthday3'],
+             'tel' => $data['tel'],
+             'postal_code' => $data['postal_code'],
+             'prefectures_name' => $data['prefectures_name'],
+             'city' => $data['city'],
+             'subsequent_address' => $data['subsequent_address']
+         ]);
+         
+     }
+    
+    
+    
+    
+    public function confirm(RegisterRequest $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'reading' => $data['reading'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'gender' => $data['gender'],
-            'birthday' => $data['birthday'],
-            'phone_num' => $data['phone_num'],
-            'postal_code' => $data['postal_code'],
-            'prefectures_name' => $data['prefectures_name'],
-            'city' => $data['city'],
-            'subsequent_address' => $data['subsequent_address']
-        ]);
+        $register_data = $request->all();
+        return view('auth/register_confirm', ['register_data' => $register_data]);
     }
     
     
-    public function confirm(Request $request)
-    {
-        $inputs2 = $request->all();
-        return view('auth/register_confirm', ['inputs2' => $inputs2]);
-    }
+    
     
     public function complete(Request $request)
     {
+        $register_text = new User();
+        $register_data = $request->all();
+         
+        $register_text->fill($register_data);
+        $register_text->password = Hash::make($register_data['password']); //ハッシュ化してないとログインできない
+        $register_text->save(); //カラムの更新
+        \Debugbar::info($register_text);
+        
         \Debugbar::info("test");
-        $this->validate($request,[
-            'name' => 'required',
-            'kname' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'gender' => 'required',
-            'birthday' => 'required',
-            'phone' => 'required',
-            'postal_code' => 'required',
-            'prefectures_name' => 'required',
-            'city' => 'required',
-            'subsequent_address' => 'required'
-        ]);
-        
         $action = $request->get('action', 'back');
-        $inputs2 = $request->except('action');
+        $register_data = $request->except('action');
         
-        \Debugbar::info($inputs2);
+        \Debugbar::info($register_data);
         if($action === 'post') {
-            \Mail::to($inputs2["email"])->send(new RegisterSendmail($inputs2));
+            \Mail::to($register_data["email"])->send(new RegisterSendmail($register_data));
             $request->session()->regenerateToken();
             
             return view('auth/register_complete');
         } else {
             return redirect()
                    ->route('register')
-                   ->withInput($inputs2);
+                   ->withInput($register_data);
         }
     }
 }

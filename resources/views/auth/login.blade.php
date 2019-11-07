@@ -1,11 +1,11 @@
 @extends('layouts.layout')
 
 @section('content')
-    <div id="container">
+    <div class="container mt-5 pt-5">
         <div class="row justify-content-center"> <!--セルのセンター合わせ-->
             <div class="col-md-8"> <!--col=最大幅 col-*=auto col-sm=540px col-md=720px col-lg=960px col-xl=1140px    カラムは全部で12(md-8は8/12ということ)-->
                 <div class="card">　　　　　　　　　　　　　　　　
-                    <div class="card-header">{{ __('ログイン') }}<br><h3>会員の方は、登録時に入力されたメールアドレスとパスワードでログインしてください。</h3></div> <!-- __( $string ) の意味  _2つの __ 関数は、Lang::get の別名、PHPの言語機能では無く、国際化対応のために作成された関数で -->
+                    <div class="card-header"><h4>{{ __('ログイン') }}</h4><p>会員の方は、登録時に入力されたメールアドレスとパスワードでログインしてください。</p></div> <!-- __( $string ) の意味  _2つの __ 関数は、Lang::get の別名、PHPの言語機能では無く、国際化対応のために作成された関数で -->
                     
                         <div class="card-body">        <!-- {{ route('login') }}は定数 -->
                            <form method="post" action="{{ route('login') }}" name="login"> <!-- action属性=フォームで入力したdataの送信先URIを指定する、、 method属性=指定requiedはない-->
@@ -62,21 +62,20 @@
                                       <button type="submit" class="btn btn-primary">
                                           {{ __('ログイン') }}
                                       </button>
-                                      
-                                      
                               　　</div>
                               </div>
                               
-                            </form>
+                            
                         </div>
                         
                         <div class="card-footer">
-                            <h2>まだ会員登録されていない方</h2>
-                            <h3>初めてご利用の方は、こちらから会員登録すると便利にお買い物ができるようになります。</h3>
+                            <h4>まだ会員登録されていない方</h4>
+                            <p>初めてご利用の方は、こちらから会員登録すると便利にお買い物ができるようになります。</p>
                                 <button type="submit" class="register-btn">
                                    <a  class="global-nav" href="{{ route('register') }}">{{ _('会員登録画面に進む') }}</a>
                                 </btn>
                         </div>
+                            </form>
                     </div>
                 </div>
             </div>

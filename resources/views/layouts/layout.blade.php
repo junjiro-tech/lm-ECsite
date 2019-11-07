@@ -9,7 +9,8 @@
     <title>LM ECsite</title>
     <!-- Scripts -->
         <script src="{{ secure_asset('js/app.js') }}" defer></script>    <!-- Laravel標準で用意されているJavascriptを読み込み -->
-                                                                         <!-- asset('ファイルパス')はpublicディレクトリのパスを返す関数 -->
+                                                                         <!-- asset('ファイルパス')はpublicディレクトリのhttpパスを返す関数 -->
+                                                                         <!-- secure_assetはpublic下httpsパスを返す関数-->
     <!----------------------------------------------------------------------------------------------->
     <link rel="stylesheet" href="https://87c1ac065f9145e183015d2ea2786408.vfs.cloud9.us-east-2.amazonaws.com/css/layout.css">
     <!----------------------------------------------------------------------------------------------->
@@ -17,11 +18,13 @@
     <!----------------------------------------------------------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!----------------------------------------------------------------------------------------------->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   
   <body>
     <hr class="top-line">
-    <div id="wrapper">
+    <div class="container">
         <header>
             <h1>
                <a class="logo-pic" href="{{ route('top_page') }}">
@@ -29,14 +32,11 @@
                </a>
             </h1>
             <div id="snsicon">
-                <a href="/cartitem" target="_blank">
+                <a href="{{ route('cartitem_view') }}">
                     <i class="fas fa-shopping-cart fa-1x fa-fw fa-border fa-pull-right"></i>
                 </a>
                 <a href="https://www.instagram.com/lmselect5484" target="_blank">
                     <i class="fab fa-instagram fa-1x fa-fw fa-border fa-pull-right"></i>
-                </a>
-                <a href="#" target="_blank">
-                    <i class="fab fa-facebook-f fa-1x fa-fw fa-border fa-pull-right"></i>
                 </a>
             </div>
             <nav>
@@ -81,16 +81,18 @@
   
   
   <!-- footer開始 -->
-    <div id="wrapper">
-      <footer>
-        <ul class="under-nav">
-          <li><a class="global-nav" href="{{ route('top_page') }}">{{ _('ホーム') }}</a></li>
-          <li><a class="global-nav" href="{{ route('hyouki')}}">{{ _('特定商取引法に基づく表記') }}</a></li>
-          <li><a class="global-nav" href="{{ route('privacy') }}">{{ _('プライバシーポリシー') }}</a></li>
-          <li><a class="global-nav" href="{{ route('contact') }}">{{ _('お問い合わせ') }}</a></li>
-        </ul>
-          <small>(C) 2020 LM by polyvalent.CoLtd</small>
-      </footer>
+    <div class="container">
+        <div class="row justify-content-center">
+            <footer>
+                <ul class="under-nav ">
+                   <li><a class="global-nav" href="{{ route('top_page') }}">{{ _('ホーム') }}</a></li>
+                   <li><a class="global-nav" href="{{ route('hyouki')}}">{{ _('特定商取引法に基づく表記') }}</a></li>
+                   <li><a class="global-nav" href="{{ route('privacy') }}">{{ _('プライバシーポリシー') }}</a></li>
+                   <li><a class="global-nav" href="{{ route('contact') }}">{{ _('お問い合わせ') }}</a></li>
+                </ul>
+                   <small>(C) 2020 LM by polyvalent.CoLtd</small>
+            </footer>
+        </div>
     </div>
     <hr class="bottom-line">
   </body>

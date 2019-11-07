@@ -14,149 +14,184 @@ class ItemsTableSeeder extends Seeder
         DB::table('items')->delete();
         $item_seeds = [
             [
-            'name' => 'Coffee & British',
+            'item_name' => 'Coffee & British',
+            'item_pic' => '',
             'amount' => '2700',
             ],
             [
-            'name' => 'Mail',
+            'item_name' => 'Mail',
+            'item_pic' => '',
             'amount' => '1800',
             ],
             [
-            'name' => 'Tiger',
+            'item_name' => 'Tiger',
+            'item_pic' => '',
             'amount' => '2500',
             ],
             [
-            'name' => 'Dog',
+            'item_name' => 'Dog',
+            'item_pic' => '',
             'amount' => '2000',
             ],
             [
-            'name' => 'ワンピースコラボ',
+            'item_name' => 'ワンピースコラボ',
+            'item_pic' => '',
             'amount' => '3000',
             ],
             [
-            'name' => 'Girl & Bag',
+            'item_name' => 'Girl & Bag',
+            'item_pic' => '',
             'amount' => '3000',
             ],
             [
-            'name' => 'Car',
+            'item_name' => 'Car',
+            'item_pic' => '',
             'amount' => '3000',
             ],
             [
-            'name' => 'Tiwawa',
+            'item_name' => 'Tiwawa',
+            'item_pic' => '',
             'amount' => '3600',
             ],
             [
-            'name' => 'Robot',
+            'item_name' => 'Robot',
+            'item_pic' => '',
             'amount' => '3800',
             ],
             [
-            'name' => 'Pinapple & Bag',
+            'item_name' => 'Pinapple & Bag',
+            'item_pic' => '',
             'amount' => '3500',
             ],
             [
-            'name' => 'Gal & Phone',
+            'item_name' => 'Gal & Phone',
+            'item_pic' => '',
             'amount' => '3800',
             ],
             [
-            'name' => 'Cat & Ebifly',
+            'item_name' => 'Cat & Ebifly',
+            'item_pic' => '',
             'amount' => '3300',
             ],
             [
-            'name' => 'Chameleon',
+            'item_name' => 'Chameleon',
+            'item_pic' => '',
             'amount' => '4000',
             ],
             [
-            'name' => 'Dog Inspiration',
+            'item_name' => 'Dog Inspiration',
+            'item_pic' => '',
             'amount' => '3000',
             ],
             [
-            'name' => 'Flog',
+            'item_name' => 'Flog',
+            'item_pic' => '',
             'amount' => '4000',
             ],
             [
-            'name' => 'lm chan',
+            'item_name' => 'lm chan',
+            'item_pic' => '',
             'amount' => '5000',
             ],
             [
-            'name' => 'sushi',
+            'item_name' => 'sushi',
+            'item_pic' => '',
             'amount' => '4200',
             ],
             [
-            'name' => 'Cow',
+            'item_name' => 'Cow',
+            'item_pic' => '',
             'amount' => '2800',
             ],
             [
-            'name' => 'British Man',
+            'item_name' => 'British Man',
+            'item_pic' => '',
             'amount' => '4600',
             ],
             [
-            'name' => 'lm chan ribon',
+            'item_name' => 'lm chan ribon',
+            'item_pic' => '',
             'amount' => '5200',
             ],
             [
-            'name' => 'Guitar & Tab',
+            'item_name' => 'Guitar & Tab',
+            'item_pic' => '',
             'amount' => '3600',
             ],
             [
-            'name' => 'Gomes',
+            'item_name' => 'Gomes',
+            'item_pic' => '',
             'amount' => '4400',
             ],
             [
-            'name' => 'Coffee',
+            'item_name' => 'Coffee',
+            'item_pic' => '',
             'amount' => '2200',
             ],
             [
-            'name' => 'Viollin & Tab',
+            'item_name' => 'Viollin & Tab',
+            'item_pic' => '',
             'amount' => '3500',
             ],
             [
-            'name' => 'Trump',
+            'item_name' => 'Trump',
+            'item_pic' => '',
             'amount' => '3000',
             ],
             [
-            'name' => 'Hihi',
+            'item_name' => 'Hihi',
+            'item_pic' => '',
             'amount' => '3000',
             ],
             [
-            'name' => 'Flower & Bird',
+            'item_name' => 'Flower & Bird',
+            'item_pic' => '',
             'amount' => '2500',
             ],
             [
-            'name' => 'Gomes excelent',
+            'item_name' => 'Gomes excelent',
+            'item_pic' => '',
             'amount' => '3800',
             ],
             [
-            'name' => 'Yot',
+            'item_name' => 'Yot',
+            'item_pic' => '',
             'amount' => '3200',
             ],
             [
-            'name' => 'Helloween',
+            'item_name' => 'Helloween',
+            'item_pic' => '',
             'amount' => '4400',
             ],
             [
-            'name' => 'Trumps',
+            'item_name' => 'Trumps',
+            'item_pic' => '',
             'amount' => '3000',
             ],
             [
-            'name' => 'Ribbon',
+            'item_name' => 'Ribbon',
+            'item_pic' => '',
             'amount' => '4000',
             ],
             [
-            'name' => 'Border',
+            'item_name' => 'Border',
+            'item_pic' => '',
             'amount' => '5000',
             ],
             [
-            'name' => 'Clothe & Shoe',
+            'item_name' => 'Clothe & Shoe',
+            'item_pic' => '',
             'amount' => '4000',
             ],
             [
-            'name' => 'Doll Guitar',
+            'item_name' => 'Doll Guitar',
+            'item_pic' => '',
             'amount' => '4800',
             ],
         ];
         foreach($item_seeds as $item) {
             DB::table('items')->insert($item); //ここまでできたら$php artisan db:seed --class=ItemsTableSeeder、
-                                               //これでローカルのデータベースに商品のテストデータが追加されました。
+                                               //これでローカルのデータベースに商品のテストデータが追加される
         }
     }
 }

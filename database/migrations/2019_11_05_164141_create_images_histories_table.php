@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRegisterTable extends Migration
+class CreateImagesHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateRegisterTable extends Migration
      */
     public function up()
     {
-        Schema::create('register', function (Blueprint $table) {
+        Schema::create('images_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('item_id');
+            $table->string('edited_at');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateRegisterTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('register');
+        Schema::dropIfExists('images_histories');
     }
 }

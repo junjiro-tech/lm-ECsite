@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;  //Controller.phpの中のuse Illuminate\Fo
 use App\Mail\ContactSendmail;
 use App\Contact_us;
 use App\Contact;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -21,13 +22,13 @@ class ContactController extends Controller
     
     
     
-    public function create(Requrst $request)
+    public function create(Request $request)
     {
         // Varidationを行う
         $this->validate($request, Contact::$rules);       //validate()の第１引数にリクエストのオブジェクトを渡し、$request->all()を判定して、問題があるなら、
                                                           //エラーメッセージと入力値とともに直前のページに戻る機能を持っています
         $contact_us = new Contact_us();  //レコードを生成するインスタンス
-        $inputs3 = $request->all();       //フォームから受け取ったすべてのinput3の値を取得
+        $contact_data = $request->all();       //フォームから受け取ったすべてのinput3の値を取得
         
         // フォームからデータが送信されてきたら、パスを保存する
         /*if (isset($form3['name', 'email', 'body'])) {
@@ -41,7 +42,7 @@ class ContactController extends Controller
         $contact_us->body = $request->body;
         
         //fillメソッドはmodelの複数カラムを更新する
-        $contact_us->fill($inputs3);
+        $contact_us->fill($contact_data);
         //saveメソッドが呼ばれると新しいレコードがデータベースに挿入される
         $contact_us->save();
     }
@@ -55,9 +56,9 @@ class ContactController extends Controller
         "body" => "required"
         ]);
         //フォームから受け取ったすべてのinputの値を取得
-        $inputs3 = $request->all();
+        $contact_data = $request->all();
         //入力内容確認ページのviewに変数を渡して表示
-        return view('contacts.confirm', ['inputs3' => $inputs3]);
+        return view('contacts.confirm', ['contact_data' => $contact_data]);
                                         //[]は連想配列でinputs3という名前の物が=>を使って$inputs3に連想配列の値とキーを設定いしている
     }
     
@@ -75,14 +76,14 @@ class ContactController extends Controller
         $action = $request->get('action', 'back');
         
         //フォームから受け取ったactionを除いたinputの値を取得
-        $inputs3 = $request->except('action');
+        $contact_data = $request->except('action');
         
-        //実行したい分岐：各ボタンに同name="submit"をつけてvalue="back", "send"で分岐させたい
-        \Debugbar::info($inputs3);
+        //実行したい分岐：各ボタンに同name="submit"をつけてvalue="back", "post"で分岐させたい
+        \Debugbar::info($contact_data);
         // 確認画面でこの内容で問い合わせボタンが押された場合
         if($action === 'post') {
             //入力されたメールアドレスにメールを送信
-            \Mail::to($inputs3["email"])->send(new ContactSendmail($inputs3));
+            \Mail::to($contact_data["email"])->send(new ContactSendmail($contact_data));
             //再送信を防ぐためにトークンを再発行」
             $request->session()->regenerateToken();  //session()はコンピュータのサーバー側に一時的にデータを保存する仕組みのこと
                                                      //Web上でのログイン情報や最終アクセスなど、ユーザーに直接紐づくような大切なデータを
@@ -94,7 +95,7 @@ class ContactController extends Controller
             //もし$actionとsubmitボタンで送られた物が同じじゃないか、== 同じ型でない場合true
             return redirect()
                   ->route('contact') //入力画面に戻る
-                  ->withInput($inputs3); //前ページのinput($inputs3)を持って
+                  ->withInput($contact_data); //前ページのinput($inputs3)を持って
         }
     }
     

@@ -3,72 +3,96 @@
 @section('title', '会員登録確認')
 
 @section('content')
-<form method="post" action="{{ route('contact_confirm') }}">
-    @csrf
-<input type="submit" name="action" value="back">
-              入力内容修正
-</form>
-      <form method="post" action="{{ action('Auth\RegisterController@complete') }}">
-          @csrf
-          
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header"><h4>会員登録情報確認</h4>
+                     <p>下記内容でよろしければ「この内容で登録する」ボタンを押してください<br>修正が必要な場合は、「入力内容修正」ボタンを押してください</p>
+                </div>
+                
+                <div cclass="card-body">
+                    <form method="post" action="{{ route('register_complete') }}">
+                    @csrf
+                    <div class="form-group-row">
+                        <div class="col-md-6">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">お名前</label>
+                        </div>
+                        <div class="col-md-6">
+                            {{ $register_data['name'] }}
+                            <input name="name" type="hidden" value="{{ $register_data['name']}}">
+                        </div>
+                    </div>
+                    
           <label>お名前</label>
-          {{ $inputs2['name'] }}
-          <input name="name" type="hidden" value="{{ $inputs2['name']}}">
+          {{ $register_data['name'] }}
+          <input name="name" type="hidden" value="{{ $register_data['name']}}">
+          <br>
           
           <label>お名前(フリガナ)</label>
-          {{ $inputs2['kname'] }}
-          <input name="kname" type="hidden" value="{{ $inputs2['kname']}}">
+          {{ $register_data['kname'] }}
+          <input name="kname" type="hidden" value="{{ $register_data['kname']}}">
+          <br>
           
           <label>メールアドレス</label>
-          {{ $inputs2['email'] }}
-          <input name="email" type="hidden" value="{{ $inputs2['email']}}">
+          {{ $register_data['email'] }}
+          <input name="email" type="hidden" value="{{ $register_data['email']}}">
+          <br>
+          
+          <label>メールアドレス確認</label>
+          {{ $register_data['email_confirmation'] }}
+          <input name="email_confirmation" type="hidden" value="{{ $register_data['email_confirmation']}}">
+          <br>
           
           <label>パスワード</label>
-          {{ $inputs2['password1'] }}
-          <input name="password1" type="hidden" value="{{ $inputs2['password1']}}">
+          パスワードはセキュリティ上表示できません
+          <input name="password" type="hidden" value="{{ $register_data['password']}}">
+          <br>
           
           <label>性別</label>
-          {{ $inputs2['gender'] }}
-          <input name="gender" type="hidden" value="{{ $inputs2['gender']}}">
+          {{ $register_data['gender'] }}
+          <input name="gender" type="hidden" value="{{ $register_data['gender']}}">
+          <br>
           
           <label>生年月日</label>
-          {{ $inputs2['birthday1'] }}年
-          <input name="birthday1" type="hidden" value="{{ $inputs2['birthday1']}}">
-          {{ $inputs2['birthday2'] }}月
-          <input name="birthday2" type="hidden" value="{{ $inputs2['birthday2']}}">
-          {{ $inputs2['birthday3'] }}日
-          <input name="birthday3" type="hidden" value="{{ $inputs2['birthday3']}}">
+          {{ $register_data['birthday1'] }}年
+          <input name="birthday1" type="hidden" value="{{ $register_data['birthday1']}}">
+          {{ $register_data['birthday2'] }}月
+          <input name="birthday2" type="hidden" value="{{ $register_data['birthday2']}}">
+          {{ $register_data['birthday3'] }}日
+          <input name="birthday3" type="hidden" value="{{ $register_data['birthday3']}}">
+          <br>
           
           <label>電話番号</label>
-          {{ $inputs2['phone1'] }}-
-          <input name="phone1" type="hidden" value="{{ $inputs2['phone1']}}">
-          {{ $inputs2['phone2'] }}-
-          <input name="phone2" type="hidden" value="{{ $inputs2['phone2']}}">
-          {{ $inputs2['phone3'] }}
-          <input name="phone3" type="hidden" value="{{ $inputs2['phone3']}}">
+          {{ $register_data['tel'] }}
+          <input name="tel" type="hidden" value="{{ $register_data['tel']}}">
+          <br>
           
           <label>郵便番号</label>
-          {{ $inputs2['postal_code1'] }}-
-          <input name="postal_code1" type="hidden" value="{{ $inputs2['postal_code1']}}">
-          {{ $inputs2['postal_code2'] }}
-          <input name="postal_code2" type="hidden" value="{{ $inputs2['postal_code2']}}">
+          {{ $register_data['postal_code'] }}
+          <input name="postal_code" type="hidden" value="{{ $register_data['postal_code']}}">
+          <br>
           
           <label>住所</label>
-          {{ $inputs2['prefectures_name'] }}
-          <input name="prefectures_name" type="hidden" value="{{ $inputs2['prefectures_name']}}">
+          {{ $register_data['prefectures_name'] }}
+          <input name="prefectures_name" type="hidden" value="{{ $register_data['prefectures_name']}}">
           
           <label></label>
-          {{ $inputs2['city'] }}
-          <input name="city" type="hidden" value="{{ $inputs2['city']}}">
+          {{ $register_data['city'] }}
+          <input name="city" type="hidden" value="{{ $register_data['city']}}">
           
           <label></label>
-          {{ $inputs2['subsequent_address'] }}
-          <input name="Subsequent_address" type="hidden" value="{{ $inputs2['subsequent_address']}}">
+          {{ $register_data['subsequent_address'] }}
+          <input name="subsequent_address" type="hidden" value="{{ $register_data['subsequent_address']}}">
+          <br>
+                   </div>
           
-          
-          <input type="submit" name="action" value="back">
-              入力内容修正
-          <input type="submit" name="action" value="submit">
-              この内容で問い合わせる
+          <button type="submit" name="action" value="back">入力内容修正</button>
+          <button type="submit" name="action" value="post">この内容で登録する</button>
       </form>
+      
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

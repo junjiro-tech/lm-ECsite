@@ -14,10 +14,10 @@ class CreateItemsTable extends Migration
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name', 100);
-            $table->integer('explanation', 255);
-            $table->image('picture');
+            $table->bigIncrements('id'); //主キー
+            $table->string('item_name', 100);
+            $table->string('explanation', 255)->default('');
+            $table->string('image_path')->nullable()->default('');  //->nullable()という記述は、画像のパスは空でも保存できます、という意味
             $table->integer('amount');   //amout=金額
             $table->timestamps();
         });
@@ -28,8 +28,9 @@ class CreateItemsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down()    //関数downには、マイグレーションの取り消しを行う為のコードを書きます
+                              
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('items');//ここでは、もしitemsというテーブルが存在すれば削除すると書かれています
     }
 }

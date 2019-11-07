@@ -2,35 +2,22 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Morino extends Model
 {
-    use Notifiable;  //Notifiable 訳)通知可能//
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
-     * DB への登録を許可するためにはホワイトリスト $fillable に項目を追加する必要がある*/
-     
+     */
     protected $fillable = [
-        'name', 
-        'kname',
-        'email',
-        'password',
-        'gender',
-        'birthday1',
-        'birthday2',
-        'birthday3',
-        'tel',
-        'postal_code',
-        'area',
-        'prefectures_name',
-        'city',
-        'subsequent_address'
+        'name', 'email', 'password',
     ];
 
     /**
@@ -46,10 +33,9 @@ class User extends Authenticatable
      * The attributes that should be cast to native types.
      *
      * @var array
-     * $sastsで選択したカラムの型を変換する
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+}
 }

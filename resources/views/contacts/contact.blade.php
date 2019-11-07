@@ -3,66 +3,49 @@
 @section('title', 'お問い合わせ')
 
 @section('content')
-     <form class="form3" method="post" action="{{ route('contact_confirm') }}">
-         @csrf
-         
-         <div id="contact" class="wrap3">
-        　　<section class="main">
-        　　      <div class="section2">
-                  <h1 class="pageTitle">お問い合わせ</h1>
-                  <p>以下のフォームの項目を入力し、よろしければ「確認画面に進む」ボタンをクリックしてください</p>
-                     　
-                    <table class="formTable">
-                        <tbody>
-                             <tr>
-                                 <th>
-                                     お名前
-                                     <span class="required">必須</span>
-                                 </th>
-                                 <td>            <!-- nameはformに渡してあげる名前 -->
-                                     <p id="name-error" class="errorMessage"></p>
-                                     <input type="text" name="name" size="25" maxlength="20" value="{{ old('name') }}"> 
-                                     @if($errors->has('name'))
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header"><h4>お問い合わせ</h4><p>以下のフォームの項目を入力し、よろしければ「確認画面に進む」ボタンをクリックしてください</p></div>
+     
+                <div class="card-body">
+                    <form class="form" method="post" action="{{ route('contact_confirm') }}">
+                    @csrf
+                    
+                    <div class="form-group row">
+                            <label for="name" class="col-md-2">お名前 <span class="required">必須</span></label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" size="20" maxlength="20" placeholder="例) 山田　太郎" value="{{ old('name') }}" equired autocomplete="name" autofocus>
+                                        @if($errors->has('name'))
                                            <p class="text-danger">{{ $errors->first('name') }}</p>
+                                        @endif
+                                </div>
+                        </div>
+                    <div class="form-group row">
+                            <label for="email" class="col-md-2">メールアドレス <span class="required">必須</span></label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" size="20" maxlength="20" placeholder="例) info@example.com ※半角英数字" value="{{ old('email') }}"  required autocomplete="email">
+                                        @if($errors->has('email'))
+                                           <p class="text-danger">{{ $errors->first('email') }}</p>
+                                        @endif
+                                </div>
+                    </div>
+                    <div class="form-group row">
+                             <label class="col-md-2">お問い合わせ内容</label>
+                                 <div class="col-md-10">
+                                     <textarea class="form-control" name="body" maxlength="1000" rows="15" placeholder="※全角1000文字まで" quired> {{ old('body') }}</textarea>
+                                     @if($errors->has('body'))
+                                    <p class="text-danger">{{ $errors->first('body')}}</p>
                                      @endif
-                                     <span class="notes">例) 山田太郎</span>
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <th>
-                                     メールアドレス
-                                     <span class="required">必須</span>
-                                 </th>
-                                 <td>               <!-- value 属性には、確認画面から戻ってきた場合に入力した値がクリアされないよう old() 関数を使って直前の入力値をセットするようにしている -->
-                                     <p id="email-error" class="errorMessage"></p> 
-                                     <input type="text" name="email" size="50" maxlength="50" value="{{ old('email') }}">
-                                     @if($errors->has('email'))  <!-- バリデーションでエラーが発生した場合 $errors->has() の部分でエラーメッセージを表示するようにしてい -->
-                                            <p class="text-danger">{{ $errors->first('email')}}</p>
-                                     @endif
-                                     <span class="notes">例) info@example.com ※半角英数字</span>
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <th class="contact-us">
-                                     お問い合わせ内容
-                                     <span class="required">必須</span>
-                                 </th>
-                                 <td>
-                                     <p id="content-error" class="errorMessage"></p>
-                                     <textarea name="body" wrap="off" rows="15" cols="60" maxlength="2000">
-                                         {{ old('body') }}
-                                     </textarea>
-                                     @if($errors->has('message'))
-                                            <p class="text-danger">{{ $errors->first('message')}}</p>
-                                     @endif
-                                     <span class="notes">※全角2000文字まで</span>
-                                 </td>
-                             </tr>
-                        </tbody>
-                    </table>
+                                 </div>
+                    </div>
+
+                           <input type="submit" value="確認画面に進む">
+                     </form>
                 </div>
-            </section>
-         </div>
-             <input type="submit" value="確認画面に進む">
-     </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

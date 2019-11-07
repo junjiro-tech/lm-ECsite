@@ -3,10 +3,10 @@
 お問い合わせ内容を受け付けました<br>
 <br>
 ■お名前<br>
-{{!! $name !!}}<br>
+{!! $name !!}<br>
 <br>
 ■メールアドレス<br>
-{{!! $email !!}}<br>
+{!! $email !!}<br>
 <br>
 ■お問い合わせ内容<br>
-{{!! nl2br($body) !!}}<br>
+{!! nl2br($body) !!}<br>
