@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMorinosTable extends Migration
+class AddColumnsItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateMorinosTable extends Migration
      */
     public function up()
     {
-        Schema::create('morinos', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('email')->unique();
-            $table->string('password')->default('');
-            $table->rememberToken();
-            $table->timestamps();
+        Schema::table('items', function (Blueprint $table) {
+            $table->integer('inventory_control')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateMorinosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('morinos');
+        Schema::table('items', function (Blueprint $table) {
+            Schema::dropIfExists('items');
+        });
     }
 }

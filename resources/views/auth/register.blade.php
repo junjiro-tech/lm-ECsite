@@ -7,15 +7,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h4>会員情報登録</h4><p>以下のフォームの項目を入力し、よろしければ「確認画面に進む」ボタンをクリックしてください</p></div>
+                <div class="card-header"><h4>会員登録</h4><p>以下のフォームの項目を入力し、よろしければ「確認画面に進む」ボタンをクリックしてください</p></div>
             　　
                 <div class="card-body">
-     　              <form name="form" method="post" action="{{ route('register_confirm') }}">
+     　              <form name="form" method="post" action="{{ route('provisional_register') }}">
                     @csrf
                     <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">お名前 <span class="required">必須</span></label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" size="20" maxlength="20" placeholder="例) 山田　太郎" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" size="20" maxlength="20" placeholder="例) 山田　太郎" value="{{ old('name') }}" autocomplete="name" autofocus>
                                         @if($errors->has('name'))
                                            <p class="text-danger">{{ $errors->first('name') }}</p>
                                         @endif
@@ -67,13 +67,13 @@
                                 </div>
                     </div>
                     <div class="form-group row">
-                            <label for="sexMale" class="col-md-4 col-form-label text-md-right">性別 <span class="required">必須</span></label>
+                            <label for="sexMale" class="col-md-4 col-form-label text-md-right">性別</label>
                                 <div class="col-sm-2">
-                                    <input type="radio" class="form-control @error('gender') is-invalid @enderror" name="gender" value="男">
+                                    <input type="radio" class="form-check @error('gender') is-invalid @enderror" name="gender" value="男">
                                         <label for="sexMale">男</label>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="radio" class="form-control @error('gender') is-invalid @enderror" name="gender" value="女">
+                                    <input type="radio" class="form-check @error('gender') is-invalid @enderror" name="gender" value="女">
                                         <label for="sexfeMale">女</label>
                                         @if($errors->has('gender'))
                                            <p class="text-danger">{{ $errors->first('gender') }}</p>
@@ -81,23 +81,39 @@
                                 </div>
                     </div>
                     <div class="form-group row">
-                            <label for="birthday" class="col-md-4 col-form-label text-md-right">生年月日 <span class="required">必須</span></label>
-                                <div class="col-sm-2">
-                                    <input type="birthday1" class="form-control @error('birthday1') is-invalid @enderror" name="birthday1" pattern="[0-9]*" size="4" maxlength="4" placeholder="例) 1980" value="{{ old('birthday1') }}" required autocomplete="birthday1" autofocus>
+                            <label for="birthday" class="col-md-4 col-form-label text-md-right">生年月日</label>
+                                <div class="col-xs-4">
+                                    <select id="birthday1" class="form-control" name="birthday1">
+                                                    <option value="">----</option>
+                                                    @for ($i = 1940; $i <= 2005; $i++)
+                                                        <option value="{{ $i }}"
+                                                                @if(old('birthday1') == $i) selected @endif>{{ $i }}</option>
+                                                    @endfor
+                                    </select>
                                         @if($errors->has('birthday1'))
                                            <p class="text-danger">{{ $errors->first('birthday1') }}</p>
                                         @endif
-                                </div>
-                                年
-                                <div class="col-sm-2">
-                                    <input type="birthday2" class="form-control @error('birthday2') is-invalid @enderror" name="birthday2" pattern="[0-9]*" size="2" maxlength="2" placeholder="01" value="{{ old('birthday2') }}" required autocomplete="birthday2" autofocus>
+                                </div>年
+                                <div class="col-xs-3">
+                                    <select id="birthday2" class="form-control" name="birthday2">
+                                                    <option value="">--</option>
+                                                    @for ($i = 1; $i <= 12; $i++)
+                                                        <option value="{{ $i }}"
+                                                            @if(old('birthday2') == $i) selected @endif>{{ $i }}</option>
+                                                    @endfor
+                                                </select>
                                         @if($errors->has('birthday2'))
                                            <p class="text-danger">{{ $errors->first('birthday2') }}</p>
                                         @endif
-                                </div>
-                                月
-                                <div class="col-sm-2">
-                                    <input type="birthday3" class="form-control @error('birthday3') is-invalid @enderror" name="birthday3" pattern="[0-9]*" size="2" maxlength="2" placeholder="01" value="{{ old('birthday3') }}" required autocomplete="birthday3" autofocus>
+                                </div>月
+                                <div class="col-xs-3">
+                                                <select id="birthday3" class="form-control" name="birthday3">
+                                                    <option value="">--</option>
+                                                    @for ($i = 1; $i <= 31; $i++)
+                                                        <option value="{{ $i }}"
+                                                            @if(old('birthday3') == $i) selected @endif>{{ $i }}</option>
+                                                    @endfor
+                                                </select>
                                         @if($errors->has('birthday3'))
                                            <p class="text-danger">{{ $errors->first('birthday3') }}</p>
                                         @endif
@@ -212,7 +228,7 @@
                             </div>
                             <div class="form-group row mb-0">　<!-- mb-0はmargin-bottomを0にするとういう設定 m=marginを設定 b=bottomを設定 -->
                               　　<div class="col-md-8 offset-md-4">
-                                            <input type="submit" href="{{ route('register_confirm') }}" value="確認画面に進む">
+                                            <input type="submit" href="{{ route('provisional_register') }}" value="確認画面に進む">
                                   </div>
                             </div>
                         </form>

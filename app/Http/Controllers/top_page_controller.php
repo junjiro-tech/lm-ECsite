@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Uuid;
+use App\CartItem;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class top_page_controller extends Controller
 {
-    //
-    public function index() 
-    {
+    
+    
+    public function index()  
+    {   
         return view('top_pages.top_page');
     }
     

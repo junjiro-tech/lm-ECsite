@@ -83,6 +83,7 @@ nav ul li {
 /*}*/
 
 #mypic {
+    
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -119,7 +120,7 @@ small {
     border-top: solid 7px #9f9fa0;
     height: 1px;                     
     color: #FFF;
-    margin: 0px;
+    margin-bottom: 0px;
     padding: 0px;
 }
 

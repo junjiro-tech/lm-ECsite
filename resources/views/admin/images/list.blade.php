@@ -36,7 +36,8 @@
                                 <th width="10%">ID</th>
                                 <th width="15%">商品名</th>
                                 <th width="15%">値段</th>
-                                <th width="50%">説明</th>
+                                <th width="35%">説明</th>
+                                <th width="15%">在庫</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,8 +47,9 @@
                                     <td>{{ Str::limit($item->item_name, 10) }}</td>
                                     <td>{{ Str::limit($item->amount, 5) }}円</td>
                                     <td>{{ Str::limit($item->explanation, 200) }}</td>
-                                    <td><a href="{{ action('ImagesController@edit', ['id' => $item->id ]) }}">編集</a></td>
-                                    <td><a href="{{ action('ImagesController@delete', ['id' => $item->id ]) }}">削除</a></td>
+                                    <!--<td>{{ Str::limit($item->inventory_control, 5) }}</td>-->
+                                    <td><a href="{{ action('Admin\ImagesController@edit', ['id' => $item->id ]) }}">編集</a></td>
+                                    <td><a href="{{ action('Admin\ImagesController@delete', ['id' => $item->id ]) }}">削除</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

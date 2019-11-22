@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMorinosTable extends Migration
+class CreateEmailVerificationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateMorinosTable extends Migration
      */
     public function up()
     {
-        Schema::create('morinos', function (Blueprint $table) {
+        Schema::create('email_verification', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('email')->unique();
-            $table->string('password')->default('');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateMorinosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('morinos');
+        Schema::dropIfExists('email_verification');
     }
 }

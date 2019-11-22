@@ -1,60 +1,46 @@
 @extends('layouts.layout')
 
-@section('title', '会員登録確認')
+@section('title', '登録確認')
 
 @section('content')
 <div class="container mt-5 pt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h4>会員登録情報確認</h4>
+                <div class="card-header"><h4>登録確認</h4>
                      <p>下記内容でよろしければ「この内容で登録する」ボタンを押してください<br>修正が必要な場合は、「入力内容修正」ボタンを押してください</p>
                 </div>
                 
                 <div cclass="card-body">
                     <form method="post" action="{{ route('register_complete') }}">
                     @csrf
-                    <div class="form-group-row">
-                        <div class="col-md-6">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">お名前</label>
-                        </div>
-                        <div class="col-md-6">
-                            {{ $register_data['name'] }}
-                            <input name="name" type="hidden" value="{{ $register_data['name']}}">
-                        </div>
-                    </div>
                     
-          <label>お名前</label>
+          <label>お名前:</label>
           {{ $register_data['name'] }}
           <input name="name" type="hidden" value="{{ $register_data['name']}}">
           <br>
           
-          <label>お名前(フリガナ)</label>
+          <label>お名前(フリガナ):</label>
           {{ $register_data['kname'] }}
           <input name="kname" type="hidden" value="{{ $register_data['kname']}}">
           <br>
           
-          <label>メールアドレス</label>
+          <label>メールアドレス:</label>
           {{ $register_data['email'] }}
           <input name="email" type="hidden" value="{{ $register_data['email']}}">
           <br>
           
-          <label>メールアドレス確認</label>
-          {{ $register_data['email_confirmation'] }}
-          <input name="email_confirmation" type="hidden" value="{{ $register_data['email_confirmation']}}">
-          <br>
-          
-          <label>パスワード</label>
-          パスワードはセキュリティ上表示できません
+          <label>パスワード:</label>
+           {{$register_data['password_mask'] }}
           <input name="password" type="hidden" value="{{ $register_data['password']}}">
           <br>
           
-          <label>性別</label>
+          <label>性別:</label>
           {{ $register_data['gender'] }}
           <input name="gender" type="hidden" value="{{ $register_data['gender']}}">
           <br>
           
-          <label>生年月日</label>
+          <label>生年月日:</label>
           {{ $register_data['birthday1'] }}年
           <input name="birthday1" type="hidden" value="{{ $register_data['birthday1']}}">
           {{ $register_data['birthday2'] }}月
@@ -63,17 +49,17 @@
           <input name="birthday3" type="hidden" value="{{ $register_data['birthday3']}}">
           <br>
           
-          <label>電話番号</label>
+          <label>電話番号:</label>
           {{ $register_data['tel'] }}
           <input name="tel" type="hidden" value="{{ $register_data['tel']}}">
           <br>
           
-          <label>郵便番号</label>
+          <label>郵便番号:</label>
           {{ $register_data['postal_code'] }}
           <input name="postal_code" type="hidden" value="{{ $register_data['postal_code']}}">
           <br>
           
-          <label>住所</label>
+          <label>住所:</label>
           {{ $register_data['prefectures_name'] }}
           <input name="prefectures_name" type="hidden" value="{{ $register_data['prefectures_name']}}">
           

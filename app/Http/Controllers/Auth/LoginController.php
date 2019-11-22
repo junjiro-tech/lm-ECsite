@@ -44,9 +44,11 @@ class LoginController extends Controller
      */
     public function __construct()
     {   
+        $this->remember = 'checked';
         $this->middleware('guest')->except('logout');             /*認証が必要なものはMiddlewareで定義する  訳）except=を除く*/
     }
     
    
     
 }
+

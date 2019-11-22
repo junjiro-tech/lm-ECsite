@@ -40,14 +40,10 @@
                                   </div>
                               </div>
 
-                              <div class="form-group row">
+                              <div class="form-group row"> 
                                   <div class="col-md-6 offset-md-4"> <!-- offsetは1つカラムを飛ばしたいときや余白を空けたい、中央に配置したいときにカラムのオフセット -->
                                       <div class="form-check">  <!-- input要素のtypeがcheckboxやradioの場合は、form-controlの代わりにform-check-inputを利用する -->
-                                          <input id="remember" type="checkbox" class="form-check-input" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                                          
-                                          <label for="remember" class="form-check-label">
-                                              {{ __('パスワードを保存') }}
-                                          </label>
+                                          <input id="remember" type="hidden" class="form-check-input" name="remember" value="checked"><!--常にログイン保存ボタン押されてる状態 -->
                                       </div>
                                   </div>
                                   @if(Route::has('password.request'))

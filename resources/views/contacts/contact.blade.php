@@ -34,15 +34,16 @@
                     <div class="form-group row">
                              <label class="col-md-2">お問い合わせ内容</label>
                                  <div class="col-md-10">
-                                     <textarea class="form-control" name="body" maxlength="1000" rows="15" placeholder="※全角1000文字まで" quired> {{ old('body') }}</textarea>
+                                     <textarea class="form-control" name="body" maxlength="1000" rows="15" placeholder="※全角1000文字まで" qreuired> {{ old('body') }}</textarea>
                                      @if($errors->has('body'))
                                     <p class="text-danger">{{ $errors->first('body')}}</p>
                                      @endif
                                  </div>
                     </div>
-
-                           <input type="submit" value="確認画面に進む">
-                     </form>
+                    <div class="card-footer">
+                           <button type="submit" class="btn btn-primary col-md-3">確認画面に進む</button>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>

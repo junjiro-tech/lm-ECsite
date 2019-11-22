@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Item;
+use App\Uuid;
+use App\CartItem;
 use storage;
 
 class ItemController extends Controller
@@ -11,6 +14,7 @@ class ItemController extends Controller
 {
     
     public function index(Request $request) {
+        
         
         // リクエストパラメタにkeywordが入っていたら検索機能を動かす
         if($request->has('keyword')) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 // use Illuminate\Database\Seeder\ItemsTableSeeder;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,14 +9,42 @@ use App\Item;
 use Storage;
 use Carbon\carbon;
 use App\ImagesHistory;
+use App\Http\Controllers\Controller;
 
 class ImagesController extends Controller
 {
+    //念のためadminのuserだけしか使えなくするをもう一度書いておく
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+ 
+    
+    
+    
+    //登録商品一覧表示
+    public function index(Request $request)
+    {
+        $cond_title = $request->cond_title;  //$cond_titleはユーザーが入力した文字
+        if ($cond_title != '') {
+            // 検索されたら検索結果を取得する
+            $items = Item::where('item_name', $cond_title)->paginate(20);   //ユーザーが入力した文字に一致するレコードを全て取得
+        } else {                //Itemモデルに対してえwhereメソッドを指定して検索している
+            // それ以外はすべての商品を取得する
+            $items = Item::paginate(20);
+        }
+        return view('images/list', ['items' => $items, 'cond_title' => $cond_title]);
+    }
+    
+    
     
     public function add()
     {
         return view('images.create');
     }
+    
+    
+    
     
     //データベースに保存するまで
     public function create(Request $request)
@@ -47,18 +75,7 @@ class ImagesController extends Controller
     }
     
     
-    public function index(Request $request)
-    {
-        $cond_title = $request->cond_title;  //$cond_titleはユーザーが入力した文字
-        if ($cond_title != '') {
-            // 検索されたら検索結果を取得する
-            $items = Item::where('item_name', $cond_title)->paginate(20);   //ユーザーが入力した文字に一致するレコードを全て取得
-        } else {                //Itemモデルに対してえwhereメソッドを指定して検索している
-            // それ以外はすべての商品を取得する
-            $items = Item::paginate(20);
-        }
-        return view('images/list', ['items' => $items, 'cond_title' => $cond_title]);
-    }
+    
     
     
     public function edit(Request $request)

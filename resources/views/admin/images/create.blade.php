@@ -40,6 +40,12 @@
                                        <textarea class="form-control" name="explanation" rows="3">{{ old('explanation') }}</textarea>
                                    </div>
                            </div>
+                           <!--<div class="form-group row">-->
+                           <!--    <label class="col-md-2">在庫</label>-->
+                           <!--        <div class="col-md-10">-->
+                           <!--            <input id="text" type="form-control" name="inventory_control" value="{{ old('inventory_control') }}">-->
+                           <!--        </div>-->
+                           <!--</div>-->
                            
                            {{ csrf_field() }}
                      <input type="submit" class="btn btn-primary mt-3" value="商品登録">

@@ -7,15 +7,47 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;  //ユーザーIDを取得するために追加。これによりコントローラに認証情報（ユーザー情報）を扱う機能が追加されます
 use App\CartItem;
 use App\Item;
+use App\Uuid;
+use Illuminate\Support\Facades\Cookie;
 
 class CartItemController extends Controller
 {
+    
+    
     public function store(Request $request)  //store()メソッドが呼ばれると、データベースのcart_itemsテーブルに新しいレコードが追加される
     {
+        
+                $cookie = Cookie::get('uuid'); //Cookie::getでcookie取得
+        
+        if ( !Auth::check())  //ログインしていない人で
+        {
+            
+            //cookieがあれば、かつカートアイテムのguest_idに$cookieがあれば
+            if( $cookie != null && CartItem::where('guest_id', $cookie) )
+            {
+                $cart_item = Cartitem::where('guest_id', $cookie)->first(); //first()は最初の一件のみ取得
+                
+                \Auth::loginUsingId($cart_item, true);
+            
+                //cookieがなければ
+            } else {
+                $uuid = new Uuid();
+                //time()を設定しなかった時は、ブラウザを閉じた時点でクッキー破棄となる。また、クッキーを現在時点より前に設定するとその時点で破棄となる
+                $lifetime = time() + 60 * 30;
+                $cookie = setcookie('uuid', $uuid->uuid, $lifetime);  //$cookieに新規idを保存 setcookie(第1引数:'クッキーの名前'、第2引数:クッキーの値、第3引数:有効期限)
+                                  //'uuid'名前とばれないような名前に後で変更
+                $cart_item = CartItem::create(['guest_id' => $uuid->uuid]); //cart_items_tableの'guest_id'に$cookieを保存する
+                 
+                \Auth::loginUsingId($cart_item, true);
+            }
+        
+        }
+
+        
         CartItem::updateOrCreate(   //CartItem::updateOrCreate()は、レコードの登録と更新を兼ねるメソッド
             [                                            //新しい行を追加するために「ﾕｰｻﾞｰID」「商品ID」「数量」を指定する
                 'user_id' => Auth::id(),                 //ユーザーIDはAuthの機能を使い、Auth::id()でログイン中のユーザー情報から取得している。
-                'item_id' => $request->post('item_id'),  //商品一覧ページで選択した商品IDと数量は$request->post('キー名')を使って取得します
+                'item_id' => $request->post('item_id'),  //商品IDと数量は$request->post('キー名')を使って取得します
             ],                                           //->postこれによりHTMLのフォーム等(POSTメソッド)で送られた値を取得できます
             [
                 'quantity' => \DB::raw('quantity + ' . $request->post('quantity') ), 
@@ -27,37 +59,56 @@ class CartItemController extends Controller
         //with()に指定した引数の値をセッションデータに保存したうえでリダイレクトする
     }
     
-    public function index(Request $request)
-       /*カート内の商品データを読み込んで、ビューに渡す処理を追加
+    
+    
+        /*↓カート内の商品データを読み込んで、ビューに渡す処理を追加
           $cartitems = CartItem::select('cart_items', 'items.name', 'items.amount')では
           検索結果に含めるカラムを指定しています。'cart_items'はカートのすべてのカラム
-          items.name、items.amountはそれぞれ商品データの商品名と価格を指定しています*/
+          items.name、items.amountはそれぞれ商品データの商品名と価格を指定しています
           
-        //  CartItemsTableでhasOneを使い
-        //   CartItemとItemを一対一で関連づけておくと
-        //  （mynewsのUserとProfileと同様に）
-        //   以下のような記述で、cartitemからitemのデータを参照できます。ただ大人数がアクセスした時にitemの情報を全て拾ってくるのでメモリを多く
-        //   使用し重くなってしまうので、itemsのidだけを取ってきたい時にはjoinで1つだけ使った方がよい
-        //   $cartitem->$item->item_name 
+          CartItemsTableでhasOneを使い、CartItemとItemを一対一で関連づけておくと(mynewsのUserとProfileと同様に）
+          以下のような記述で、cartitemからitemのデータを参照できます。ただ大人数がアクセスした時にitemの情報を全て拾ってくるのでメモリを多く
+          使用し重くなってしまうので、itemsのidだけを取ってきたい時にはjoinで1つだけ使った方がよい
+          $cartitem->$item->item_name ←ではログイン中のユーザーのユーザーIDをキーにしてカート内の商品を検索しています。*/
+    public function index(Request $request)
         
-    {   $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')  //select関数は('aテーブル.bカラム')を取ってくるという時に使える
-             ->where('user_id', Auth::id()) //←ではログイン中のユーザーのユーザーIDをキーにしてカート内の商品を検索しています。                            
-             ->join('items', 'cart_items.item_id', '=', 'items.id') //←でcart_itemsテーブルとitemsテーブルを結合しています,cart_itemsテーブルは商品のID(cart_items.item_id)しか持っていないので、cart_items.item_idをキーにしてitemsテーブルから商品名と価格を取得できるようにしています
-             ->get();                                               //最後にget()で検索結果を取得し、ビューに渡しています
+    {   
+             $cookie = Cookie::get('uuid'); //Cookie::getでcookie取得
              
-             \Debugbar::info($cartitems);
-             /*カート内の商品の合計金額を計算する*/
-             $subtotal = 0;
-             foreach($cartitems as $cartitem){
-                 $subtotal += $cartitem->amount * $cartitem->quantity;
+             //ログイン中であれば
+             if( Auth::check() )
+             {
+             
+                 $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')  //select関数は('aテーブル.bカラム')を取ってくるという時に使える
+                     ->where('user_id', Auth::id())                      
+                     ->join('items', 'cart_items.item_id', '=', 'items.id') //←でcart_itemsテーブルとitemsテーブルを結合しています,cart_itemsテーブルは商品のID(cart_items.item_id)しか持っていないので、cart_items.item_idをキーにしてitemsテーブルから商品名と価格を取得できるようにしています
+                     ->get();                                               //最後にget()で検索結果を取得し、ビューに渡しています
+                 
+             } else {
+             
+                 $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')  
+                     ->where('guest_id', Auth::id())                     
+                     ->join('items', 'cart_items.item_id', '=', 'items.id') 
+                     ->get();                   
              }
              
-             $subtotal_tax = $subtotal * 1.1;
-             $postage = 700;      //postage=送料
-             $total = $subtotal_tax + $postage;
+             if( $request->has() )
+             /*カート内の商品の合計金額を計算する*/
+                 $subtotal = 0;
+                     foreach($cartitems as $cartitem){
+                 $subtotal += $cartitem->amount * $cartitem->quantity;
+                 }
+             
+                 $subtotal_tax = $subtotal * 1.1;
+                 $postage = 510;      //postage=送料
+                 $total = $subtotal_tax + $postage;
              
         return view('cartitem/cart', ['cartitems' => $cartitems, 'subtotal' => $subtotal, 'subtotal_tax' => $subtotal_tax, 'postage' => $postage, 'total' => $total]);
     }
+    
+    
+    
+    
     
     
     public function destroy(Request $request)
@@ -67,6 +118,10 @@ class CartItemController extends Controller
         return redirect('cartitem')->with('flash_message', 'カートから削除しました');
         //削除したらredirect()で/cartitemにリダイレクトし、同時にflash_messageで削除という文字をredirect先に送っている
     }
+    
+    
+    
+    
     
     
     public function update(Request $request)

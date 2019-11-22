@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-8 mx-auto">
             <h2>商品編集</h2>
-            <form method="post" action="{{ action('ImagesController@update') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ action('Admin\ImagesController@update') }}" enctype="multipart/form-data">
                 @if (count($errors) > 0)
                 <ul>
                     @foreach($errors->all() as $e)
@@ -34,6 +34,12 @@
                         <textarea class="form-control" name="explanation" rows="3">{{ $item_form->explanation }}</textarea>
                     </div>
                 </div>
+                <!--<div class="form-group row">-->
+                <!--    <label class="col-md-2" for="amount">在庫</label>-->
+                <!--    <div class="col-md-10">-->
+                <!--        <input type="text" class="form-control" name="inventory_control" value="{{ $item_form->inventory_control}}">-->
+                <!--    </div>-->
+                <!--</div>-->
                 <div class="form-group row">
                     <label class="col-md-2" for="image_path">画像</label>
                     <div class="col-md-10">

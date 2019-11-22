@@ -12,6 +12,7 @@
                         <form method="post" action="/buy">
                             @csrf
                             
+                            
                             <div class="form-row">
                                 <div class="col-md-6">
                                     @if(Request::has('confirm'))

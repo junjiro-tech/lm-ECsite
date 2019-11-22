@@ -21,7 +21,7 @@
                         </div>
                         <div class="card-body">
                             <div>
-                                {{ $cartitem->amount }}円
+                                ¥{{ $cartitem->amount }}円
                             </div>
                             <div class="form-inline">
                                 <!-- 数量を更新するフォーム -->
@@ -55,17 +55,17 @@
                     <div class="card-body">
                     <div>
                         <br><br>
-                        税抜き価格:{{ $subtotal }}円
+                        税抜き価格:¥{{ $subtotal }}円
                     </div>
                     <div>
-                        税込み価格:{{ $subtotal_tax }}円
+                        税込み価格:¥{{ $subtotal_tax }}円
                     </div>
                         `````````````````````````````````````````````````<br>
-                        送料:{{ $postage }}円
+                        送料:¥{{ $postage }}円
                     <div>
                     <div>
                         `````````````````````````````````````````````````<br>
-                    　　<p>合計金額:{{ $total }}円</p>
+                    　　<p>合計金額:¥{{ $total }}円</p>
                     </div>
                             <a class="btn btn-primary" href="/buy" role="button">
                                 レジに進む

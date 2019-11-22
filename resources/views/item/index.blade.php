@@ -18,12 +18,9 @@
                     {{ $item->item_name }} 
                 </div>
                 <div class="card-body">
-                    {{ $item->amount }}円
+                    ¥{{ $item->amount }}円
                 </div>
-                <div class="card-body">
-                    {{ $item->explanation }}
-                </div>
-                @auth   <!-- @auth〜@endauthで囲った部分は、ユーザーがログインしている時だけ表示されます -->
+                   <!-- @auth〜@endauthで囲った部分は、ユーザーがログインしている時だけ表示されます -->
                     <form method="post" action="/cartitem/add" class="form-inline m-1">
                         @csrf     <!-- postメソッドは@csrf必須　-->
                         <select name="quantity" class="form-control col-md-4 mr-1">
@@ -41,7 +38,7 @@
                         <input type="hidden" name="item_id" value="{{ $item->id }}">
                         <button type="submit" class="btn btn-primary col-md-7">カートに入れる</button>
                     </form>
-                @endauth
+                
             </div>
         </div>
         @endforeach
