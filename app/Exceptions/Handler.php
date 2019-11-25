@@ -3,7 +3,9 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+
 
 class Handler extends ExceptionHandler
 {
@@ -51,5 +53,26 @@ class Handler extends ExceptionHandler
     }
     
     
+    
+    
+    /**
+     * * 認証していない場合にガードを見てそれぞれのログインページへ飛ばず
+     * Convert an authentication exception into an unauthenticated response. 認証例外を非認証応答に変換します
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Auth\AuthenticationException  $exception 訳)例外
+     * @return \Illuminate\Http\Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception)  //unauthenticated 訳)未認証
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401); //->json=json形式で返す
+        }
+        if (in_array('admin', $exception->guards(), true)) {
+            return redirect()->guest(route('admin.login'));
+        }
+        
+    return redirect()->guest(route('login'));
+    }
     
 }

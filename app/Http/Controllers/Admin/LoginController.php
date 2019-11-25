@@ -2,50 +2,77 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Morino;
+use Illuminate\Support\Facades\Auth;
+use App\Admin;
+
 
 class LoginController extends Controller
 {
+    
     use AuthenticatesUsers;
     
     //ログイン後のリダイレクト先
-    protected $redirectTo = '/images/list';  
+    protected $redirectTo = '/admin/home';  
     
     
-    
-    //管理者ログインページ
-    public function index()
-    {
-    return view('admin/login');
-    }
-    
-    
-    
-    
-    protected function guard()
-    {
-        return \Auth::gurad('admin'); //管理者認証のguardを指定
-        //Auth::guradではSessionGuardをセットしていて、セッションやリクエストのセットを行っている
-    }
-    
-    
-    public function logout(Request $request)
-    {
-        Auth::guard('admin')->logout();
-        $this->performLogout($request);
-        return redirect()->route('morino_to');
-        // $this-&gt;guard()-&gt;logout();   //&gt;はgreater thanの略「大きい」&lt;はless thanの略「小さい」
-    }
-    
-    
-    //ゲストは弾く
+     //ゲストは弾く
     public function __construct()
     {
         $this->middleware('guest:admin')->except('logout');
     }
+    
+    
+    //管理者ログインページ
+    public function showLoginForm()
+    {
+        return view('admin.login');
+    }
+    
+    
+    //ポストのログインがあったら
+    public function authenticate(Request $request)
+        {
+            // $user = Admin::findBy('email', $request->email);
+            
+            $email = $request->email;
+        // if (Hash::check($request['email'], $user->email)){  //バリデート行わずに照合する
+            
+        // }
+            $user = Admin::where(['email' => $email])->first();
+            Auth::loginUsingId(1);
+        
+        // if ($request->isMethod('post')) {
+        //     $authinfo = [
+        //         'email' => $request->email];
+                
+        //         if (Auth::attempt($authinfo)) {
+        //             return redirect()->route('admin/home');
+        //         }
+        // }
+             
+            return view('admin.home');
+        }
+    
+    
+    protected function guard()
+    {
+        return \Auth::guard('admin'); //管理者認証のguardを指定,、登録済みユーザーを認証するために使用する「ガード」
+        //Auth::guardではSessionGuardをセットしていて、セッションやリクエストのセットを行っている
+    }
+    
+    
+    public function logout(Request $request)
+        {
+        Auth::guard('admin')->logout();  //変更
+        $request->session()->flush();
+        $request->session()->regenerate();
+ 
+        return redirect('admin.login');  //変更
+        }
+    
+   
     
 }

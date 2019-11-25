@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-// use Illuminate\Database\Seeder\ItemsTableSeeder;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Item;
@@ -14,10 +13,10 @@ use App\Http\Controllers\Controller;
 class ImagesController extends Controller
 {
     //念のためadminのuserだけしか使えなくするをもう一度書いておく
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:admin');
+    // }
  
     
     

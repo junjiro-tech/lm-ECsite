@@ -16,7 +16,7 @@ class CreateMorinosTable extends Migration
         Schema::create('morinos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('email')->unique();
-            $table->string('password')->default('');
+            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });

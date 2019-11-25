@@ -1,35 +1,17 @@
-<!DOCTYPE HTML>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 他のモバイルで表示した時に自動でサイズ合わせてくれる -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">                
-    <title>LM ECsite管理用</title>
-        <script src="{{ secure_asset('js/app.js') }}" defer></script>    
-                                                                        
-    <link rel="stylesheet" href="https://87c1ac065f9145e183015d2ea2786408.vfs.cloud9.us-east-2.amazonaws.com/css/layout.css">
-    <!----------------------------------------------------------------------------------------------->
-　　<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <!----------------------------------------------------------------------------------------------->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!----------------------------------------------------------------------------------------------->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!----------------------------------------------------------------------------------------------->
-    <style>body{background-color: black;}</style> 
-    
-  </head>
-  
+@extends('layouts.admin_layout')
+
+@section('title', '管理者ログイン')
+
+@section('content')
   <body>
       <div class="container mt-5 pt-5">
         <div class="row justify-content-center"> 
             <div class="col-md-8"> 
                 <div class="card">　　　　　　　　　　　　　　　　
-                    <div class="card-header"><h4>{{ __('ログイン') }}</h4></div> <!-- __( $string ) の意味  _2つの __ 関数は、Lang::get の別名、PHPの言語機能では無く、国際化対応のために作成された関数で -->
+                    <div class="card-header"><h4>{{ __('ログイン') }}</h4></div> 
                     
                         <div class="card-body">
-                           <form method="post" action="{{ route('item_list') }}" name="login"> 
+                           <form method="post" action="{{ route('admin.login') }}" name="login"> 
                            @csrf   
                    
                               <div class="form-group row">   
@@ -78,3 +60,4 @@
     </div>
   </body>
  </html>
+@endsection

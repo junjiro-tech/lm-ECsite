@@ -44,17 +44,29 @@ Route::get('/items/{item}', 'ItemController@show')->name('product_details');   /
 
 // Admin認証不要
 Route::group(['prefix' => 'admin'], function() {
-    Route::get('login', 'Admin\LoginController@index')->name('morino_to');
+    Route::get('/',         function () { return redirect('/admin/home'); });
+    Route::post('login', 'Admin\LoginController@showLoginForm')->name('admin.login');
+    Route::get('login', 'Admin\LoginController@authenticate')->name('admin.login');
 });
 
 //Adminログイン後
-// Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
-    Route::get('images/create', 'Admin\ImagesController@add');
-    Route::post('images/create', 'Admin\ImagesController@create')->name('item_regi');  //images/createで入力した内容をデータベースへ保存
-    Route::get('images/list', 'Admin\ImagesController@index')->name('item_list');
-    Route::get('images/edit', 'Admin\ImagesController@edit')->name('item_edi');
-    Route::post('images/edit', 'Admin\ImagesController@update')->name('item_upd');
-    Route::get('images/delte', 'Admin\ImagesController@delete')->name('item_del');
-// });
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
+    Route::post('logout',   'Admin\LoginController@logout')->name('admin.logout');
+    Route::get('/home',      'Admin\HomeController@index')->name('admin.home');
+    // Route::get('images/create', 'Admin\ImagesController@add'); 
+    // Route::post('images/create', 'Admin\ImagesController@create')->name('item_regi');  //images/createで入力した内容をデータベースへ保存
+    // Route::get('images/list', 'Admin\ImagesController@index')->name('item_list');
+    // Route::get('images/edit', 'Admin\ImagesController@edit')->name('item_edi');
+    // Route::post('images/edit', 'Admin\ImagesController@update')->name('item_upd');
+    // Route::get('images/delte', 'Admin\ImagesController@delete')->name('item_del');
+});
+
+ 
+Route::get('images/create', 'ImagesController@add');                           //images/create表示
+Route::post('images/create', 'ImagesController@create')->name('item_regi');  //images/createで入力した内容をデータベースへ保存
+Route::get('images/list', 'ImagesController@index')->name('item_list');
+Route::get('images/edit', 'ImagesController@edit')->name('item_edi');
+Route::post('images/edit', 'ImagesController@update')->name('item_upd');
+Route::get('images/delte', 'ImagesController@delete')->name('item_del');
 
 //ルート名index=取得するとstore=格納

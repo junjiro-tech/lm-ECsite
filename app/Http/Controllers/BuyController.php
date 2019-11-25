@@ -14,7 +14,7 @@ class BuyController extends Controller
     
     public function index()
     {
-        $cartitems = CartItem::select('items.name', 'items.amount', 'quantity')
+        $cartitems = CartItem::select('items.item_name', 'items.amount', 'quantity')
              ->where('user_id', Auth::id())                          
              ->join('items', 'items.id', '=', 'cart_items.item_id') 
              ->get();                                               
