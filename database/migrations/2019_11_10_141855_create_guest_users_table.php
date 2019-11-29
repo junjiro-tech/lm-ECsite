@@ -16,7 +16,6 @@ class CreateGuestUsersTable extends Migration
         Schema::create('guest_users', function (Blueprint $table) {
             $table->uuid('id')->primary;
             $table->string('name');
-            $table->string('kname');
             $table->string('email')->unique;
             $table->timestamp('email_verified_at')->nullable();
             $table->string('tel');

@@ -1,16 +1,18 @@
 @extends('layouts.layout')
 
-@section('title', '会員登録入力')
+@section('title', 'ゲスト購入画面')
 
 @section('content')
-<div class="container mt-5 pt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header"><h4>会員登録</h4><p>以下のフォームの項目を入力し、よろしければ「確認画面に進む」ボタンをクリックしてください</p></div>
-            　　
-                <div class="card-body">
-     　              <form name="form" method="post" action="{{ route('provisional_register') }}">
+    <div class="container mt-5 pt-5">
+        <div class="row justify-content-center" style="margin-bottom: 10px;">
+            <div class="col-md-8">
+        
+                <div class="card">
+                    <div class="card-header">
+                        お届け先入力
+                    </div>
+                    <div class="card-body">
+                         <form name="form" method="post" action="{{ route('guest_confirm') }}">
                     @csrf
                     <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">お名前 <span class="required">必須</span></label>
@@ -22,15 +24,6 @@
                                 </div>
                     </div>
                     <div class="form-group row">
-                            <label for="kname" class="col-md-4 col-form-label text-md-right">お名前(フリガナ) <span class="required">必須</span></label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control @error('kname') is-invalid @enderror" name="kname" size="20" maxlength="20" placeholder="例) ヤマダ　タロウ" value="{{ old('kname') }}" required autocomplete="kname" autofocus>
-                                        @if($errors->has('kname'))
-                                           <p class="text-danger">{{ $errors->first('kname') }}</p>
-                                        @endif
-                                </div>
-                    </div>
-                    <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">メールアドレス <span class="required">必須</span></label>
                                 <div class="col-md-6">
                                     <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" size="20" maxlength="20" placeholder="例) info@example.com ※半角英数字" value="{{ old('email') }}"  required autocomplete="email">
@@ -38,87 +31,6 @@
                                            <p class="text-danger">{{ $errors->first('email') }}</p>
                                         @endif
                                 </div>
-                    </div>
-                    <div class="form-group row">
-                            <label for="email_confirmation" class="col-md-4 col-form-label text-md-right">メールアドレス確認 <span class="required">必須</span></label>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control @error('email_confirmation') is-invalid @enderror" name="email_confirmation" size="20" maxlength="20" placeholder="" value="{{ old('email_confirmation') }}"  required autocomplete="email_confirmation">
-                                        @if($errors->has('email_confirmation'))
-                                           <p class="text-danger">{{ $errors->first('email_confirmation') }}</p>
-                                        @endif
-                                </div>
-                    </div>
-                    <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">パスワード <span class="required">必須</span></label>
-                                <div class="col-md-6">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" size="20" maxlength="20" placeholder="例)※8～16文字の半角英数字" value="{{ old('password') }}" required autocomplete="password" autofocus>
-                                        @if($errors->has('password'))
-                                           <p class="text-danger">{{ $errors->first('password') }}</p>
-                                        @endif
-                                </div>
-                    </div>
-                    <div class="form-group row">
-                            <label for="password_confirmation" class="col-md-4 col-form-label text-md-right">パスワード確認 <span class="required">必須</span></label>
-                                <div class="col-md-6">
-                                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" size="20" maxlength="20" placeholder="" value="{{ old('password_confirmation') }}" required autocomplete="password_confirmation" autofocus>
-                                        @if($errors->has('password_confirmation'))
-                                           <p class="text-danger">{{ $errors->first('password_confirmation') }}</p>
-                                        @endif
-                                </div>
-                    </div>
-                    <div class="form-group row">
-                            <label for="sexMale" class="col-md-4 col-form-label text-md-right">性別</label>
-                                <div class="col-sm-2">
-                                    <input type="radio" class="form-check @error('gender') is-invalid @enderror" name="gender" value="男">
-                                        <label for="sexMale">男</label>
-                                </div>
-                                <div class="col-sm-2">
-                                    <input type="radio" class="form-check @error('gender') is-invalid @enderror" name="gender" value="女">
-                                        <label for="sexfeMale">女</label>
-                                        @if($errors->has('gender'))
-                                           <p class="text-danger">{{ $errors->first('gender') }}</p>
-                                        @endif
-                                </div>
-                    </div>
-                    <div class="form-group row">
-                            <label for="birthday" class="col-md-4 col-form-label text-md-right">生年月日</label>
-                                <div class="col-xs-4">
-                                    <select id="birthday1" class="form-control" name="birthday1">
-                                                    <option value="">----</option>
-                                                    @for ($i = 1940; $i <= 2005; $i++)
-                                                        <option value="{{ $i }}"
-                                                                @if(old('birthday1') == $i) selected @endif>{{ $i }}</option>
-                                                    @endfor
-                                    </select>
-                                        @if($errors->has('birthday1'))
-                                           <p class="text-danger">{{ $errors->first('birthday1') }}</p>
-                                        @endif
-                                </div>年
-                                <div class="col-xs-3">
-                                    <select id="birthday2" class="form-control" name="birthday2">
-                                                    <option value="">--</option>
-                                                    @for ($i = 1; $i <= 12; $i++)
-                                                        <option value="{{ $i }}"
-                                                            @if(old('birthday2') == $i) selected @endif>{{ $i }}</option>
-                                                    @endfor
-                                                </select>
-                                        @if($errors->has('birthday2'))
-                                           <p class="text-danger">{{ $errors->first('birthday2') }}</p>
-                                        @endif
-                                </div>月
-                                <div class="col-xs-3">
-                                                <select id="birthday3" class="form-control" name="birthday3">
-                                                    <option value="">--</option>
-                                                    @for ($i = 1; $i <= 31; $i++)
-                                                        <option value="{{ $i }}"
-                                                            @if(old('birthday3') == $i) selected @endif>{{ $i }}</option>
-                                                    @endfor
-                                                </select>
-                                        @if($errors->has('birthday3'))
-                                           <p class="text-danger">{{ $errors->first('birthday3') }}</p>
-                                        @endif
-                                </div>
-                                日
                     </div>
                     <div class="form-group row">
                             <label for="tel" class="col-md-4 col-form-label text-md-right">電話番号 <span class="required">必須</span></label>
@@ -214,29 +126,17 @@
                                         @endif
                                 </div>
                     </div>
-                    
-                    <div class="card-footer">
-                        <h4>会員規約および個人情報の取り扱いについて</h4>
-                            <div class="policyWrap">
-                                <div class="privacyPolicyWrap">
-                                    <iframe id="inline-frame" src ="iframe.html" scrolling="yes" width="530" height="200"></iframe>
-                                </div>
-                                <div class="agreeBox">
-                                     <input type="checkbox" name="agree" class="agreeCheck" id="agree">
-                                     <label for="agree">上記会員規約、個人情報の取り扱いについて同意する</label>
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">　<!-- mb-0はmargin-bottomを0にするとういう設定 m=marginを設定 b=bottomを設定 -->
+                        <div class="form-group row mb-0">　<!-- mb-0はmargin-bottomを0にするとういう設定 m=marginを設定 b=bottomを設定 -->
                               　　<div class="col-md-8 offset-md-4">
                                             <input type="submit" href="{{ route('provisional_register') }}" value="確認画面に進む">
                                   </div>
-                            </div>
+                        </div>
+                            
                         </form>
                     </div>
-                    
                 </div>
             </div>
         </div>
+        
     </div>
-</div>
 @endsection

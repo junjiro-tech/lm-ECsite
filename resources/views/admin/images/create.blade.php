@@ -3,6 +3,11 @@
 @section('title', '商品登録、画像アップロード')
 
 @section('content')
+    @if(Session::has('flash_message'))
+        <div class="alert alert-success">
+            {{ session('flash_message') }}
+        </div>
+    @endif
 <div clas="container">
     <div class="row">
         <div class="col-md-8 mx-auto mt-5">

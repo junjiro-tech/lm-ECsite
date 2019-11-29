@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
@@ -32,14 +32,14 @@ class ImagesController extends Controller
             // それ以外はすべての商品を取得する
             $items = Item::paginate(20);
         }
-        return view('images/list', ['items' => $items, 'cond_title' => $cond_title]);
+        return view('admin/images/list', ['items' => $items, 'cond_title' => $cond_title]);
     }
     
     
     
     public function add()
     {
-        return view('images.create');
+        return view('admin/images/create');
     }
     
     
@@ -70,7 +70,7 @@ class ImagesController extends Controller
         // データベースに保存する
         $item->fill($form)->save();
         
-        return redirect('images/create');
+        return redirect('admin/images/create')->with('flash_message', '商品を追加しました');
     }
     
     
@@ -84,7 +84,7 @@ class ImagesController extends Controller
         if(empty($item)) {
             abort(404);
         }
-        return view('images/edit', ['item_form' => $item]);
+        return view('admin/images/edit', ['item_form' => $item]);
     }
     
     
@@ -116,7 +116,7 @@ class ImagesController extends Controller
         $images_history->edited_at = Carbon::now();
         $images_history->save();
         
-        return redirect('images/list');
+        return redirect('admin/images/list');
     }
     
     
@@ -126,7 +126,7 @@ class ImagesController extends Controller
         $item = Item::find($request->id);
         //削除する
         $item->delete();
-        return redirect('images/list');
+        return redirect('admin/images/list');
     }
     
     

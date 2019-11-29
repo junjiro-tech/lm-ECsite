@@ -15,7 +15,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
     
     //ログイン後のリダイレクト先
-    protected $redirectTo = '/admin/home';  
+    protected $redirectTo = '/admin/images/list';  
     
     
      //ゲストは弾く
@@ -30,31 +30,6 @@ class LoginController extends Controller
     {
         return view('admin.login');
     }
-    
-    
-    //ポストのログインがあったら
-    public function authenticate(Request $request)
-        {
-            // $user = Admin::findBy('email', $request->email);
-            
-            $email = $request->email;
-        // if (Hash::check($request['email'], $user->email)){  //バリデート行わずに照合する
-            
-        // }
-            $user = Admin::where(['email' => $email])->first();
-            Auth::loginUsingId(1);
-        
-        // if ($request->isMethod('post')) {
-        //     $authinfo = [
-        //         'email' => $request->email];
-                
-        //         if (Auth::attempt($authinfo)) {
-        //             return redirect()->route('admin/home');
-        //         }
-        // }
-             
-            return view('admin.home');
-        }
     
     
     protected function guard()
@@ -73,6 +48,37 @@ class LoginController extends Controller
         return redirect('admin.login');  //変更
         }
     
-   
+    
     
 }
+
+
+
+
+
+//ポストのログインがあったら
+    // public function authenticate(Request $request)
+    //     {
+    //         // $user = Admin::findBy('email', $request->email);
+            
+            
+    //     // if (Hash::check($request['email'], $user->email)){  //バリデート行わずに照合する
+            
+    //     // }
+            
+        
+    //     // if ($request->isMethod('post')) {
+    //     //     $authinfo = [
+    //     //         'email' => $request->email];
+                
+    //     //         if (Auth::attempt($authinfo)) {
+    //     //             return redirect()->route('admin/home');
+    //     //         }
+    //     // }
+    //     $email = $request->email;
+        
+    //     $user = Admin::where(['email' => $email])->first();
+    //         Auth::loginUsingId(1);
+             
+    //         return view('admin.home');
+    //     }

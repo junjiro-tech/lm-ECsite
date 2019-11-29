@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\CartItem;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\CartItem;
+use App\Item;
+use App\Uuid;
+use Illuminate\Support\Facades\Cookie;
 
 use App\Mail\Buy;
 use Illuminate\Support\Facades\Mail; //store()ﾒｿｯﾄﾞの購入完了ﾍﾟｰｼﾞを表示する前に、ﾒｰﾙ送信の処理を組み込む
@@ -14,17 +18,51 @@ class BuyController extends Controller
     
     public function index()
     {
-        $cartitems = CartItem::select('items.item_name', 'items.amount', 'quantity')
+        
+        if( Auth::check())
+        {
+        $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')
              ->where('user_id', Auth::id())                          
-             ->join('items', 'items.id', '=', 'cart_items.item_id') 
+             ->join('items', 'cart_items.item_id', '=', 'items.id') 
              ->get();                                               
              
              $subtotal = 0;
-             foreach($cartitems as $cartitem){
-                 $subtotal += $cartitem->amout * $cartitem->quantity;
-             }
-             return view('buy/index', ['cartitems' => $cartitems, 'subtotal' => $subtotal]);
+                     foreach($cartitems as $cartitem){
+                 $subtotal += $cartitem->amount * $cartitem->quantity;
+                 }
+             
+                 $subtotal_tax = $subtotal * 1.1;
+                 $postage = 510;      //postage=送料
+                 $total = $subtotal_tax; //+ $postage
+             
+             return view('buy/index', ['cartitems' => $cartitems,
+                                       'subtotal' => $subtotal,
+                                       'subtotal_tax' => $subtotal_tax,
+                                       'postage' => $postage,
+                                       'total' => $total,
+                                       ]);
+        } else {
+            return view('cartitem/cart')->with('flash_message', '会員登録されるか非会員購入をしてください');
+        }
     }
+    
+    
+    
+    // public function guest()
+    // {
+    //     $cookie = Cookie::get('uuid');
+        
+    //     $cartitems = CartItem::select('items.item_name', 'items.amount', 'quantity')
+    //          ->where('guest_id', $cookie)                          
+    //          ->join('items', 'items.id', '=', 'cart_items.item_id') 
+    //          ->get();                                               
+             
+    //          $subtotal = 0;
+    //          foreach($cartitems as $cartitem){
+    //              $subtotal += $cartitem->amout * $cartitem->quantity;
+    //          }
+    //          return view('buy/guest/index', ['cartitems' => $cartitems, 'subtotal' => $subtotal]);
+    // }
     
     
     

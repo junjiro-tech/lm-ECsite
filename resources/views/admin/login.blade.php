@@ -1,4 +1,4 @@
-@extends('layouts.admin_layout')
+@extends('admin.admin_layout')
 
 @section('title', '管理者ログイン')
 

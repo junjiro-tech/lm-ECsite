@@ -101,17 +101,20 @@ class CartItemController extends Controller
                      ->get();                   
              }
              
+             
              /*カート内の商品の合計金額を計算する*/
+             
                  $subtotal = 0;
                      foreach($cartitems as $cartitem){
                  $subtotal += $cartitem->amount * $cartitem->quantity;
                  }
              
                  $subtotal_tax = $subtotal * 1.1;
-                 $postage = 510;      //postage=送料
-                 $total = $subtotal_tax + $postage;
+                //  $postage = 510;      //postage=送料
+                 $total = $subtotal_tax; //+ $postage
+
              
-        return view('cartitem/cart', ['cartitems' => $cartitems, 'subtotal' => $subtotal, 'subtotal_tax' => $subtotal_tax, 'postage' => $postage, 'total' => $total]);
+        return view('cartitem/cart', ['cartitems' => $cartitems, 'subtotal' => $subtotal, 'subtotal_tax' => $subtotal_tax, 'total' => $total]); // 'postage' => $postage,
     }
     
     

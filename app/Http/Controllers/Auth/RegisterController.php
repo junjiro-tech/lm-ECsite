@@ -56,6 +56,12 @@ class RegisterController extends Controller
     } //$thisはこのRegisterController内でプログラムがアクセス可能なオブジェクト名(インスタンスメソッド)の事                                 
     
     
+    
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+    
 
     /**
      * Get a validator for an incoming registration request. 訳)登録リクエストに入ってくるバリデータを取得する
@@ -88,8 +94,20 @@ class RegisterController extends Controller
     //  */
      protected function create(array $data)  //登録ボタン押したときにcreateが自動で呼ばれる
      {
+         $cookie = Cookie::get('uuid');
+         
+         if( !$cookie )
+             {
+                 $uuid = new Uuid();
+                //time()を設定しなかった時は、ブラウザを閉じた時点でクッキー破棄となる。また、クッキーを現在時点より前に設定するとその時点で破棄となる
+                $minites = 60 * 24;
+                Cookie::queue('uuid', $uuid->uuid, $minites);  //$cookieに新規idを保存 setcookie(第1引数:'クッキーの名前'、第2引数:クッキーの値、第3引数:有効期限)
+                                  //'uuid'名前とばれないような名前に後で変更
+                $cookie = $uuid->uuid;  
+             }
          
          $user = User::create([
+             'id' => $cookie,
              'name' => $data['name'],
              'kname' => $data['kname'],
              'email' => $data['email'],
@@ -112,8 +130,12 @@ class RegisterController extends Controller
      
      
      
+     
+     
+     
+     
      public function showForm(Request $request)
-     {               
+     {   
          //メールで送信したパラーメーターを、route.phpでshowFormに指定したregister/verify/{token}のparameterを取得して$email_tokenに代入
          $email_token = $request->route()->parameter('token'); 
          //email_sent=メール送信済み

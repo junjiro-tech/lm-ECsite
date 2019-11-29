@@ -7,6 +7,7 @@
                 <div class="card">　　　　　　　　　　　　　　　　
                     <div class="card-header"><h4>{{ __('ログイン') }}</h4><p>会員の方は、登録時に入力されたメールアドレスとパスワードでログインしてください。</p></div> <!-- __( $string ) の意味  _2つの __ 関数は、Lang::get の別名、PHPの言語機能では無く、国際化対応のために作成された関数で -->
                     
+                        
                         <div class="card-body">        <!-- {{ route('login') }}は定数 -->
                            <form method="post" action="{{ route('login') }}" name="login"> <!-- action属性=フォームで入力したdataの送信先URIを指定する、、 method属性=指定requiedはない-->
                            @csrf   <!-- ＠はlaravelで標準装備されているcsrfを読み込んでくれている。laravelがバージョンアップすると自動でそのセキュリティが入る -->

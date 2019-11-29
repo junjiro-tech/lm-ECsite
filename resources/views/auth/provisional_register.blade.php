@@ -14,6 +14,7 @@
                 <div cclass="card-body">
                     <form method="post" action="{{ route('register_complete') }}">
                     @csrf
+          
                     
           <label>お名前:</label>
           {{ $register_data['name'] }}
