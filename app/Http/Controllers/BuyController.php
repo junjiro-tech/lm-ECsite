@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Mail; //store()ﾒｿｯﾄﾞの購入完了ﾍ�
 class BuyController extends Controller
 {
     
-    public function index()
+    public function index(Request $request)
     {
+        $user = Auth::user();
         
         if( Auth::check())
         {
@@ -27,47 +28,49 @@ class BuyController extends Controller
              ->get();                                               
              
              $subtotal = 0;
-                     foreach($cartitems as $cartitem){
+             foreach($cartitems as $cartitem){
                  $subtotal += $cartitem->amount * $cartitem->quantity;
-                 }
+             }
              
-                 $subtotal_tax = $subtotal * 1.1;
-                 $postage = 510;      //postage=送料
-                 $total = $subtotal_tax; //+ $postage
+            $subtotal_tax = $subtotal * 1.1;
+            $postage = 510;      //postage=送料
+            $total = $subtotal_tax + $postage; //+ $postage
              
              return view('buy/index', ['cartitems' => $cartitems,
                                        'subtotal' => $subtotal,
                                        'subtotal_tax' => $subtotal_tax,
                                        'postage' => $postage,
                                        'total' => $total,
+                                       'user' => $user,
                                        ]);
         } else {
-            return view('cartitem/cart')->with('flash_message', '会員登録されるか非会員購入をしてください');
+            return redirect('/cartitem')->with('flash_message', '会員登録されるか非会員購入ボタンを押してください');
         }
     }
     
     
     
-    // public function guest()
-    // {
-    //     $cookie = Cookie::get('uuid');
-        
-    //     $cartitems = CartItem::select('items.item_name', 'items.amount', 'quantity')
-    //          ->where('guest_id', $cookie)                          
-    //          ->join('items', 'items.id', '=', 'cart_items.item_id') 
-    //          ->get();                                               
-             
-    //          $subtotal = 0;
-    //          foreach($cartitems as $cartitem){
-    //              $subtotal += $cartitem->amout * $cartitem->quantity;
-    //          }
-    //          return view('buy/guest/index', ['cartitems' => $cartitems, 'subtotal' => $subtotal]);
-    // }
-    
-    
     
     public function store(Request $request)
     {
+        $user = Auth::user();
+        
+        $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')  
+                ->where('user_id', $cookie)                     
+                ->join('items', 'cart_items.item_id', '=', 'items.id') 
+                ->get();              
+             
+        $subtotal = 0;
+        foreach($cartitems as $cartitem){
+            $subtotal += $cartitem->amout * $cartitem->quantity;
+        }
+        $subtotal_tax = $subtotal * 1.1;
+        $postage = 510;      //postage=送料
+        $total = $subtotal_tax + $postage;
+             
+        return view('buy/complete');
+        
+        
         if( $request->has('post') ){ //←でフォームからのリクエストパラメータにpostという値が含まれているかどうかを判定
             //postが含まれている場合は注文を確定する処理を実行
             //postが含まれていなければもう一度購入画面を表示し、ビュー側で入力確認用の表示に切り替える

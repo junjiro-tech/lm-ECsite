@@ -35,7 +35,6 @@ class User extends Authenticatable
     
     protected $attributes = [
         // 定数を設定
-        'id' => '',
         'name' => '',
         'kname' => '',
         'email' => '',

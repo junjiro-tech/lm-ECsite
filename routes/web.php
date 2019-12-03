@@ -31,11 +31,12 @@ Route::delete('/cartitem/', 'CartItemController@destroy')->name('cartitem_delete
 Route::put('/cartitem/', 'CartItemController@update')->name('cartitem_update');
 
 //カートからログインして購入処理
-Route::post('buy/index', 'LoginController@buylogin');
+Route::get('buylogin', 'Auth\LoginController@showBuyLoginForm');
+Route::post('buylogin', 'Auth\LoginController@buylogin')->name('buylogin');
 
 //ログイン済み購入処理
 Route::get('/buy/index', 'BuyController@index');
-Route::post('/buy/index', 'BuyController@store');
+Route::post('buy/index', 'BuyController@store')->name('regi_complete');
 
 //非会員購入処理
 Route::get('buy/guest/index', 'GuestBuyController@index');

@@ -88,7 +88,7 @@ class GuestBuyController extends Controller
         }
         $subtotal_tax = $subtotal * 1.1;
         $postage = 510;      //postage=送料
-        $total = $subtotal_tax; //+ $postage
+        $total = $subtotal_tax + $postage;
              
         return view('buy/guest/confirm', ['guestData' => $guestData,
                                           'cartitems' => $cartitems,

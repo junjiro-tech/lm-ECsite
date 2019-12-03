@@ -47,7 +47,7 @@
                                     <td>{{ Str::limit($item->item_name, 10) }}</td>
                                     <td>{{ Str::limit($item->amount, 5) }}円</td>
                                     <td>{{ Str::limit($item->explanation, 200) }}</td>
-                                    <!--<td>{{ Str::limit($item->inventory_control, 5) }}</td>-->
+                                    <td>{{ Str::limit($item->inventory_control, 5) }}</td>
                                     <td><a href="{{ action('Admin\ImagesController@edit', ['id' => $item->id ]) }}">編集</a></td>
                                     <td><a href="{{ action('Admin\ImagesController@delete', ['id' => $item->id ]) }}">削除</a></td>
                                 </tr>

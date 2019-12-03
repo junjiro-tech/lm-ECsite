@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\CartItem;
+use App\Item;
 use App\Uuid;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 
 class LoginController extends Controller
@@ -38,6 +41,14 @@ class LoginController extends Controller
         return view('auth.login');
     }
     
+    public function showBuyLoginForm()
+    {
+        // if (isset($_SERVER['HTTP_REFERER'])) {                    
+        //     session(['url.intended' => $_SERVER['HTTP_REFERER']]); //REFERER　どこから来たかっていう事
+        // }                                                         
+        return view('auth.buylogin');
+    }
+    
     /**
      * Where to redirect users after login.　訳）ログイン後にユーザーをリダイレクトする場所
      *
@@ -60,45 +71,87 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');             /*認証が必要なものはMiddlewareで定義する  訳）except=を除く*/
     }
     
+    //User::findBy('email', $user->email);
+    
+    
+    public function login(Request $request)
+    {
+         $users = User::where('email', $request->email)->first();
+        
+        $uuid = Cookie::get('uuid');
+
+        $users->password = $request->password;  //passwordは入力値と照合する
+        
+        Auth::login($users);
+        //CartItemのguest_idの全てのレコードを取得かつuser_idがnullの人のデータを$cartitemsに代入
+        $cartitems = CartItem::where('guest_id', $uuid)->whereNull('user_id')->get(); 
+        
+        //カートに未決済のアイテムが入っている場合
+        if( !$cartitems->isEmpty() ) //empty()は配列が空かどうか、isEmpty()はCollectionのオブジェクト,collectionが空かどうか確認
+        {
+            foreach ($cartitems as $cartitem) 
+            {
+                $cartitem->user_id = Auth::id(); //Authのidを取得して$cartitemのuser_idに代入
+                $cartitem->guest_id = null;      //user_idにAuthのidが入るとguest
+                $cartitem->save();
+            }
+            
+            if (isset($_SERVER['HTTP_REFERER'])) {                    
+            session(['url.intended' => $_SERVER['HTTP_REFERER']]);
+            }              
+                
+            return redirect('cartitem');
+            
+        //カートにアイテムが入ってない場合
+        } else  {
+                
+            if (isset($_SERVER['HTTP_REFERER'])) {                    
+            session(['url.intended' => $_SERVER['HTTP_REFERER']]);
+            }   
+                
+            return redirect('cartitem');
+        }
+        
+    }
+    
+    
     
     //カートからログインする時,cookieは削除しない
     public function buylogin(Request $request)
     {
+        $users = User::where('email', $request->email)->first();
         
-        //カートにアイテムがない場合
-        $cookie = Cookie::get('uuid'); 
-        $user = $request->email->password;
-        $users = DB::table('users')->get();
+        $uuid = Cookie::get('uuid');
+        // var_dump($uuid);exit();
+        $users->password = $request->password;  //passwordは入力値と照合する
         
-        $id = CartItem::find($cookie->id);
+        Auth::login($users);
+        // var_dump(Auth::user());exit();
+        //CartItemのguest_idの全てのレコードを取得かつuser_idがnullの人のデータを$cartitemsに代入
+        $cartitems = CartItem::where('guest_id', $uuid)->whereNull('user_id')->get(); 
+        // var_dump($uuid);var_dump($cartitem);exit();
         
-        if( DB::table('cart_items')->$id )
-        {
-        
-        Auth::login($user);
-        
-        DB::table('cart_items')
-            ->where('guest_id', $cookie)
-            ->update(['user_id', $users]);
-            
-        if (isset($_SERVER['HTTP_REFERER'])) {                    
-        session(['url.intended' => $_SERVER['HTTP_REFERER']]);
-        }                                                         
-            return redirect('buy/index', ['users' => $users]);
-            
-            
-            
         //カートに未決済のアイテムが入っている場合
-        } elseif (DB::table('cart_items')->id ) {
+        if( !$cartitems->isEmpty() ) //empty()は配列が空かどうか、isEmpty()はCollectionのオブジェクト,collectionが空かどうか確認
+        {
+            foreach ($cartitems as $cartitem) 
+            {
+                $cartitem->user_id = Auth::id(); //Authのidを取得して$cartitemのuser_idに代入
+                $cartitem->guest_id = null;      //user_idにAuthのidが入るとguest
+                $cartitem->save();
+            }
+            // $cartitem->update(['user_id', Auth::id()]);
+                
+            return redirect('buy/index');
             
-        $user_item = CartItem::find('cart_items', 'amount', 'quantity');
-        $guest_item = CartItem::find('cart_items', 'amount', 'quantity');
-        Auth::login($user);
-            
-        if (isset($_SERVER['HTTP_REFERER'])) {                    
-        session(['url.intended' => $_SERVER['HTTP_REFERER']]);
-        }    
-            return redirect('buy/index', ['users' => $users]);
+        //カートにアイテムが入ってない場合
+        } else  {
+                
+            if (isset($_SERVER['HTTP_REFERER'])) {                    
+            session(['url.intended' => $_SERVER['HTTP_REFERER']]);
+            }              
+                
+            return redirect('cartitem');
         }
         
     }

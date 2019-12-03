@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()   /*up関数の中でカラムを定義する*/
     {                                
         Schema::create('users', function (Blueprint $table) {  /*createメソッドでは、第１引数にテーブル名のusers、第２引数にクロージャを指定する*/
-            $table->uuid('id')->primary;                       /*クロージャでは、第１引数にBlueprintオブジェクト、第２引数に$tableを指定する*/
+            $table->bigIncrements('id');                       /*クロージャでは、第１引数にBlueprintオブジェクト、第２引数に$tableを指定する*/
             $table->string('name')->default('');
             $table->string('kname')->default('')->comment('フリガナ');
             $table->string('email')->unique()->default('');                 /*unique使用の注意点:uniqidは暗号としては脆弱なので、パスワードやトークンとして利用しないように気をつける*/

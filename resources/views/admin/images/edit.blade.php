@@ -34,12 +34,12 @@
                         <textarea class="form-control" name="explanation" rows="3">{{ $item_form->explanation }}</textarea>
                     </div>
                 </div>
-                <!--<div class="form-group row">-->
-                <!--    <label class="col-md-2" for="amount">在庫</label>-->
-                <!--    <div class="col-md-10">-->
-                <!--        <input type="text" class="form-control" name="inventory_control" value="{{ $item_form->inventory_control}}">-->
-                <!--    </div>-->
-                <!--</div>-->
+                <div class="form-group row">
+                    <label class="col-md-2" for="amount">在庫</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" name="inventory_control" value="{{ $item_form->inventory_control}}">
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label class="col-md-2" for="image_path">画像</label>
                     <div class="col-md-10">

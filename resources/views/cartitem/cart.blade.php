@@ -76,7 +76,7 @@
                         会員登録済みでログイン
                     </div>
                         <div>
-                            <a class="btn btn-primary" href="/login" role="button" width="auto">
+                            <a class="btn btn-primary" href="/buylogin" role="button" width="auto">
                                 ログインしてレジに進む
                             </a>
                         </div>

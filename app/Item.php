@@ -11,13 +11,15 @@ class Item extends Model
         'explanation',
         'image_path',
         'amount',
+        'inventory_control'
     ];
     
     public static $rules = array(
         'item_name' => 'required',
         'explanation' => 'required',
         'image_path' => 'required',
-        'amount' => 'required'
+        'amount' => 'required',
+        'inventory_control' => 'required'
     );
     
     

@@ -38,6 +38,8 @@ class CartItemController extends Controller
                 $cookie = $uuid->uuid;                  
             }
             
+            
+            
             CartItem::updateOrCreate(   //CartItem::updateOrCreate()は、レコードの登録と更新を兼ねるメソッド
             [                                            //新しい行を追加するために「ﾕｰｻﾞｰID」「商品ID」「数量」を指定する
                 'guest_id' => $cookie,                   //guest_idはpost使いitemのidを取得
@@ -62,6 +64,13 @@ class CartItemController extends Controller
             ]                 //カラムに値を加算する`'quantity + '～`という文を、`\DB::raw()`に渡すことで、クエリ文字列を生成している
         );
         }
+        
+        // if (CartItem::where('cartitems', user_id)->where('cartitems', item_id) )
+        // {
+        //     'quantity' => \DB::raw('quantity + ');
+        // } else {
+            
+        // }
         
         return redirect('items/index')->with('flash_message', 'カートに追加しました');
         //処理が終わったらreturn redirect('items/index')で商品一覧ページに戻るようにしている
@@ -90,7 +99,7 @@ class CartItemController extends Controller
              
                  $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')  //select関数は('aテーブル.bカラム')を取ってくるという時に使える
                      ->where('user_id', Auth::id())                      
-                     ->join('items', 'cart_items.item_id', '=', 'items.id') //←でcart_itemsテーブルとitemsテーブルを結合しています,cart_itemsテーブルは商品のID(cart_items.item_id)しか持っていないので、cart_items.item_idをキーにしてitemsテーブルから商品名と価格を取得できるようにしています
+                     ->join('items', 'cart_items.item_id', '=', 'items.id') //join('itemテーブルから', 'cart_itemsのitem_idをキーにてしてitem.idの情報を取得している。cart_itemsテーブルとitemsテーブルを結合しています,cart_itemsテーブルは商品のID(cart_items.item_id)しか持っていないので、cart_items.item_idをキーにしてitemsテーブルから商品名と価格を取得できるようにしています
                      ->get();                                               //最後にget()で検索結果を取得し、ビューに渡しています
                  
              } else {
@@ -114,12 +123,11 @@ class CartItemController extends Controller
                  $total = $subtotal_tax; //+ $postage
 
              
-        return view('cartitem/cart', ['cartitems' => $cartitems, 'subtotal' => $subtotal, 'subtotal_tax' => $subtotal_tax, 'total' => $total]); // 'postage' => $postage,
+            return view('cartitem/cart', ['cartitems' => $cartitems,
+                                          'subtotal' => $subtotal,
+                                          'subtotal_tax' => $subtotal_tax,
+                                          'total' => $total]); // 'postage' => $postage,
     }
-    
-    
-    
-    
     
     
     public function destroy(Request $request)

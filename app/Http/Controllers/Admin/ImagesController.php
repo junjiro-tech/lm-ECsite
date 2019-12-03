@@ -48,7 +48,7 @@ class ImagesController extends Controller
     //データベースに保存するまで
     public function create(Request $request)
     {
-        $this->validate($request, Item::$rules);  //Itemモデルでバリデーションした（item_name,explanation,amount,item_pic_path)
+        $this->validate($request, Item::$rules);  //Itemモデルでバリデーションした（item_name,explanation,amount,inventory_control,item_pic_path)
         
         $item = new Item;
         $form = $request->all();
@@ -66,6 +66,16 @@ class ImagesController extends Controller
         unset($form['_token']);
         // フォームから送信されてきたimageを削除する
         unset($form['image_path']);
+        
+        Item::updateOrCreate(  
+            [                                           
+                '' => Auth::id(),//ユーザーIDはAuthの機能を使い、Auth::id()でログイン中のユーザー情報から取得している。
+                'item_id' => $request->post('inventory_control'),  //在庫数は$request->post('キー名')を使って取得
+            ],                                           //->postこれによりHTMLのフォーム等(POSTメソッド)で送られた値を取得できます
+            [
+                'inventory_control' => \DB::raw('inventory_control - ' . $request->post('inventory_control') ), 
+            ] //カラムに値を加算する`'カラム名 - '～`という文を、`\DB::raw()`に渡すことで、クエリ文字列を生成している
+        );
         
         // データベースに保存する
         $item->fill($form)->save();
@@ -96,6 +106,7 @@ class ImagesController extends Controller
         $item = Item::find($request->id);
         //送信されてきたフォームデータを格納する
         $item_form = $request->all();
+        
         if (isset($item_form['image_path'])) { //issetは変数に値がセットされているか確認する方法、つまり$item_formに'item_picがあるか確認している
             $path = $request->file('image_path')->store('public/image');
             $item->image_path = basename($path);

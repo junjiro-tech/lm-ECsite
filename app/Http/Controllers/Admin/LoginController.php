@@ -41,11 +41,11 @@ class LoginController extends Controller
     
     public function logout(Request $request)
         {
-        Auth::guard('admin')->logout();  //変更
+        Auth::guard('admin')->logout();  
         $request->session()->flush();
         $request->session()->regenerate();
  
-        return redirect('admin.login');  //変更
+        return redirect('admin.login');
         }
     
     
