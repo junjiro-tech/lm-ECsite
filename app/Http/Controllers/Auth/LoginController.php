@@ -140,7 +140,6 @@ class LoginController extends Controller
                 $cartitem->guest_id = null;      //user_idにAuthのidが入るとguest
                 $cartitem->save();
             }
-            // $cartitem->update(['user_id', Auth::id()]);
                 
             return redirect('buy/index');
             

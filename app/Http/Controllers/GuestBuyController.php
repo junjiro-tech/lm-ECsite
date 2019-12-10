@@ -77,14 +77,12 @@ class GuestBuyController extends Controller
             
         $cookie = Cookie::get('uuid');
         
-        $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')  
-                ->where('guest_id', $cookie)                     
-                ->join('items', 'cart_items.item_id', '=', 'items.id') 
-                ->get();              
+        $cartitems = CartItem::where('guest_id', $cookie)->get();
+             \Debugbar::info($cartitems);
              
         $subtotal = 0;
         foreach($cartitems as $cartitem){
-            $subtotal += $cartitem->amout * $cartitem->quantity;
+            $subtotal += $cartitem->amount * $cartitem->quantity;
         }
         $subtotal_tax = $subtotal * 1.1;
         $postage = 510;      //postage=送料
@@ -112,6 +110,9 @@ class GuestBuyController extends Controller
             "subsequent_address" => "required",
             ]);
             
+            $cookie = Cookie::get('uuid');
+            $cartitems = CartItem::where('guest_id',$cookie)->get();
+            
             $action = $request->get('action', 'back');
         
         //フォームから受け取ったactionを除いたinputの値を取得
@@ -126,6 +127,14 @@ class GuestBuyController extends Controller
             $request->session()->regenerateToken();  //session()はコンピュータのサーバー側に一時的にデータを保存する仕組みのこと
                                                      //Web上でのログイン情報や最終アクセスなど、ユーザーに直接紐づくような大切なデータを
                                                      //セッションに格納して使ったりします。regenerateToken()で２重送信防止
+            $subtotal = 0;
+            foreach($cartitems as $cartitem){
+            $subtotal += $cartitem->amount * $cartitem->quantity;
+            $cartitem->item->inventory_control -= $cartitem->quantity;
+            $cartitem->item->save();
+        }
+                                                     
+                                                     
             return view('/buy/guest/complete');        
             
         //確認画面で入力内容修正が押された場合

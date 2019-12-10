@@ -27,4 +27,15 @@ class Item extends Model
     {
         return $this->hasMany('App\ImagesHistory');
     }
+    
+    public function cartitems()
+    {
+        return $this->hasMany('App\CartItem');
+    }
+    
 }
+
+   
+
+//hasMany
+//belongsTo

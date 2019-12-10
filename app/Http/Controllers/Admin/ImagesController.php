@@ -9,6 +9,7 @@ use Storage;
 use Carbon\carbon;
 use App\ImagesHistory;
 use App\Http\Controllers\Controller;
+use App\Admin;
 
 class ImagesController extends Controller
 {
@@ -67,15 +68,6 @@ class ImagesController extends Controller
         // フォームから送信されてきたimageを削除する
         unset($form['image_path']);
         
-        Item::updateOrCreate(  
-            [                                           
-                '' => Auth::id(),//ユーザーIDはAuthの機能を使い、Auth::id()でログイン中のユーザー情報から取得している。
-                'item_id' => $request->post('inventory_control'),  //在庫数は$request->post('キー名')を使って取得
-            ],                                           //->postこれによりHTMLのフォーム等(POSTメソッド)で送られた値を取得できます
-            [
-                'inventory_control' => \DB::raw('inventory_control - ' . $request->post('inventory_control') ), 
-            ] //カラムに値を加算する`'カラム名 - '～`という文を、`\DB::raw()`に渡すことで、クエリ文字列を生成している
-        );
         
         // データベースに保存する
         $item->fill($form)->save();

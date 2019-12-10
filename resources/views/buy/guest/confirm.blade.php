@@ -11,7 +11,7 @@
                      <p>下記内容でよろしければ「この内容で登録する」ボタンを押してください<br>修正が必要な場合は、「入力内容修正」ボタンを押してください</p>
                 </div>
                 
-                @foreach($cartitems as $cartitem)
+                 @foreach($cartitems as $cartitem)
                        <div class="card-header">
                            {{ $cartitem->item_name }}
                        </div>
@@ -20,7 +20,7 @@
                                {{ $cartitem->amount }}円
                            </div>
                        </div>
-                @endforeach
+                 @endforeach
                 <div class="card">
                     <div class="card-header">
                         商品合計

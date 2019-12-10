@@ -15,7 +15,7 @@ class CreateCartItemsTable extends Migration
     {
         Schema::create('cart_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id')->nullable(); //外部キー
+            $table->unsignedBigInteger('user_id')->nullable(); //外部キー
             $table->uuid('guest_id')->nullable();
             $table->integer('item_id')->default(0);
             $table->integer('quantity')->default(0);   //quantity=数量

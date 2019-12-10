@@ -46,6 +46,9 @@ Route::post('buy/guest/complete', 'GuestBuyController@complete')->name('guest_co
 //決済処理
 Route::post('/charge', 'HomeController@charge');
 
+//購入後メール送信、在庫が15個以下になると管理者へメール送信
+Route::get('buy/inventoryMail', 'MailController@index');
+
 //会員登録フォーム
 Route::get('register/verify/{token}', 'Auth\RegisterController@showForm');
 Route::post('register/provisional_register', 'Auth\RegisterController@provisional_register')->name('provisional_register');
