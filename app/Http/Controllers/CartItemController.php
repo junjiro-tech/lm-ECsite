@@ -9,12 +9,13 @@ use App\CartItem;
 use App\Item;
 use App\Uuid;
 use Illuminate\Support\Facades\Cookie;
+use DB;
 
 class CartItemController extends Controller
 {
     
-    
-    public function store(Request $request)  //store()メソッドが呼ばれると、データベースのcart_itemsテーブルに新しいレコードが追加される
+    //store()メソッドが呼ばれると、データベースのcart_itemsテーブルに新しいレコードが追加される
+    public function store(Request $request)  
     {
         //debaugbar nullならなぜか調べる
                 
@@ -65,12 +66,6 @@ class CartItemController extends Controller
         );
         }
         
-        // if (CartItem::where('cartitems', user_id)->where('cartitems', item_id) )
-        // {
-        //     'quantity' => \DB::raw('quantity + ');
-        // } else {
-            
-        // }
         
         return redirect('items/index')->with('flash_message', 'カートに追加しました');
         //処理が終わったらreturn redirect('items/index')で商品一覧ページに戻るようにしている
@@ -96,18 +91,29 @@ class CartItemController extends Controller
              //ログイン中であれば
              if( Auth::check() )
              {
-             
+                //   $cartitems = CartItem::where('user_id', Auth::id())->get();
+                //   $cartitems = CartItem::where('item_id', )->get();
                  $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')  //select関数は('aテーブル.bカラム')を取ってくるという時に使える
                      ->where('user_id', Auth::id())                      
                      ->join('items', 'cart_items.item_id', '=', 'items.id') //join('itemテーブルから', 'cart_itemsのitem_idをキーにてしてitem.idの情報を取得している。cart_itemsテーブルとitemsテーブルを結合しています,cart_itemsテーブルは商品のID(cart_items.item_id)しか持っていないので、cart_items.item_idをキーにしてitemsテーブルから商品名と価格を取得できるようにしています
+                    //  ->groupBy('item_id')
                      ->get();                                               //最後にget()で検索結果を取得し、ビューに渡しています
+                
+                    // foreach($cartitems as $cartitem){
+                    //     $cartitem->quantity += $cartitem->quantity;
+                    // }
+                
                  
              } else {
-             
-                 $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')  
-                     ->where('guest_id', $cookie)                     
-                     ->join('items', 'cart_items.item_id', '=', 'items.id') 
-                     ->get();                   
+                 
+                 $cartitems = CartItem::where('user_id', Auth::id())->get();
+                 
+                 
+                     
+                //  $cartitems = CartItem::select('cart_items','user_id,', 'item_id')
+                //     ->groupBy('item_id')
+                //     ->join('items', 'cart_items.item_id', '=', 'items.id')
+                //     ->get();
              }
              
              

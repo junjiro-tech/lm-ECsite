@@ -13,7 +13,7 @@ class MailController extends Controller
     public function index() 
     {
         //空の配列　名前、数
-        // $itemArray = ['item_name'=> '', 'inventory_control'=> '',];
+        // private $itemArray = array();
         $_itemArray =　\DB::table('items')->get();;
         
         return InventoryMail::$_itemArray;

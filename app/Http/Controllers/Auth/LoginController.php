@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -11,7 +9,6 @@ use App\Uuid;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
-
 class LoginController extends Controller
 {
     /*
@@ -25,7 +22,6 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers {
         logout as performLogout;
     }
@@ -59,7 +55,6 @@ class LoginController extends Controller
         $this->performLogout($request);
         return redirect()->route('top_page');
     }
-
     /**
      * Create a new controller instance.　　 訳）新しいコントローラーインスタンスを作成します
      *
@@ -76,41 +71,31 @@ class LoginController extends Controller
     
     public function login(Request $request)
     {
-         $users = User::where('email', $request->email)->first();
+        $users = User::where('email', $request->email)->first();
         
         $uuid = Cookie::get('uuid');
-
         $users->password = $request->password;  //passwordは入力値と照合する
         
         Auth::login($users);
-        //CartItemのguest_idの全てのレコードを取得かつuser_idがnullの人のデータを$cartitemsに代入
-        $cartitems = CartItem::where('guest_id', $uuid)->whereNull('user_id')->get(); 
         
-        //カートに未決済のアイテムが入っている場合
-        if( !$cartitems->isEmpty() ) //empty()は配列が空かどうか、isEmpty()はCollectionのオブジェクト,collectionが空かどうか確認
-        {
-            foreach ($cartitems as $cartitem) 
-            {
-                $cartitem->user_id = Auth::id(); //Authのidを取得して$cartitemのuser_idに代入
-                $cartitem->guest_id = null;      //user_idにAuthのidが入るとguest
-                $cartitem->save();
+        $guest_cart_items = CartItem::where("guest_id", $uuid)->get();//guest_idでuuidを取得
+        $user_cart_items = CartItem::where("user_id", Auth::id())->get();//ログインしたユーザーのuser_idを取得
+        //↓のコードはバグ起こりやすい
+        foreach( $guest_cart_items as $guest_item ){  //ゲストのアイテムまわす
+            foreach( $user_cart_items as $user_item ){  //ユーザーのアイテムまわす
+                if( $guest_item->item_id == $user_item->item_id ) //ゲストとユーザーのitem_idが同じであれば
+                {
+                    \Log::info($guest_item);
+                    \Log::info($user_item);
+                    $user_item->quantity += $guest_item->quantity; //ゲストのアイテム数をユーザーのアイテム数に足す
+                    $user_item->save();  //ユーザーのアイテムを保存
+                    $guest_item->delete(); //ゲストのアイテムを削除
+                    
+                }
             }
-            
-            if (isset($_SERVER['HTTP_REFERER'])) {                    
-            session(['url.intended' => $_SERVER['HTTP_REFERER']]);
-            }              
-                
-            return redirect('cartitem');
-            
-        //カートにアイテムが入ってない場合
-        } else  {
-                
-            if (isset($_SERVER['HTTP_REFERER'])) {                    
-            session(['url.intended' => $_SERVER['HTTP_REFERER']]);
-            }   
-                
-            return redirect('cartitem');
         }
+            return redirect('/');
+        // }
         
     }
     
@@ -160,4 +145,3 @@ class LoginController extends Controller
    //リダイレクト先でカートアイテムを引っ張る
     
 }
-

@@ -13,15 +13,9 @@ class InventoryMail extends Mailable
     use Queueable, SerializesModels;
     
     protected static $_itemArray; //$_はインスタンス変数 static宣言は、インスタンス化せずその変数にアクセスできる　メモリ上に残り続ける
-    
-    
-    
-    private $itemArray = array();
-    
-    public function $_addItemArray()
+
+    public function _addItemArray()
     {
-        $items->inventory_control();
-        $this->itemArray[] = $itemArray; 
     }
     
     /**

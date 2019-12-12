@@ -71,7 +71,7 @@ Route::group(['prefix' => 'admin'], function() {
 //Adminログイン後
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::post('logout',   'Admin\LoginController@logout')->name('admin.logout');
-    Route::get('/home',      'Admin\HomeController@index')->name('admin.home');
+    // Route::get('/home',      'Admin\HomeController@index')->name('admin.home');
     Route::get('images/create', 'Admin\ImagesController@add'); 
     Route::post('images/create', 'Admin\ImagesController@create')->name('item_regi');  //images/createで入力した内容をデータベースへ保存
     Route::get('images/list', 'Admin\ImagesController@index')->name('item_list');
