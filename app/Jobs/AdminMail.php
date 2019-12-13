@@ -37,26 +37,28 @@ class AdminMail implements ShouldQueue
     public function handle()
     {
         //結果の配列
-        $items->inventory_control();
-        $this->itemArray[] = $_itemArray;
+        $this->_itemArray[] = $_itemArray;
         
-        $_itemArray =　\DB::table('items')->get();;
+        $_itemArray =　\DB::table('items')->get();;  
         
-        foreach($_itemArray as $item){
-            $item->item_name;
-            $item->inventory_control;
+        foreach ($_itemArray as $item){
+            $items = $item->item_name;
+            $items = $item->inventory_control;
+            $items->save();
             
             if( $item->inventory_control <= 15 )
         {
             //このアイテムを別の配列に入れてあげる
-            
+            $this->itemArray[] = $items;
         }
         
         }
         
         //$cartitem->item->inventory_control <= 15　かつ itemarrayにその商品が存在してなければitemarrayに挿入する
         //配列が空じゃなかったらメールを送るという処理
-        if( !$itemArray->empty())
-        Mail::to('tksmjf@icloud.com')->send(new InventoryMail($_itemArray));
+        if( empty($_itemArray)){
+            Mail::to('tksmjf@icloud.com')->send(new InventoryMail($_itemArray));
+        }
+        
     }
 }

@@ -111,26 +111,32 @@ class LoginController extends Controller
         $users->password = $request->password;  //passwordは入力値と照合する
         
         Auth::login($users);
-        // var_dump(Auth::user());exit();
-        //CartItemのguest_idの全てのレコードを取得かつuser_idがnullの人のデータを$cartitemsに代入
-        $cartitems = CartItem::where('guest_id', $uuid)->whereNull('user_id')->get(); 
-        // var_dump($uuid);var_dump($cartitem);exit();
         
-        //カートに未決済のアイテムが入っている場合
-        if( !$cartitems->isEmpty() ) //empty()は配列が空かどうか、isEmpty()はCollectionのオブジェクト,collectionが空かどうか確認
+        $guest_cart_items = CartItem::where("guest_id", $uuid)->get();//guest_idでuuidを取得
+        $user_cart_items = CartItem::where("user_id", Auth::id())->get();//ログインしたユーザーのuser_idを取得
+        
+        
+        if( empty($user_cart_items) )
         {
-            foreach ($cartitems as $cartitem) 
-            {
-                $cartitem->user_id = Auth::id(); //Authのidを取得して$cartitemのuser_idに代入
-                $cartitem->guest_id = null;      //user_idにAuthのidが入るとguest
-                $cartitem->save();
+        //↓のコードはバグ起こりやすい
+        foreach( $guest_cart_items as $guest_item ){  //ゲストのアイテムまわす
+            foreach( $user_cart_items as $user_item ){  //ユーザーのアイテムまわす
+                if( $guest_item->item_id == $user_item->item_id ) //ゲストとユーザーのitem_idが同じであれば
+                {
+                    \Log::info($guest_item);
+                    \Log::info($user_item);
+                    $user_item->quantity += $guest_item->quantity; //ゲストのアイテム数をユーザーのアイテム数に足す
+                    $user_item->save();  //ユーザーのアイテムを保存
+                    $guest_item->delete(); //ゲストのアイテムを削除
+                    
+                }
             }
-                
-            return redirect('buy/index');
-            
-        //カートにアイテムが入ってない場合
-        } else  {
-                
+        }
+        
+        return view('buy/index');
+        
+        
+        } else {
             if (isset($_SERVER['HTTP_REFERER'])) {                    
             session(['url.intended' => $_SERVER['HTTP_REFERER']]);
             }              
@@ -145,3 +151,31 @@ class LoginController extends Controller
    //リダイレクト先でカートアイテムを引っ張る
     
 }
+
+
+// var_dump(Auth::user());exit();
+        //CartItemのguest_idの全てのレコードを取得かつuser_idがnullの人のデータを$cartitemsに代入
+        // $cartitems = CartItem::where('guest_id', $uuid)->whereNull('user_id')->get(); 
+        // // var_dump($uuid);var_dump($cartitem);exit();
+        
+        // //カートに未決済のアイテムが入っている場合
+        // if( !$cartitems->isEmpty() ) //empty()は配列が空かどうか、isEmpty()はCollectionのオブジェクト,collectionが空かどうか確認
+        // {
+        //     foreach ($cartitems as $cartitem) 
+        //     {
+        //         $cartitem->user_id = Auth::id(); //Authのidを取得して$cartitemのuser_idに代入
+        //         $cartitem->guest_id = null;      //user_idにAuthのidが入るとguest
+        //         $cartitem->save();
+        //     }
+                
+        //     return redirect('buy/index');
+            
+        // //カートにアイテムが入ってない場合
+        // } else  {
+                
+        //     if (isset($_SERVER['HTTP_REFERER'])) {                    
+        //     session(['url.intended' => $_SERVER['HTTP_REFERER']]);
+        //     }              
+                
+        //     return redirect('cartitem');
+        // }

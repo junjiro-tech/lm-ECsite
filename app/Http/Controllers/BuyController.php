@@ -22,22 +22,22 @@ class BuyController extends Controller
         $user = Auth::user();
         
         if( Auth::check())
-        {
-        $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')
-             ->where('user_id', Auth::id())                          
-             ->join('items', 'cart_items.item_id', '=', 'items.id') 
-             ->get();                                               
-             
-             $subtotal = 0;
-             foreach($cartitems as $cartitem){
-                 $subtotal += $cartitem->amount * $cartitem->quantity;
-             }
+            {
+            $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')
+                 ->where('user_id', Auth::id())                          
+                 ->join('items', 'cart_items.item_id', '=', 'items.id') 
+                 ->get();                                               
+                 
+            $subtotal = 0;
+            foreach($cartitems as $cartitem){
+                $subtotal += $cartitem->amount * $cartitem->quantity;
+            }
              
             $subtotal_tax = $subtotal * 1.1;
             $postage = 510;      //postage=送料
             $total = $subtotal_tax + $postage; //+ $postage
              
-             return view('buy/index', ['cartitems' => $cartitems,
+            return view('buy/index', ['cartitems' => $cartitems,
                                        'subtotal' => $subtotal,
                                        'subtotal_tax' => $subtotal_tax,
                                        'postage' => $postage,
@@ -57,7 +57,8 @@ class BuyController extends Controller
         
         $user = Auth::user();
         
-        $cartitems = CartItem::where('user_id', Auth::id())->get();              
+        $cartitems = CartItem::where('user_id', Auth::id())->get();  
+        $cartitems = Item::where('user_id', Auth::id())->get();
              \Debugbar::info($cartitems);
         $subtotal = 0;
         
@@ -68,6 +69,7 @@ class BuyController extends Controller
             $cartitem->item->inventory_control -= $cartitem->quantity;
             $cartitem->item->save();
         }
+        
         $subtotal_tax = $subtotal * 1.1;
         $postage = 510;      //postage=送料
         $total = $subtotal_tax + $postage;

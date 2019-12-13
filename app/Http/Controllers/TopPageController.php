@@ -10,7 +10,7 @@ use App\CartItem;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Cookie;
 
-class top_page_controller extends Controller
+class TopPageController extends Controller
 {
     
     

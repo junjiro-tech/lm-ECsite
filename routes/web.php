@@ -13,12 +13,12 @@
 
 Auth::routes();
 //トップページのリンク
-Route::get('/', 'top_page_controller@index')->name('top_page');
-Route::get('search', 'top_page_controller@search')->name('search');
-Route::get('loged_top_page', 'top_page_controller@loged')->name('loged_top_page');
-Route::get('hyouki', 'top_page_controller@hyouki')->name('hyouki');
-Route::get('privacy', 'top_page_controller@privacy')->name('privacy');
-Route::post('cart', 'top_page_controller@cart')->name('cart');
+Route::get('/', 'TopPageController@index')->name('top_page');
+Route::get('search', 'TopPageController@search')->name('search');
+Route::get('loged_top_page', 'TopPageController@loged')->name('loged_top_page');
+Route::get('hyouki', 'TopPageController@hyouki')->name('hyouki');
+Route::get('privacy', 'TopPageController@privacy')->name('privacy');
+Route::post('cart', 'TopPageController@cart')->name('cart');
 
 //商品一覧と詳細
 Route::get('items/index', 'ItemController@index')->name('product_list');

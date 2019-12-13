@@ -7,6 +7,7 @@
             {{ session('flash_message') }}
         </div>
     @endif
+    
     <div class="container mt-5 pt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -93,16 +94,15 @@
                     <div class="card-header">
                         非会員購入される方
                     </div>
-                        <div>
-                            <a class="btn btn-primary" href="/buy/guest/index" role="button">
-                                レジに進む
-                            </a>
-                        </div>
-                        
+                    <div>
+                        <a class="btn btn-primary" href="/buy/guest/index" role="button">
+                            レジに進む
+                        </a>
+                    </div>
                 </div>
             </div>
-            
-
         </div>
     </div>
+    
+    
 @endsection    

@@ -77,8 +77,10 @@ class GuestBuyController extends Controller
             
         $cookie = Cookie::get('uuid');
         
-        $cartitems = CartItem::where('guest_id', $cookie)->get();
-             \Debugbar::info($cartitems);
+        $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')
+                 ->where('guest_id', $cookie)
+                 ->join('items', 'cart_items.item_id', '=', 'items.id')
+                 ->get();
              
         $subtotal = 0;
         foreach($cartitems as $cartitem){
@@ -132,7 +134,7 @@ class GuestBuyController extends Controller
             $subtotal += $cartitem->amount * $cartitem->quantity;
             $cartitem->item->inventory_control -= $cartitem->quantity;
             $cartitem->item->save();
-        }
+            }
                                                      
                                                      
             return view('/buy/guest/complete');        
