@@ -83,10 +83,8 @@ class LoginController extends Controller
         //↓のコードはバグ起こりやすい
         foreach( $guest_cart_items as $guest_item ){  //ゲストのアイテムまわす
             foreach( $user_cart_items as $user_item ){  //ユーザーのアイテムまわす
-                if( $guest_item->item_id == $user_item->item_id ) //ゲストとユーザーのitem_idが同じであれば
+                if( $guest_item->item_id == $user_item->item_id && $guest_item->item_id ) //ゲストとユーザーのitem_idが同じであれば
                 {
-                    \Log::info($guest_item);
-                    \Log::info($user_item);
                     $user_item->quantity += $guest_item->quantity; //ゲストのアイテム数をユーザーのアイテム数に足す
                     $user_item->save();  //ユーザーのアイテムを保存
                     $guest_item->delete(); //ゲストのアイテムを削除
@@ -121,14 +119,11 @@ class LoginController extends Controller
         //↓のコードはバグ起こりやすい
         foreach( $guest_cart_items as $guest_item ){  //ゲストのアイテムまわす
             foreach( $user_cart_items as $user_item ){  //ユーザーのアイテムまわす
-                if( $guest_item->item_id == $user_item->item_id ) //ゲストとユーザーのitem_idが同じであれば
+                if( $guest_item->item_id == $user_item->item_id && $uuid->item_id ) //ゲストとユーザーのitem_idが同じであれば
                 {
-                    \Log::info($guest_item);
-                    \Log::info($user_item);
                     $user_item->quantity += $guest_item->quantity; //ゲストのアイテム数をユーザーのアイテム数に足す
                     $user_item->save();  //ユーザーのアイテムを保存
                     $guest_item->delete(); //ゲストのアイテムを削除
-                    
                 }
             }
         }

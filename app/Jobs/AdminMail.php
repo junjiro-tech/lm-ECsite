@@ -36,10 +36,11 @@ class AdminMail implements ShouldQueue
      */
     public function handle()
     {
+        $_itemArray =　\DB::table('items')->get();;
         //結果の配列
         $this->_itemArray[] = $_itemArray;
-        
-        $_itemArray =　\DB::table('items')->get();;  
+        $items = $this->itemArray;
+          
         
         foreach ($_itemArray as $item){
             $items = $item->item_name;
@@ -59,6 +60,8 @@ class AdminMail implements ShouldQueue
         if( empty($_itemArray)){
             Mail::to('tksmjf@icloud.com')->send(new InventoryMail($_itemArray));
         }
+        
+        Log::info('キュー実行完了');
         
     }
 }
