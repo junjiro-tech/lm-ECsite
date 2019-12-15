@@ -78,19 +78,26 @@ class LoginController extends Controller
         
         Auth::login($users);
         
-        $guest_cart_items = CartItem::where("guest_id", $uuid)->get();//guest_idでuuidを取得
+        $guest_cart_items = CartItem::where("guest_id", $uuid)->whereNull("user_id")->get();;//guest_idでuuidを取得、whereNullでuser_idがnullである条件を指定
         $user_cart_items = CartItem::where("user_id", Auth::id())->get();//ログインしたユーザーのuser_idを取得
-        //↓のコードはバグ起こりやすい
+        //↓のコードはフラグが残ってるのがよくない、もっとシンプルにしたい
+        //変な挙動でレコードはuserのレコードが消去され、guestの方の数量が増えた事がある
         foreach( $guest_cart_items as $guest_item ){  //ゲストのアイテムまわす
-            foreach( $user_cart_items as $user_item ){  //ユーザーのアイテムまわす
-                if( $guest_item->item_id == $user_item->item_id && $guest_item->item_id ) //ゲストとユーザーのitem_idが同じであれば
-                {
-                    $user_item->quantity += $guest_item->quantity; //ゲストのアイテム数をユーザーのアイテム数に足す
-                    $user_item->save();  //ユーザーのアイテムを保存
-                    $guest_item->delete(); //ゲストのアイテムを削除
-                    
-                }
-            }
+          $is_deleted_guest = false;
+          foreach( $user_cart_items as $user_item ){  //ユーザーのアイテムまわす
+             if( $guest_item->item_id == $user_item->item_id ) //ゲストとユーザーのitem_idが同じであれば
+             {
+               $user_item->quantity += $guest_item->quantity; //ゲストのアイテム数をユーザーのアイテム数に足す
+               $user_item->save();  //ユーザーのアイテムを保存\   
+               $guest_item->delete(); //ゲストのアイテムを削除
+               $is_deleted_guest = true;
+             }
+          }
+          if(!$is_deleted_guest)
+          {
+              $guest_item->user_id = Auth::id();
+              $guest_item->save();
+          }
         }
             return redirect('/');
         // }
@@ -110,23 +117,33 @@ class LoginController extends Controller
         
         Auth::login($users);
         
-        $guest_cart_items = CartItem::where("guest_id", $uuid)->get();//guest_idでuuidを取得
+        $guest_cart_items = CartItem::where("guest_id", $uuid)->whereNull('user_id')->get();//guest_idでuuidを取得
         $user_cart_items = CartItem::where("user_id", Auth::id())->get();//ログインしたユーザーのuser_idを取得
         
         
         if( empty($user_cart_items) )
         {
-        //↓のコードはバグ起こりやすい
-        foreach( $guest_cart_items as $guest_item ){  //ゲストのアイテムまわす
-            foreach( $user_cart_items as $user_item ){  //ユーザーのアイテムまわす
-                if( $guest_item->item_id == $user_item->item_id && $uuid->item_id ) //ゲストとユーザーのitem_idが同じであれば
-                {
-                    $user_item->quantity += $guest_item->quantity; //ゲストのアイテム数をユーザーのアイテム数に足す
-                    $user_item->save();  //ユーザーのアイテムを保存
-                    $guest_item->delete(); //ゲストのアイテムを削除
-                }
+            $guest_cart_items = CartItem::where("guest_id", $uuid)->get();//guest_idでuuidを取得
+            $user_cart_items = CartItem::where("user_id", Auth::id())->get();//ログインしたユーザーのuser_idを取得
+            //↓のコードはフラグが残ってるのがよくない、もっとシンプルにしたい
+            //変な挙動でレコードはuserのレコードが消去され、guestの方の数量が増えた事がある
+            foreach( $guest_cart_items as $guest_item ){  //ゲストのアイテムまわす
+              $is_deleted_guest = false;
+              foreach( $user_cart_items as $user_item ){  //ユーザーのアイテムまわす
+                 if( $guest_item->item_id == $user_item->item_id ) //ゲストとユーザーのitem_idが同じであれば
+                 {
+                   $user_item->quantity += $guest_item->quantity; //ゲストのアイテム数をユーザーのアイテム数に足す
+                   $user_item->save();  //ユーザーのアイテムを保存\   
+                   $guest_item->delete(); //ゲストのアイテムを削除
+                   $is_deleted_guest = true;
+                 }
+              }
+              if(!$is_deleted_guest)
+              {
+                  $guest_item->user_id = Auth::id();
+                  $guest_item->save();
+              }
             }
-        }
         
         return view('buy/index');
         

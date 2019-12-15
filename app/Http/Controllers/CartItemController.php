@@ -87,23 +87,23 @@ class CartItemController extends Controller
     public function index(Request $request)
         
     {   
-             $cookie = Cookie::get('uuid'); //Cookie::getでcookie取得
+             $cookie = Cookie::get('uuid');
              
              //ログイン中であれば
              if( Auth::check() )
              {
-                 $cartitems = CartItem::select(DB::raw('sum(quantity) as quantity, cart_items.item_id as item_id, items.item_name as item_name, items.amount as amount'))  //select関数は('aテーブル.bカラム')を取ってくるという時に使える
+                 $cartitems = CartItem::select(DB::raw('sum(quantity) as quantity, cart_items.item_id as item_id, items.item_name as item_name, items.amount as amount, items.image_path as image_path'))  //select関数は('aテーブル.bカラム')を取ってくるという時に使える
                      ->where('user_id', Auth::id())                      
                      ->join('items', 'cart_items.item_id', '=', 'items.id') //join('itemテーブルから', 'cart_itemsのitem_idをキーにてしてitem.idの情報を取得している。cart_itemsテーブルとitemsテーブルを結合しています,cart_itemsテーブルは商品のID(cart_items.item_id)しか持っていないので、cart_items.item_idをキーにしてitemsテーブルから商品名と価格を取得できるようにしています
-                     ->groupBy('cart_items.item_id', 'items.amount', 'items.item_name') //'テーブル名.カラム名'
+                     ->groupBy('cart_items.item_id', 'items.amount', 'items.item_name', 'items.image_path') //'テーブル名.カラム名'
                      ->get();                                               //最後にget()で検索結果を取得し、ビューに渡しています
                 
              } else {
                  
-                 $cartitems = CartItem::select(DB::raw('sum(quantity) as quantity, cart_items.item_id as item_id, items.item_name as item_name, items.amount as amount'))
+                 $cartitems = CartItem::select(DB::raw('sum(quantity) as quantity, cart_items.item_id as item_id, items.item_name as item_name, items.amount as amount, items.image_path as image_path'))
                  ->where('guest_id', $cookie)
                  ->join('items', 'cart_items.item_id', '=', 'items.id')
-                 ->groupBy('cart_items.item_id', 'items.amount', 'items.item_name')
+                 ->groupBy('cart_items.item_id', 'items.amount', 'items.item_name', 'items.image_path')
                  ->get();
              }//DB::raw('sum(quantity) as quantity,cart_items.id', 'item_name', 'amount'))
              
@@ -131,16 +131,22 @@ class CartItemController extends Controller
     {
         
         if(Auth::check()){
-            $cartItem = CartItem::where([['item_id', $request->item_id], ['user_id', Auth::id()]])->get();//item_idカラムの入力されたviewから
-            $cartItem->delete();  //引数でCartItemモデルを取得し、delete()メソッドを呼び出せばそのレコードは削除される
-            return redirect('cartitem')->with('flash_message', 'カートから削除しました');
+            $cartitems = CartItem::where([['item_id', $request->item_id], ['user_id', Auth::id()]])->get();//item_idカラムの入力されたviewから
+                foreach($cartitems as $cartitem)
+                {
+                    $cartitem->delete();  //引数でCartItemモデルを取得し、delete()メソッドを呼び出せばそのレコードは削除される
+                }
             //削除したらredirect()で/cartitemにリダイレクトし、同時にflash_messageで削除という文字をredirect先に送っている
         } else {
-            $cookie = Cookie::get('uuid');
-            $cartItem = CartItem::where([['item_id', $request->item_id], ['guest_id', $cookie]])->get(); //アンド
-            $cartItem->delete();  //引数でCartItemモデルを取得し、delete()メソッドを呼び出せばそのレコードは削除される
-            return redirect('cartitem')->with('flash_message', 'カートから削除しました');
+            $uuid = Cookie::get('uuid');
+            $cartitems = CartItem::where([['item_id', $request->item_id], ['guest_id', $uuid]])->get(); //アンドは多重配列にする
+                foreach($cartitems as $cartitem)
+                {
+                    $cartitem->delete();  //引数でCartItemモデルを取得し、delete()メソッドを呼び出せばそのレコードは削除される
+                }
+            
         } //viewでitem_id渡せてるか確認
+        return redirect('cartitem')->with('flash_message', 'カートから削除しました');
     }
     
     
@@ -150,9 +156,25 @@ class CartItemController extends Controller
     
     public function update(Request $request)
     {    //update()の引数で更新すると元となるカート情報(CartItem $cartItem)と、更新する数量を受け取るためのリクエスト情報(Request $request)を受け取る
-        $cartItem = CartItem::find($request->id);
-        $cartItem->quantity = $request->post('quantity');  //←で更新する元の数量を上書きして、$cartItem->save();でデータベースに保存している
-        $cartItem->save();
-        return redirect('cartitem')->with('flash_message', 'カートを更新しました');
+        if(Auth::check()){
+            $cartitems = CartItem::where([['item_id', $request->item_id], ['user_id', Auth::id()]])->get();;
+                foreach($cartitems as $cartitem)
+                {
+                    $cartitem->quantity = $request->post('quantity');  //←で更新する元の数量を上書きして、$cartItem->save();でデータベースに保存している
+                    $cartitem->save();
+                }
+            
+            return redirect('cartitem')->with('flash_message', 'カートを更新しました');
+        } else {
+            $cookie = Cookie::get('uuid');
+            $cartitems = CartItem::where([['item_id', $request->item_id], ['guest_id', $cookie]])->get();;
+                foreach($cartitems as $cartitem)
+                {
+                    $cartitem->quantity = $request->post('quantity');  //←で更新する元の数量を上書きして、$cartItem->save();でデータベースに保存している
+                    $cartitem->save();
+                }
+            return redirect('cartitem')->with('flash_message', 'カートを更新しました');
+        }
+        
     }
 }

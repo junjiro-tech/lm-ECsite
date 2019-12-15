@@ -13,12 +13,12 @@
             <div class="col-md-6">
                 <div class="card">
                     @foreach ($cartitems as $cartitem)
-                        <div class="card-picture">
-                            <a href="/cartitems/{{ $cartitem->id }}"><img src="{{ asset('storage/image/' . $cartitem->image_path) }}" alt=""></a>
-                            <input type="hidden" name="id" value="{{ $cartitem->item_name }}">
-                        </div>
                         <div class="card-header">
-                            <a href="/item/{{ $cartitem->id }}">{{ $cartitem->item_name }}</a>
+                            <a href="/item/{{ $cartitem->item_id }}">{{ $cartitem->item_name }}</a>
+                        </div>
+                        <div class="card-picture">
+                            <a href="/cartitems/{{ $cartitem->item_id }}"><img src="{{ asset('storage/image/' . $cartitem->image_path) }}" alt=""></a>
+                            <input type="hidden" name="id" value="{{ $cartitem->item_name }}">
                         </div>
                         <div class="card-body">
                             <div>
@@ -31,7 +31,7 @@
                                     @csrf        <!--↑formﾀｸﾞではGETかPOSTしか指定できないためPUTにしている -->
                                     <input type="text" class="form-control" name="quantity" value="{{ $cartitem->quantity }}">
                                     個           <!-- 数量を入力するフォームは、既存のデータの数量をあらかじめ表示しておくようにvalue属性に{{ $cartitem->quantity }}指定-->
-                                    <input type="hidden" name="id" value="{{ $cartitem->id }}">
+                                    <input type="hidden" name="item_id" value="{{ $cartitem->item_id }}">
                                     <!--<input type="submit" value="更新">-->
                                     <button type="submit" class="btn btn-primary">更新</button>
                                 </form>
@@ -39,7 +39,7 @@
                                 <form method="post" action="{{ action('CartItemController@destroy') }}">
                                     @method('DELETE')
                                     @csrf
-                                    <input type="hidden" name="id" value="{{ $cartitem->id }}">
+                                    <input type="hidden" name="item_id" value="{{ $cartitem->item_id }}">
                                     <!--<input type="submit" value="カートから削除する">-->
                                     <button type="submit" class="btn btn-primary ml-1">カートから削除する</button>
                                 </form>
