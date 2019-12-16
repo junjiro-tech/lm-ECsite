@@ -8,6 +8,7 @@
         </div>
     @endif
     
+    @if(!$cartitems->isEmpty())
     <div class="container mt-5 pt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -103,6 +104,22 @@
             </div>
         </div>
     </div>
+    @else
+    <div class="container mt-5">
+        <div class="row justify-content-center" style="margin-bottom:10px;">
+           <div class="col-md-8">
+               <br><br><br><br>
+               <div class="card">
+                   <div class="card-body">
+                       カートに商品がありません。
+                   </div>
+               </div>
+               <br><br><br><br>
+           </div>            
+        </div>
+    </div>
+    @endif
+    
     
     
 @endsection    
