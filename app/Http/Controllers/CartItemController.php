@@ -9,7 +9,9 @@ use App\CartItem;
 use App\Item;
 use App\Uuid;
 use Illuminate\Support\Facades\Cookie;
+use Intervention\Image\Facades\Image;
 use DB;
+use \InterventionImage;
 
 class CartItemController extends Controller
 {
@@ -106,7 +108,6 @@ class CartItemController extends Controller
                  ->groupBy('cart_items.item_id', 'items.amount', 'items.item_name', 'items.image_path')
                  ->get();
              }//DB::raw('sum(quantity) as quantity,cart_items.id', 'item_name', 'amount'))
-             
              
              /*カート内の商品の合計金額を計算する*/
              

@@ -10,6 +10,7 @@ use Carbon\carbon;
 use App\ImagesHistory;
 use App\Http\Controllers\Controller;
 use App\Admin;
+use \InterventionImage;
 
 class ImagesController extends Controller
 {
@@ -46,36 +47,36 @@ class ImagesController extends Controller
     
     
     
-    //データベースに保存するまで
     public function create(Request $request)
     {
         $this->validate($request, Item::$rules);  //Itemモデルでバリデーションした（item_name,explanation,amount,inventory_control,item_pic_path)
-        
         $item = new Item;
         $form = $request->all();
         
-        //フォームに画像があれば保存する
-        // フォームから画像が送信されてきたら、保存して、$item->item_pic__path に画像のパスを保存する
-        if(isset($form['image_path'])) {  //issetは変数に値がセットされているか確認する方法、つまり$formに'image_path'があるか確認している
-            $path = $request->file('image_path')->store('public/image');  //file('読み込みたいファイル名')
-            $item->image_path = basename($path); //basenameはパスではなく最後のハッシュ化されたファイル名だけを取得する
-        } else {
-            $item->image_path = null;  //modelの方で'image_path'が空でも表示できるようにしている
-        }
+        $items = Item::where('item_name', $request->item_name)->get();
+        
+        //もしitems->item_nameと$form->item_nameが同じ名前でなければ
+        
+            if(isset($form['image_path'])) {  //issetは変数に値がセットされているか確認する方法、つまり$formに'image_path'があるか確認している
+                $file = $request->file('image_path');//file('読み込みたいカラム名') 
+                $path = $file->store('public/image');//store()は引数内のディレクトリに一意のファイル名として保存そこへのパスを返します。
+                $item->image_path = basename($path); //basenameはパスではなく最後のハッシュ化されたファイル名だけを取得する
+                
+                //写真のリサイズ
+                InterventionImage::make($file)->resize(100, 100)->save(public_path()."/image/resize_image/". $item->image_path);
+                //public_pathはpublicディレクトリの完全パスを返す、さらにディレクトリの指定を行う事もできる
+            } else {
+                $item->image_path = null;  //modelの方で'image_path'が空でも表示できるようにしている
+            }
         
         // フォームから送信されてきた_tokenを削除する
         unset($form['_token']);
         // フォームから送信されてきたimageを削除する
         unset($form['image_path']);
-        
-        
         // データベースに保存する
         $item->fill($form)->save();
-        
         return redirect('admin/images/create')->with('flash_message', '商品を追加しました');
     }
-    
-    
     
     
     

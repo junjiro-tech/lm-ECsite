@@ -121,7 +121,7 @@ class LoginController extends Controller
         $user_cart_items = CartItem::where("user_id", Auth::id())->get();//ログインしたユーザーのuser_idを取得
         
         
-        if( empty($user_cart_items) )
+        if( !$user_cart_items->isEmpty() )
         {
         //↓のコードはフラグが残ってるのがよくない、もっとシンプルにしたい
         //変な挙動でレコードはuserのレコードが消去され、guestの方の数量が増えた事がある

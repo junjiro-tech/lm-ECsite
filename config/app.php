@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -228,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Uuid' => App\Uuid\Uuid::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'InterventionImage' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

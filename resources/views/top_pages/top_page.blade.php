@@ -16,23 +16,5 @@
     <div class="col">
         <img src="image/top_mini.png" alt="item_2">
     </div>
-    <div class="col">
-        <img src="image/top_mini.png" alt="item_3">
-    </div>
-    <div class="col">
-        <img src="image/top_mini.png" alt="item_4">
-    </div>
-    <div class="col">
-        <img src="image/top_mini.png" alt="item_5">
-    </div>
-    <div class="col">
-        <img src="image/top_mini.png" alt="item_6">
-    </div>
-    <div class="col">
-        <img src="image/top_mini.png" alt="item_7">
-    </div>
-    <div class="col">
-        <img src="image/top_mini.png" alt="item_8">
-    </div>
 </div>
 @endsection

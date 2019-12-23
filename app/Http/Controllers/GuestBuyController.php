@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 use App\GuestUser;
 use App\Mail\Buy;
 use Illuminate\Support\Facades\Mail; //store()ﾒｿｯﾄﾞの購入完了ﾍﾟｰｼﾞを表示する前に、ﾒｰﾙ送信の処理を組み込む
+use \InterventionImage;
+use DB;
 
 class GuestBuyController extends Controller
 {
@@ -77,9 +79,10 @@ class GuestBuyController extends Controller
             
         $cookie = Cookie::get('uuid');
         
-        $cartitems = CartItem::select('cart_items.id', 'item_name', 'amount', 'quantity')
+        $cartitems = CartItem::select(DB::raw('sum(quantity) as quantity, cart_items.item_id as item_id, items.item_name as item_name, items.amount as amount, items.image_path as image_path'))
                  ->where('guest_id', $cookie)
                  ->join('items', 'cart_items.item_id', '=', 'items.id')
+                 ->groupBy('cart_items.item_id', 'items.amount', 'items.item_name', 'items.image_path')
                  ->get();
              
         $subtotal = 0;
@@ -115,10 +118,10 @@ class GuestBuyController extends Controller
             $cookie = Cookie::get('uuid');
             $cartitems = CartItem::where('guest_id',$cookie)->get();
             
-            $action = $request->get('action', 'back');
+            $action = $request->get('action', 'back');//確認画面のbuttonのvalue="action"のname="back"を$actionに入れる
         
         //フォームから受け取ったactionを除いたinputの値を取得
-        $guestData = $request->except('action');
+        $guestData = $request->except('action');//↑でactionに入れたbackをexceptで除いたらpostになる、それを$register_dataに入れるとaction=postとなる
         
         //実行したい分岐：各ボタンに同name="submit"をつけてvalue="back", "post"で分岐させたい
         // 確認画面でこの内容で問い合わせボタンが押された場合
@@ -129,6 +132,10 @@ class GuestBuyController extends Controller
             $request->session()->regenerateToken();  //session()はコンピュータのサーバー側に一時的にデータを保存する仕組みのこと
                                                      //Web上でのログイン情報や最終アクセスなど、ユーザーに直接紐づくような大切なデータを
                                                      //セッションに格納して使ったりします。regenerateToken()で２重送信防止
+            
+            //キューの設定
+            // InventoryMail::dispatch($guestData);                                         
+            
             $subtotal = 0;
             foreach($cartitems as $cartitem){
             $subtotal += $cartitem->amount * $cartitem->quantity;
@@ -143,7 +150,7 @@ class GuestBuyController extends Controller
         } else {
             //もし$actionとsubmitボタンで送られた物が同じじゃないか、== 同じ型でない場合true
             return redirect()
-                  ->route('guest_form')
+                  ->route('guest_index')
                   ->withInput($guestData); 
         }
     }

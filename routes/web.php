@@ -39,7 +39,7 @@ Route::get('/buy/index', 'BuyController@index');
 Route::post('buy/index', 'BuyController@store')->name('regi_complete');
 
 //非会員購入処理
-Route::get('buy/guest/index', 'GuestBuyController@index');
+Route::get('buy/guest/index', 'GuestBuyController@index')->name('guest_index');
 Route::post('buy/guest/confirm', 'GuestBuyController@confirm')->name('guest_confirm');
 Route::post('buy/guest/complete', 'GuestBuyController@complete')->name('guest_complete');
 

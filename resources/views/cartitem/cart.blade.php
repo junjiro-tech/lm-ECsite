@@ -17,11 +17,12 @@
                         <div class="card-header">
                             <a href="/item/{{ $cartitem->item_id }}">{{ $cartitem->item_name }}</a>
                         </div>
-                        <div class="card-picture">
-                            <a href="/cartitems/{{ $cartitem->item_id }}"><img src="{{ asset('storage/image/' . $cartitem->image_path) }}" alt=""></a>
-                            <input type="hidden" name="id" value="{{ $cartitem->item_name }}">
-                        </div>
                         <div class="card-body">
+                            <div class="card-picture">
+                                <a href="/cartitems/{{ $cartitem->item_id }}"><img src="{{ asset('/image/resize_image/' . $cartitem->image_path) }}" alt=""></a>
+                                <input type="hidden" name="id" value="{{ $cartitem->item_name }}">
+                            </div>
+                        
                             <div>
                                 ¥{{ $cartitem->amount }}円
                             </div>
@@ -77,7 +78,7 @@
                     <div class="card-header">
                         会員登録済みでログイン
                     </div>
-                        <div>
+                        <div class="row justify-content-center">
                             <a class="btn btn-primary" href="/buylogin" role="button" width="auto">
                                 ログインしてレジに進む
                             </a>
@@ -86,8 +87,8 @@
                     <div class="card-header">
                         ログイン済みの方
                     </div>
-                        <div>
-                            <a class="btn btn-primary" href="/buy/index" role="button" width="auto">
+                        <div class="row justify-content-center">
+                            <a class="btn btn-primary sl" href="/buy/index" role="button" width="auto">
                                 レジに進む
                             </a>
                         </div>
@@ -95,7 +96,7 @@
                     <div class="card-header">
                         非会員購入される方
                     </div>
-                    <div>
+                    <div class="row justify-content-center">
                         <a class="btn btn-primary" href="/buy/guest/index" role="button">
                             レジに進む
                         </a>

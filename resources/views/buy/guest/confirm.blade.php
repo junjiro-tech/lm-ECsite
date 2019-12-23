@@ -23,15 +23,25 @@
                 
                 @foreach($cartitems as $cartitem)
                     <div class="card-body">
-                        <div>
-                        {{ $cartitem->item_name }}
+                        <div class="card-picture">
+                            <a href="/cartitems/{{ $cartitem->item_id }}"><img src="{{ asset('/image/resize_image/' . $cartitem->image_path) }}" alt=""></a>
+                            <input type="hidden" name="id" value="{{ $cartitem->item_name }}">
                         </div>
-                        <div>
-                        {{ $cartitem->amount }}円
-                        </div>
-                        <div>
-                        {{ $cartitem->quantity}}個
-                        </div>
+                        <div class="container">
+                              <div class="row">
+                                    <div class="col-">
+                                         {{ $cartitem->item_name }}
+                                    </div>
+                                    &nbsp;
+                                    <div class="col-">
+                                         {{ $cartitem->amount }}円
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="col-">
+                                         {{ $cartitem->quantity}}個
+                                    </div>
+                              </div>
+                            </div>
                     </div>
                 @endforeach
             </div>
@@ -107,7 +117,6 @@
                             {{ $guestData['subsequent_address'] }}
                             <input name="subsequent_address" type="hidden" value="{{ $guestData['subsequent_address']}}">
                             <br>
-                                   
                           
                           <button type="submit" name="action" value="back">入力内容修正</button>
                           <button type="submit" name="action" value="post">この内容で購入する</button>

@@ -15,7 +15,7 @@ class AdminMail implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
 
-    
+    //$_はインスタンス変数 static宣言は、インスタンス化せずその変数にアクセスできる　メモリ上に残り続ける
     /**
      * Create a new job instance.
      *
@@ -27,7 +27,6 @@ class AdminMail implements ShouldQueue
     }
     
     //itemインスタンス保持用配列
-    private $_itemArray = array();
 
     /**
      * Execute the job.
@@ -36,29 +35,28 @@ class AdminMail implements ShouldQueue
      */
     public function handle()
     {
-        $_itemArray =　\DB::table('items')->get();;
+        $items =　\DB::table('items')->get();
         //結果の配列
-        $this->_itemArray[] = $_itemArray;
-        $items = $this->itemArray;
-          
+        $item_inventory = array();
         
-        foreach ($_itemArray as $item){
-            $items = $item->item_name;
-            $items = $item->inventory_control;
-            $items->save();
+        foreach ($items as $item){
             
             if( $item->inventory_control <= 15 )
-        {
-            //このアイテムを別の配列に入れてあげる
-            $this->itemArray[] = $items;
-        }
-        
+            {
+                array_push($item_inventory, $item);
+                
+            }
         }
         
         //$cartitem->item->inventory_control <= 15　かつ itemarrayにその商品が存在してなければitemarrayに挿入する
         //配列が空じゃなかったらメールを送るという処理
-        if( empty($_itemArray)){
-            Mail::to('tksmjf@icloud.com')->send(new InventoryMail($_itemArray));
+        if( !empty($item_inventory) ){
+            return $this //このクラスに
+                ->from('junjiro.tech@gmail.com')
+                ->subject('LM 商品在庫数が少なくなっています。')
+                ->view('')        //どのviewを使うか
+                ->with($item_inventory);
+            Mail::to('tksmjf@icloud.com')->send(new InventoryMail($item_inventory));
         }
         
         Log::info('キュー実行完了');

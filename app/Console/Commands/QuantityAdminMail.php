@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+
 class QuantityAdminMail extends Command
 {
     /**

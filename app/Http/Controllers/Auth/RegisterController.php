@@ -210,7 +210,7 @@ class RegisterController extends Controller
             $request->session()->regenerateToken();//session()->regenerateToken();をしておくとブラウザバックしても2重送信をしない。もし、ブラウザバックを行った場合
                                                    //トークンエラーが発生するが、それが正常な動き。ただこのトークン更新は、->save()した後に行った方が良い
             
-            \Debugbar::info(['complete' => $user]);
+
             return view('auth/register_complete');
         } else {
             return redirect()
