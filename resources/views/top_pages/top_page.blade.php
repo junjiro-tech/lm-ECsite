@@ -13,6 +13,9 @@
     <div class="col mb-1">
         <img src="image/top_mini.png" alt="item_1">
     </div>
+    <div>
+        会社概要
+    </div>
     <div class="col">
         <img src="image/top_mini.png" alt="item_2">
     </div>

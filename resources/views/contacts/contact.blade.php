@@ -40,7 +40,7 @@
                                      @endif
                                  </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer"　>
                            <button type="submit" class="btn btn-primary col-md-3">確認画面に進む</button>
                     </div>
                     </form>

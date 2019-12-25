@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cookie;
 use Intervention\Image\Facades\Image;
 use DB;
 use \InterventionImage;
+use App\Presence;
 
 class CartItemController extends Controller
 {
@@ -95,7 +96,7 @@ class CartItemController extends Controller
              if( Auth::check() )
              {
                  $cartitems = CartItem::select(DB::raw('sum(quantity) as quantity, cart_items.item_id as item_id, items.item_name as item_name, items.amount as amount, items.image_path as image_path'))  //select関数は('aテーブル.bカラム')を取ってくるという時に使える
-                     ->where('user_id', Auth::id())                      
+                     ->where('user_id', Auth::id())           
                      ->join('items', 'cart_items.item_id', '=', 'items.id') //join('itemテーブルから', 'cart_itemsのitem_idをキーにてしてitem.idの情報を取得している。cart_itemsテーブルとitemsテーブルを結合しています,cart_itemsテーブルは商品のID(cart_items.item_id)しか持っていないので、cart_items.item_idをキーにしてitemsテーブルから商品名と価格を取得できるようにしています
                      ->groupBy('cart_items.item_id', 'items.amount', 'items.item_name', 'items.image_path') //'テーブル名.カラム名'
                      ->get();                                               //最後にget()で検索結果を取得し、ビューに渡しています

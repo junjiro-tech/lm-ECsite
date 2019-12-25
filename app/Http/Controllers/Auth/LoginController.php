@@ -123,7 +123,7 @@ class LoginController extends Controller
         
         if( !$user_cart_items->isEmpty() )
         {
-        //↓のコードはフラグが残ってるのがよくない、もっとシンプルにしたい
+        //↓のコードはフラグが���ってるのがよくない、もっとシンプルにしたい
         //変な挙動でレコードはuserのレコードが消去され、guestの方の数量が増えた事がある
         foreach( $guest_cart_items as $guest_item ){  //ゲストのアイテムまわす
             $is_deleted_guest = false;

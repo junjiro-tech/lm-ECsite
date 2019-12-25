@@ -33,6 +33,11 @@ class Item extends Model
         return $this->hasMany('App\CartItem');
     }
     
+    public function cart_presences()
+    {
+        return $this->hasMany('App\Presence');
+    }
+    
 }
 
    

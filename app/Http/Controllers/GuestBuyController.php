@@ -14,6 +14,7 @@ use App\Mail\Buy;
 use Illuminate\Support\Facades\Mail; //store()ﾒｿｯﾄﾞの購入完了ﾍﾟｰｼﾞを表示する前に、ﾒｰﾙ送信の処理を組み込む
 use \InterventionImage;
 use DB;
+use App\CartPresence;
 
 class GuestBuyController extends Controller
 {
@@ -136,12 +137,26 @@ class GuestBuyController extends Controller
             //キューの設定
             // InventoryMail::dispatch($guestData);                                         
             
-            $subtotal = 0;
             foreach($cartitems as $cartitem){
-            $subtotal += $cartitem->amount * $cartitem->quantity;
             $cartitem->item->inventory_control -= $cartitem->quantity;
             $cartitem->item->save();
+            
+            //購入完了したらカートアイテムのデータを消して、CartPresenceに入れる。カート画面に購入後商品を残さないため
+            $cartPresence = new CartPresence();
+            $cartPresence->user_id = $cartitem->user_id;
+            $cartPresence->guest_id = $cartitem->guest_id;
+            $cartPresence->item_id = $cartitem->item_id;
+            $cartPresence->quantity = $cartitem->quantity;
+            $cartPresence->save();
+            
+            $cartitem->delete();
             }
+            
+            
+            //cart_presences_tableにtrueを入れてあげる
+            
+            
+            
                                                      
                                                      
             return view('/buy/guest/complete');        

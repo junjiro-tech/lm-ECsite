@@ -62,14 +62,21 @@ class BuyController extends Controller
         $cartitems = CartItem::where('user_id', Auth::id())->get();  
         $cartitems = Item::where('user_id', Auth::id())->get();
              \Debugbar::info($cartitems);
-        $subtotal = 0;
         
         foreach($cartitems as $cartitem){
-            $subtotal += $cartitem->item->amount * $cartitem->quantity;
             
             // $num = $cartitem->item->inventory_control - $cartitem->quantity;
             $cartitem->item->inventory_control -= $cartitem->quantity;
             $cartitem->item->save();
+            
+            $cartPresence = new CartPresence();
+            $cartPresence->user_id = $cartitem->user_id;
+            $cartPresence->guest_id = $cartitem->guest_id;
+            $cartPresence->item_id = $cartitem->item_id;
+            $cartPresence->quantity = $cartitem->quantity;
+            $cartPresence->save();
+            
+            $cartitem->delete();
         }
         
         
