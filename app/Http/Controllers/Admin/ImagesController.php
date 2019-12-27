@@ -84,6 +84,7 @@ class ImagesController extends Controller
     {
         //Itemモデルからデータを取得する
         $item = Item::find($request->id);
+        // $image_path = $request->filegetClientOriginalName();
         if(empty($item)) {
             abort(404);
         }

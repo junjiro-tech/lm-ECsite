@@ -17,7 +17,6 @@ class Item extends Model
     public static $rules = array(
         'item_name' => 'required',
         'explanation' => 'required',
-        'image_path' => 'required',
         'amount' => 'required',
         'inventory_control' => 'required'
     );

@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-md-2" for="explanation">説明</label>
-                    <div class="col-md10">
+                    <div class="col-md-10">
                         <textarea class="form-control" name="explanation" rows="3">{{ $item_form->explanation }}</textarea>
                     </div>
                 </div>
