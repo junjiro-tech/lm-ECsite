@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 他のモバイルで表示した時に自動でサイズ合わせてくれる -->
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">                <!-- csrf-tokenはuser情報取られないようにする -->
-    <title>LM ECsite</title>
+    <title>Perlero ECsite</title>
     <!-- Scripts -->
         <script src="{{ secure_asset('js/app.js') }}" defer></script>    <!-- Laravel標準で用意されているJavascriptを読み込み -->
                                                                          <!-- asset('ファイルパス')はpublicディレクトリのパスを返す関数 -->

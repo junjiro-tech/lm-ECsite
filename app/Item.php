@@ -11,7 +11,7 @@ class Item extends Model
         'explanation',
         'image_path',
         'amount',
-        'inventory_control'
+        'inventory_control',
     ];
     
     public static $rules = array(
@@ -35,6 +35,11 @@ class Item extends Model
     public function cart_presences()
     {
         return $this->hasMany('App\Presence');
+    }
+    
+    public function photos()
+    {
+        return $this->hasMany('App\ItemPhoto');
     }
     
 }

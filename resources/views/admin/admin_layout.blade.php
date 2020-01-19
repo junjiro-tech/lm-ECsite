@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <meta name="csrf-token" content="{{ csrf_token() }}">                
-    <title>LM ECsite 管理者用</title>
+    <title>Perlero ECsite 管理者用</title>
 
         <script src="{{ secure_asset('js/app.js') }}" defer></script>    
     <!--------------------------------------------------------------------------------------------->
@@ -24,7 +24,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
 
-                        <div class="card-header">LM管理者画面</div>
+                        <div class="card-header">Perlero管理者画面</div>
                         <a href="/admin/images/list">登録商品一覧</a>
 
                 </div>

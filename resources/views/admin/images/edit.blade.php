@@ -55,6 +55,48 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-md-2" for="image_path">画像</label>
+                    <div class="col-md-10">
+                        <input type="file" class="form-control-file" name="image_path">
+                        <div class="form-text text-info">
+                            設定中の画像: {{ $item_form->image_path}}
+                        </div>
+                        <div class="form-check">
+                            <label class="formo-check-label">
+                                <input type="checkbox" class="form-check-input" name="remove" value="true">画像を削除
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2" for="image_path">画像</label>
+                    <div class="col-md-10">
+                        <input type="file" class="form-control-file" name="image_path">
+                        <div class="form-text text-info">
+                            設定中の画像: {{ $item_form->image_path}}
+                        </div>
+                        <div class="form-check">
+                            <label class="formo-check-label">
+                                <input type="checkbox" class="form-check-input" name="remove" value="true">画像を削除
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2" for="image_path">画像</label>
+                    <div class="col-md-10">
+                        <input type="file" class="form-control-file" name="image_path">
+                        <div class="form-text text-info">
+                            設定中の画像: {{ $item_form->image_path}}
+                        </div>
+                        <div class="form-check">
+                            <label class="formo-check-label">
+                                <input type="checkbox" class="form-check-input" name="remove" value="true">画像を削除
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <div class="col-md-10">
                         <input type="hidden" name="id" value="{{ $item_form->id}}">
                         

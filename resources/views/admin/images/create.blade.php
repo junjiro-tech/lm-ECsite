@@ -24,7 +24,25 @@
                            <div class="form-group row mt-5">
                                <label class="col-md-2">画像</label>
                                    <div class="col-md-10">
-                                       <input class="form-control-file" type="file" name="image_path">
+                                       <input class="form-control-file" type="file" name="image_path1">
+                                   </div>
+                           </div>
+                           <div class="form-group row mt-5">
+                               <label class="col-md-2">画像</label>
+                                   <div class="col-md-10">
+                                       <input class="form-control-file" type="file" name="image_path2">
+                                   </div>
+                           </div>
+                           <div class="form-group row mt-5">
+                               <label class="col-md-2">画像</label>
+                                   <div class="col-md-10">
+                                       <input class="form-control-file" type="file" name="image_path3">
+                                   </div>
+                           </div>
+                           <div class="form-group row mt-5">
+                               <label class="col-md-2">画像</label>
+                                   <div class="col-md-10">
+                                       <input class="form-control-file" type="file" name="image_path4">
                                    </div>
                            </div>
                            <div class="form-group row">

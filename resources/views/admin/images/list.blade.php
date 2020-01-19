@@ -48,6 +48,13 @@
                                     <td>{{ Str::limit($item->amount, 5) }}円</td>
                                     <td>{{ Str::limit($item->explanation, 200) }}</td>
                                     <td>{{ Str::limit($item->inventory_control, 5) }}</td>
+                                    
+                                    @foreach($item->photos as $photo)
+                                    <td>
+                                    <a href="/items/{{ $item->id }}"><img src="{{ asset('/image/resize_image/' . $photo->image_path) }}" alt=""></a>
+                                    </td>
+                                    @endforeach
+                                    
                                     <td><a href="{{ action('Admin\ImagesController@edit', ['id' => $item->id ]) }}">編集</a></td>
                                     <td><a href="{{ action('Admin\ImagesController@delete', ['id' => $item->id ]) }}">削除</a></td>
                                 </tr>

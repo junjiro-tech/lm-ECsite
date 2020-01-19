@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 他のモバイルで表示した時に自動でサイズ合わせてくれる -->
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">                <!-- csrf-tokenはuser情報取られないようにする -->
-    <title>LM ECsite</title>
+    <title>Perlero ECsite</title>
     <!-- Scripts -->
         <script src="{{ secure_asset('js/app.js') }}" defer></script>    <!-- Laravel標準で用意されているJavascriptを読み込み -->
                                                                          <!-- asset('ファイルパス')はpublicディレクトリのhttpパスを返す関数 -->
@@ -29,7 +29,7 @@
         <header>
             <h1>
                <a class="logo-pic" href="{{ route('top_page') }}">
-                  <img src="{{ asset('image/logo2.png') }}" alt="サイトタイトル">
+                  <img src="{{ asset('image/logo.png') }}" alt="サイトタイトル">
                </a>
             </h1>
             <div id="snsicon">
@@ -91,7 +91,7 @@
                    <li><a class="global-nav" href="{{ route('privacy') }}">{{ _('プライバシーポリシー') }}</a></li>
                    <li><a class="global-nav" href="{{ route('contact') }}">{{ _('お問い合わせ') }}</a></li>
                 </ul>
-                   <small>(C) 2020 LM by polyvalent.CoLtd</small>
+                   <small>(C) perlero CoLtd</small>
             </footer>
         </div>
     </div>

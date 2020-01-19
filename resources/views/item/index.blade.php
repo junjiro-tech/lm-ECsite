@@ -20,7 +20,6 @@
                 <div class="card-body">
                     ¥{{ $item->amount }}円
                 </div>
-                   <!-- @auth〜@endauthで囲った部分は、ユーザーがログインしている時だけ表示されます -->
                     <form method="post" action="/cartitem/add" class="form-inline m-1">
                         @csrf     <!-- postメソッドは@csrf必須　-->
                         <select name="quantity" class="form-control col-md-4 mr-1">

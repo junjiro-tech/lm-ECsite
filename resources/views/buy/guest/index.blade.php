@@ -126,12 +126,40 @@
                                         @endif
                                 </div>
                     </div>
-                        <div class="form-group row mb-0">　<!-- mb-0はmargin-bottomを0にするとういう設定 m=marginを設定 b=bottomを設定 -->
-                              　　<div class="col-md-8 offset-md-4">
-                                            <input type="submit" href="{{ route('provisional_register') }}" value="確認画面に進む">
-                                  </div>
-                        </div>
-                            
+                    <div class="form-group row">
+                        <label for="sexMale" class="col-md-4 col-form-label text-md-right">お支払方法</label>
+                                <div class="col-sm-2">
+                                    <input type="radio" class="form-check @error('gender') is-invalid @enderror" name="gender" value="男">
+                                        <label for="sexMale">代引き</label>
+                                </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="sexMale" class="col-md-4 col-form-label text-md-right"></label>
+                                <div class="col-sm-4">
+                                    <input type="radio" class="form-check @error('gender') is-invalid @enderror" name="gender" value="女">
+                                        <label for="sexfeMale">クレジット払い</label>
+                                        @if($errors->has('gender'))
+                                           <p class="text-danger">{{ $errors->first('gender') }}</p>
+                                        @endif
+                                </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="sexMale" class="col-md-4 col-form-label text-md-right"></label>
+                                <div class="col-sm-4">
+                                    <input type="radio" class="form-check @error('gender') is-invalid @enderror" name="gender" value="女">
+                                        <label for="sexfeMale">銀行振込み</label>
+                                        @if($errors->has('gender'))
+                                           <p class="text-danger">{{ $errors->first('gender') }}</p>
+                                        @endif
+                                </div>
+                    </div>
+                    
+                    
+                    <div class="form-group row mb-0">　<!-- mb-0はmargin-bottomを0にするとういう設定 m=marginを設定 b=bottomを設定 -->
+                          　　<div class="col-md-8 offset-md-4">
+                                        <input type="submit" href="{{ route('provisional_register') }}" value="確認画面に進む">
+                              </div>
+                    </div>
                         </form>
                     </div>
                 </div>

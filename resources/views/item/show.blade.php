@@ -5,9 +5,25 @@
     <div class="row justify-content-center">
         <div class="col-2.8">
             <div class="card">
-                <div class="card-picture">
-                    <img src="{{ asset('storage/image/' . $item->image_path) }}" alt="">
+                
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <!-- スライドさせる画像の設定 -->
+                    <div class="carousel-inner">
+                        
+                    </div><!-- /.carousel-inner -->
+                        <div class="card-picture">
+                            <img src="{{ asset('storage/image/' . $item->image_path) }}" alt="">
+                        </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">前へ</span>
+                      </a>
+                      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">次へ</span>
+                    </a>
                 </div>
+                
                 <div class="card-header">
                     <a herf="/items/{{ $item->id }}">{{ $item->name }}</a>
                 </div>

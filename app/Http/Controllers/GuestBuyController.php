@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail; //store()ﾒｿｯﾄﾞの購入完了ﾍ�
 use \InterventionImage;
 use DB;
 use App\CartPresence;
+use App\Jobs\SendInventoryMail;
 
 class GuestBuyController extends Controller
 {
@@ -135,7 +136,7 @@ class GuestBuyController extends Controller
                                                      //セッションに格納して使ったりします。regenerateToken()で２重送信防止
             
             //キューの設定
-            // InventoryMail::dispatch($guestData);                                         
+            SendInventoryMail::dispatch();                                         
             
             foreach($cartitems as $cartitem){
             $cartitem->item->inventory_control -= $cartitem->quantity;

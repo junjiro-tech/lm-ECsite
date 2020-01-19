@@ -17,7 +17,6 @@ class CreateItemsTable extends Migration
             $table->bigIncrements('id'); //主キー
             $table->string('item_name', 100);
             $table->string('explanation', 255)->default('');
-            $table->string('image_path')->nullable()->default('');  //->nullable()という記述は、画像のパスは空でも保存できます、という意味
             $table->integer('amount');   //amout=金額
             $table->timestamps();
         });

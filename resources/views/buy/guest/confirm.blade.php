@@ -118,6 +118,7 @@
                             <input name="subsequent_address" type="hidden" value="{{ $guestData['subsequent_address']}}">
                             <br>
                           
+                          
                           <button type="submit" name="action" value="back">入力内容修正</button>
                           <button type="submit" name="action" value="post">この内容で購入する</button>
                       </form>
@@ -125,6 +126,8 @@
             </div>
         </div>
     </div>
+    
+    
       
 </div>
 @endsection
